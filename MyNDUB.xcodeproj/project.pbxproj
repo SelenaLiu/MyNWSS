@@ -1,0 +1,871 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 48;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		7B7110D63A805B2A6F75B980 /* Pods_MyNDUB.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0981317500EA039BADF367B3 /* Pods_MyNDUB.framework */; };
+		93BC174F359BB6E0811425E6 /* Pods_MyNDUBTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F11BF64E88FAB3EC8D0C7BFC /* Pods_MyNDUBTests.framework */; };
+		9A8054659B4134B0E89CDDB7 /* Pods_MyNDUBUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 17ADEE54393B0D3B2D352C1C /* Pods_MyNDUBUITests.framework */; };
+		FA1C6EB6209E19F8001E5A58 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA1C6EB5209E19F8001E5A58 /* AppDelegate.swift */; };
+		FA1C6EB8209E19F8001E5A58 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA1C6EB7209E19F8001E5A58 /* ViewController.swift */; };
+		FA1C6EBB209E19F8001E5A58 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FA1C6EB9209E19F8001E5A58 /* Main.storyboard */; };
+		FA1C6EBD209E19FA001E5A58 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FA1C6EBC209E19FA001E5A58 /* Assets.xcassets */; };
+		FA1C6EC0209E19FA001E5A58 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FA1C6EBE209E19FA001E5A58 /* LaunchScreen.storyboard */; };
+		FA1C6ECB209E19FA001E5A58 /* MyNDUBTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA1C6ECA209E19FA001E5A58 /* MyNDUBTests.swift */; };
+		FA1C6ED6209E19FA001E5A58 /* MyNDUBUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA1C6ED5209E19FA001E5A58 /* MyNDUBUITests.swift */; };
+		FA1C6EE4209E1AF3001E5A58 /* MenuBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA1C6EE3209E1AF3001E5A58 /* MenuBar.swift */; };
+		FA1C6EE6209E3A1A001E5A58 /* HomeCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA1C6EE5209E3A1A001E5A58 /* HomeCollectionViewCell.swift */; };
+		FA1C6EE8209E3AD8001E5A58 /* CafViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA1C6EE7209E3AD8001E5A58 /* CafViewController.swift */; };
+		FA1C6EEA209E618A001E5A58 /* GalleryCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA1C6EE9209E618A001E5A58 /* GalleryCollectionViewCell.swift */; };
+		FA1C6EEC209F85C4001E5A58 /* CalendarCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA1C6EEB209F85C4001E5A58 /* CalendarCollectionViewCell.swift */; };
+		FA21CB0020D6C38700D5896C /* Course.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA21CAFF20D6C38700D5896C /* Course.swift */; };
+		FA21CB0220D6C43D00D5896C /* Notes.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA21CB0120D6C43D00D5896C /* Notes.swift */; };
+		FA21CB0420D6CCFE00D5896C /* AddCourseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA21CB0320D6CCFE00D5896C /* AddCourseViewController.swift */; };
+		FA40956E20C4BBCA0037CEDA /* ProfileCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA40956D20C4BBCA0037CEDA /* ProfileCollectionViewCell.swift */; };
+		FA5E265320DED5C80056D9B1 /* NotesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA5E265220DED5C80056D9B1 /* NotesViewController.swift */; };
+		FAB6B65D20DF489000474675 /* CalendarCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAB6B65C20DF489000474675 /* CalendarCell.swift */; };
+		FAB6B65F20DF490900474675 /* JTAppleCalendar.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FAB6B65E20DF490900474675 /* JTAppleCalendar.framework */; };
+		FAB6B66120E0A0A600474675 /* EventViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAB6B66020E0A0A600474675 /* EventViewController.swift */; };
+		FAB6B66320E45ABF00474675 /* CreateNoteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAB6B66220E45ABF00474675 /* CreateNoteViewController.swift */; };
+		FABCACD120D2E648006343AE /* NotesCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FABCACD020D2E648006343AE /* NotesCollectionViewCell.swift */; };
+		FABCACD320D2E6C6006343AE /* Global.swift in Sources */ = {isa = PBXBuildFile; fileRef = FABCACD220D2E6C6006343AE /* Global.swift */; };
+		FAEB9C5320CAF2340048A9CE /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAEB9C5220CAF2340048A9CE /* MapViewController.swift */; };
+		FAEB9C5520CAFA110048A9CE /* MapZoomViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAEB9C5420CAFA110048A9CE /* MapZoomViewController.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		FA1C6EC7209E19FA001E5A58 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = FA1C6EAA209E19F8001E5A58 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = FA1C6EB1209E19F8001E5A58;
+			remoteInfo = MyNDUB;
+		};
+		FA1C6ED2209E19FA001E5A58 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = FA1C6EAA209E19F8001E5A58 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = FA1C6EB1209E19F8001E5A58;
+			remoteInfo = MyNDUB;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		0981317500EA039BADF367B3 /* Pods_MyNDUB.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MyNDUB.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		17ADEE54393B0D3B2D352C1C /* Pods_MyNDUBUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MyNDUBUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		20AC06EBF18F6A93A249AD9F /* Pods-MyNDUBTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MyNDUBTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MyNDUBTests/Pods-MyNDUBTests.debug.xcconfig"; sourceTree = "<group>"; };
+		30E12D7540BC25250158BF24 /* Pods-MyNDUB.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MyNDUB.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MyNDUB/Pods-MyNDUB.debug.xcconfig"; sourceTree = "<group>"; };
+		7F6BA6FC875F44A0AB534876 /* Pods-MyNDUBTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MyNDUBTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-MyNDUBTests/Pods-MyNDUBTests.release.xcconfig"; sourceTree = "<group>"; };
+		ABEBE82C7BAA6FE7A10B781A /* Pods-MyNDUB.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MyNDUB.release.xcconfig"; path = "Pods/Target Support Files/Pods-MyNDUB/Pods-MyNDUB.release.xcconfig"; sourceTree = "<group>"; };
+		C1EF7A15B0AE1DA54ED5DD12 /* Pods-MyNDUBUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MyNDUBUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-MyNDUBUITests/Pods-MyNDUBUITests.release.xcconfig"; sourceTree = "<group>"; };
+		D7528F9087BF2060B45F8C24 /* Pods-MyNDUBUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MyNDUBUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MyNDUBUITests/Pods-MyNDUBUITests.debug.xcconfig"; sourceTree = "<group>"; };
+		F11BF64E88FAB3EC8D0C7BFC /* Pods_MyNDUBTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MyNDUBTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		FA1C6EB2209E19F8001E5A58 /* MyNDUB.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MyNDUB.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		FA1C6EB5209E19F8001E5A58 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		FA1C6EB7209E19F8001E5A58 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		FA1C6EBA209E19F8001E5A58 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		FA1C6EBC209E19FA001E5A58 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		FA1C6EBF209E19FA001E5A58 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		FA1C6EC1209E19FA001E5A58 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		FA1C6EC6209E19FA001E5A58 /* MyNDUBTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MyNDUBTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		FA1C6ECA209E19FA001E5A58 /* MyNDUBTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyNDUBTests.swift; sourceTree = "<group>"; };
+		FA1C6ECC209E19FA001E5A58 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		FA1C6ED1209E19FA001E5A58 /* MyNDUBUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MyNDUBUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		FA1C6ED5209E19FA001E5A58 /* MyNDUBUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyNDUBUITests.swift; sourceTree = "<group>"; };
+		FA1C6ED7209E19FA001E5A58 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		FA1C6EE3209E1AF3001E5A58 /* MenuBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuBar.swift; sourceTree = "<group>"; };
+		FA1C6EE5209E3A1A001E5A58 /* HomeCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeCollectionViewCell.swift; sourceTree = "<group>"; };
+		FA1C6EE7209E3AD8001E5A58 /* CafViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CafViewController.swift; sourceTree = "<group>"; };
+		FA1C6EE9209E618A001E5A58 /* GalleryCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GalleryCollectionViewCell.swift; sourceTree = "<group>"; };
+		FA1C6EEB209F85C4001E5A58 /* CalendarCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarCollectionViewCell.swift; sourceTree = "<group>"; };
+		FA21CAFF20D6C38700D5896C /* Course.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Course.swift; sourceTree = "<group>"; };
+		FA21CB0120D6C43D00D5896C /* Notes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Notes.swift; sourceTree = "<group>"; };
+		FA21CB0320D6CCFE00D5896C /* AddCourseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddCourseViewController.swift; sourceTree = "<group>"; };
+		FA40956D20C4BBCA0037CEDA /* ProfileCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileCollectionViewCell.swift; sourceTree = "<group>"; };
+		FA5E265220DED5C80056D9B1 /* NotesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotesViewController.swift; sourceTree = "<group>"; };
+		FAB6B65C20DF489000474675 /* CalendarCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarCell.swift; sourceTree = "<group>"; };
+		FAB6B65E20DF490900474675 /* JTAppleCalendar.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = JTAppleCalendar.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		FAB6B66020E0A0A600474675 /* EventViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventViewController.swift; sourceTree = "<group>"; };
+		FAB6B66220E45ABF00474675 /* CreateNoteViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateNoteViewController.swift; sourceTree = "<group>"; };
+		FABCACD020D2E648006343AE /* NotesCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotesCollectionViewCell.swift; sourceTree = "<group>"; };
+		FABCACD220D2E6C6006343AE /* Global.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Global.swift; sourceTree = "<group>"; };
+		FAEB9C5220CAF2340048A9CE /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
+		FAEB9C5420CAFA110048A9CE /* MapZoomViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapZoomViewController.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		FA1C6EAF209E19F8001E5A58 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				FAB6B65F20DF490900474675 /* JTAppleCalendar.framework in Frameworks */,
+				7B7110D63A805B2A6F75B980 /* Pods_MyNDUB.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		FA1C6EC3209E19FA001E5A58 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				93BC174F359BB6E0811425E6 /* Pods_MyNDUBTests.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		FA1C6ECE209E19FA001E5A58 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				9A8054659B4134B0E89CDDB7 /* Pods_MyNDUBUITests.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		DD81F3668803F467728C9012 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				30E12D7540BC25250158BF24 /* Pods-MyNDUB.debug.xcconfig */,
+				ABEBE82C7BAA6FE7A10B781A /* Pods-MyNDUB.release.xcconfig */,
+				20AC06EBF18F6A93A249AD9F /* Pods-MyNDUBTests.debug.xcconfig */,
+				7F6BA6FC875F44A0AB534876 /* Pods-MyNDUBTests.release.xcconfig */,
+				D7528F9087BF2060B45F8C24 /* Pods-MyNDUBUITests.debug.xcconfig */,
+				C1EF7A15B0AE1DA54ED5DD12 /* Pods-MyNDUBUITests.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+		E7EAD42D06396CE1CB21E469 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				FAB6B65E20DF490900474675 /* JTAppleCalendar.framework */,
+				0981317500EA039BADF367B3 /* Pods_MyNDUB.framework */,
+				F11BF64E88FAB3EC8D0C7BFC /* Pods_MyNDUBTests.framework */,
+				17ADEE54393B0D3B2D352C1C /* Pods_MyNDUBUITests.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		FA1C6EA9209E19F8001E5A58 = {
+			isa = PBXGroup;
+			children = (
+				FA1C6EB4209E19F8001E5A58 /* MyNDUB */,
+				FA1C6EC9209E19FA001E5A58 /* MyNDUBTests */,
+				FA1C6ED4209E19FA001E5A58 /* MyNDUBUITests */,
+				FA1C6EB3209E19F8001E5A58 /* Products */,
+				DD81F3668803F467728C9012 /* Pods */,
+				E7EAD42D06396CE1CB21E469 /* Frameworks */,
+			);
+			sourceTree = "<group>";
+		};
+		FA1C6EB3209E19F8001E5A58 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				FA1C6EB2209E19F8001E5A58 /* MyNDUB.app */,
+				FA1C6EC6209E19FA001E5A58 /* MyNDUBTests.xctest */,
+				FA1C6ED1209E19FA001E5A58 /* MyNDUBUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		FA1C6EB4209E19F8001E5A58 /* MyNDUB */ = {
+			isa = PBXGroup;
+			children = (
+				FA21CAFD20D6C0A200D5896C /* Classes */,
+				FA1C6EB5209E19F8001E5A58 /* AppDelegate.swift */,
+				FA1C6EE3209E1AF3001E5A58 /* MenuBar.swift */,
+				FAEB9C5420CAFA110048A9CE /* MapZoomViewController.swift */,
+				FABCACCE20D0387C006343AE /* View Controllers */,
+				FA40956F20C4BBD70037CEDA /* Main Cells */,
+				FA1C6EB9209E19F8001E5A58 /* Main.storyboard */,
+				FA1C6EBC209E19FA001E5A58 /* Assets.xcassets */,
+				FA1C6EBE209E19FA001E5A58 /* LaunchScreen.storyboard */,
+				FA1C6EC1209E19FA001E5A58 /* Info.plist */,
+			);
+			path = MyNDUB;
+			sourceTree = "<group>";
+		};
+		FA1C6EC9209E19FA001E5A58 /* MyNDUBTests */ = {
+			isa = PBXGroup;
+			children = (
+				FA1C6ECA209E19FA001E5A58 /* MyNDUBTests.swift */,
+				FA1C6ECC209E19FA001E5A58 /* Info.plist */,
+			);
+			path = MyNDUBTests;
+			sourceTree = "<group>";
+		};
+		FA1C6ED4209E19FA001E5A58 /* MyNDUBUITests */ = {
+			isa = PBXGroup;
+			children = (
+				FA1C6ED5209E19FA001E5A58 /* MyNDUBUITests.swift */,
+				FA1C6ED7209E19FA001E5A58 /* Info.plist */,
+			);
+			path = MyNDUBUITests;
+			sourceTree = "<group>";
+		};
+		FA21CAFD20D6C0A200D5896C /* Classes */ = {
+			isa = PBXGroup;
+			children = (
+				FABCACD220D2E6C6006343AE /* Global.swift */,
+				FA21CAFF20D6C38700D5896C /* Course.swift */,
+				FA21CB0120D6C43D00D5896C /* Notes.swift */,
+			);
+			path = Classes;
+			sourceTree = "<group>";
+		};
+		FA40956F20C4BBD70037CEDA /* Main Cells */ = {
+			isa = PBXGroup;
+			children = (
+				FA1C6EE5209E3A1A001E5A58 /* HomeCollectionViewCell.swift */,
+				FA40956D20C4BBCA0037CEDA /* ProfileCollectionViewCell.swift */,
+				FA1C6EEB209F85C4001E5A58 /* CalendarCollectionViewCell.swift */,
+				FAB6B65C20DF489000474675 /* CalendarCell.swift */,
+				FA1C6EE9209E618A001E5A58 /* GalleryCollectionViewCell.swift */,
+				FABCACD020D2E648006343AE /* NotesCollectionViewCell.swift */,
+			);
+			path = "Main Cells";
+			sourceTree = "<group>";
+		};
+		FABCACCE20D0387C006343AE /* View Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				FA1C6EB7209E19F8001E5A58 /* ViewController.swift */,
+				FA21CB0320D6CCFE00D5896C /* AddCourseViewController.swift */,
+				FAB6B66020E0A0A600474675 /* EventViewController.swift */,
+				FA5E265220DED5C80056D9B1 /* NotesViewController.swift */,
+				FAB6B66220E45ABF00474675 /* CreateNoteViewController.swift */,
+				FAEB9C5220CAF2340048A9CE /* MapViewController.swift */,
+				FA1C6EE7209E3AD8001E5A58 /* CafViewController.swift */,
+			);
+			path = "View Controllers";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		FA1C6EB1209E19F8001E5A58 /* MyNDUB */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = FA1C6EDA209E19FA001E5A58 /* Build configuration list for PBXNativeTarget "MyNDUB" */;
+			buildPhases = (
+				F569093EBEEE3904F9522AED /* [CP] Check Pods Manifest.lock */,
+				FA1C6EAE209E19F8001E5A58 /* Sources */,
+				FA1C6EAF209E19F8001E5A58 /* Frameworks */,
+				FA1C6EB0209E19F8001E5A58 /* Resources */,
+				760166377608FDC400E42A85 /* [CP] Embed Pods Frameworks */,
+				B5BB6EDB2810F3B5D55221A7 /* [CP] Copy Pods Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = MyNDUB;
+			productName = MyNDUB;
+			productReference = FA1C6EB2209E19F8001E5A58 /* MyNDUB.app */;
+			productType = "com.apple.product-type.application";
+		};
+		FA1C6EC5209E19FA001E5A58 /* MyNDUBTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = FA1C6EDD209E19FA001E5A58 /* Build configuration list for PBXNativeTarget "MyNDUBTests" */;
+			buildPhases = (
+				213D233F5580B948067F960F /* [CP] Check Pods Manifest.lock */,
+				FA1C6EC2209E19FA001E5A58 /* Sources */,
+				FA1C6EC3209E19FA001E5A58 /* Frameworks */,
+				FA1C6EC4209E19FA001E5A58 /* Resources */,
+				58E2A2616607E98A62EF1985 /* [CP] Embed Pods Frameworks */,
+				8C1E2AFC9AC04BC274D129E5 /* [CP] Copy Pods Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				FA1C6EC8209E19FA001E5A58 /* PBXTargetDependency */,
+			);
+			name = MyNDUBTests;
+			productName = MyNDUBTests;
+			productReference = FA1C6EC6209E19FA001E5A58 /* MyNDUBTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		FA1C6ED0209E19FA001E5A58 /* MyNDUBUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = FA1C6EE0209E19FA001E5A58 /* Build configuration list for PBXNativeTarget "MyNDUBUITests" */;
+			buildPhases = (
+				1B07D22769440EF1440C6B1A /* [CP] Check Pods Manifest.lock */,
+				FA1C6ECD209E19FA001E5A58 /* Sources */,
+				FA1C6ECE209E19FA001E5A58 /* Frameworks */,
+				FA1C6ECF209E19FA001E5A58 /* Resources */,
+				453EE9E058877699C57EFC42 /* [CP] Embed Pods Frameworks */,
+				62976DA50F128EB2183AF70F /* [CP] Copy Pods Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				FA1C6ED3209E19FA001E5A58 /* PBXTargetDependency */,
+			);
+			name = MyNDUBUITests;
+			productName = MyNDUBUITests;
+			productReference = FA1C6ED1209E19FA001E5A58 /* MyNDUBUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		FA1C6EAA209E19F8001E5A58 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 0930;
+				LastUpgradeCheck = 0930;
+				ORGANIZATIONNAME = "Selena Liu";
+				TargetAttributes = {
+					FA1C6EB1209E19F8001E5A58 = {
+						CreatedOnToolsVersion = 9.3;
+						ProvisioningStyle = Automatic;
+					};
+					FA1C6EC5209E19FA001E5A58 = {
+						CreatedOnToolsVersion = 9.3;
+						ProvisioningStyle = Automatic;
+						TestTargetID = FA1C6EB1209E19F8001E5A58;
+					};
+					FA1C6ED0209E19FA001E5A58 = {
+						CreatedOnToolsVersion = 9.3;
+						ProvisioningStyle = Automatic;
+						TestTargetID = FA1C6EB1209E19F8001E5A58;
+					};
+				};
+			};
+			buildConfigurationList = FA1C6EAD209E19F8001E5A58 /* Build configuration list for PBXProject "MyNDUB" */;
+			compatibilityVersion = "Xcode 8.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = FA1C6EA9209E19F8001E5A58;
+			productRefGroup = FA1C6EB3209E19F8001E5A58 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				FA1C6EB1209E19F8001E5A58 /* MyNDUB */,
+				FA1C6EC5209E19FA001E5A58 /* MyNDUBTests */,
+				FA1C6ED0209E19FA001E5A58 /* MyNDUBUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		FA1C6EB0209E19F8001E5A58 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				FA1C6EC0209E19FA001E5A58 /* LaunchScreen.storyboard in Resources */,
+				FA1C6EBD209E19FA001E5A58 /* Assets.xcassets in Resources */,
+				FA1C6EBB209E19F8001E5A58 /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		FA1C6EC4209E19FA001E5A58 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		FA1C6ECF209E19FA001E5A58 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		1B07D22769440EF1440C6B1A /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-MyNDUBUITests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		213D233F5580B948067F960F /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-MyNDUBTests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		453EE9E058877699C57EFC42 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-MyNDUBUITests/Pods-MyNDUBUITests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		58E2A2616607E98A62EF1985 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-MyNDUBTests/Pods-MyNDUBTests-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/JTAppleCalendar/JTAppleCalendar.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/JTAppleCalendar.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-MyNDUBTests/Pods-MyNDUBTests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		62976DA50F128EB2183AF70F /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-MyNDUBUITests/Pods-MyNDUBUITests-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		760166377608FDC400E42A85 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-MyNDUB/Pods-MyNDUB-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/JTAppleCalendar/JTAppleCalendar.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/JTAppleCalendar.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-MyNDUB/Pods-MyNDUB-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		8C1E2AFC9AC04BC274D129E5 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-MyNDUBTests/Pods-MyNDUBTests-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		B5BB6EDB2810F3B5D55221A7 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-MyNDUB/Pods-MyNDUB-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		F569093EBEEE3904F9522AED /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-MyNDUB-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		FA1C6EAE209E19F8001E5A58 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				FA21CB0020D6C38700D5896C /* Course.swift in Sources */,
+				FAB6B65D20DF489000474675 /* CalendarCell.swift in Sources */,
+				FA21CB0220D6C43D00D5896C /* Notes.swift in Sources */,
+				FAEB9C5320CAF2340048A9CE /* MapViewController.swift in Sources */,
+				FA1C6EB8209E19F8001E5A58 /* ViewController.swift in Sources */,
+				FAB6B66120E0A0A600474675 /* EventViewController.swift in Sources */,
+				FA1C6EEC209F85C4001E5A58 /* CalendarCollectionViewCell.swift in Sources */,
+				FA40956E20C4BBCA0037CEDA /* ProfileCollectionViewCell.swift in Sources */,
+				FA1C6EEA209E618A001E5A58 /* GalleryCollectionViewCell.swift in Sources */,
+				FA21CB0420D6CCFE00D5896C /* AddCourseViewController.swift in Sources */,
+				FAB6B66320E45ABF00474675 /* CreateNoteViewController.swift in Sources */,
+				FA1C6EB6209E19F8001E5A58 /* AppDelegate.swift in Sources */,
+				FAEB9C5520CAFA110048A9CE /* MapZoomViewController.swift in Sources */,
+				FA1C6EE8209E3AD8001E5A58 /* CafViewController.swift in Sources */,
+				FABCACD320D2E6C6006343AE /* Global.swift in Sources */,
+				FA5E265320DED5C80056D9B1 /* NotesViewController.swift in Sources */,
+				FABCACD120D2E648006343AE /* NotesCollectionViewCell.swift in Sources */,
+				FA1C6EE4209E1AF3001E5A58 /* MenuBar.swift in Sources */,
+				FA1C6EE6209E3A1A001E5A58 /* HomeCollectionViewCell.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		FA1C6EC2209E19FA001E5A58 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				FA1C6ECB209E19FA001E5A58 /* MyNDUBTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		FA1C6ECD209E19FA001E5A58 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				FA1C6ED6209E19FA001E5A58 /* MyNDUBUITests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		FA1C6EC8209E19FA001E5A58 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = FA1C6EB1209E19F8001E5A58 /* MyNDUB */;
+			targetProxy = FA1C6EC7209E19FA001E5A58 /* PBXContainerItemProxy */;
+		};
+		FA1C6ED3209E19FA001E5A58 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = FA1C6EB1209E19F8001E5A58 /* MyNDUB */;
+			targetProxy = FA1C6ED2209E19FA001E5A58 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		FA1C6EB9209E19F8001E5A58 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				FA1C6EBA209E19F8001E5A58 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		FA1C6EBE209E19FA001E5A58 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				FA1C6EBF209E19FA001E5A58 /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		FA1C6ED8209E19FA001E5A58 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.3;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		FA1C6ED9209E19FA001E5A58 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.3;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		FA1C6EDB209E19FA001E5A58 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 30E12D7540BC25250158BF24 /* Pods-MyNDUB.debug.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = C9QTGNDXS5;
+				INFOPLIST_FILE = MyNDUB/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = selenaliu.MyNDUB;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		FA1C6EDC209E19FA001E5A58 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = ABEBE82C7BAA6FE7A10B781A /* Pods-MyNDUB.release.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = C9QTGNDXS5;
+				INFOPLIST_FILE = MyNDUB/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = selenaliu.MyNDUB;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		FA1C6EDE209E19FA001E5A58 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 20AC06EBF18F6A93A249AD9F /* Pods-MyNDUBTests.debug.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = MyNDUBTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = selenaliu.MyNDUBTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/MyNDUB.app/MyNDUB";
+			};
+			name = Debug;
+		};
+		FA1C6EDF209E19FA001E5A58 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 7F6BA6FC875F44A0AB534876 /* Pods-MyNDUBTests.release.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = MyNDUBTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = selenaliu.MyNDUBTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/MyNDUB.app/MyNDUB";
+			};
+			name = Release;
+		};
+		FA1C6EE1209E19FA001E5A58 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = D7528F9087BF2060B45F8C24 /* Pods-MyNDUBUITests.debug.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = MyNDUBUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = selenaliu.MyNDUBUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = MyNDUB;
+			};
+			name = Debug;
+		};
+		FA1C6EE2209E19FA001E5A58 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = C1EF7A15B0AE1DA54ED5DD12 /* Pods-MyNDUBUITests.release.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = MyNDUBUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = selenaliu.MyNDUBUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = MyNDUB;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		FA1C6EAD209E19F8001E5A58 /* Build configuration list for PBXProject "MyNDUB" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				FA1C6ED8209E19FA001E5A58 /* Debug */,
+				FA1C6ED9209E19FA001E5A58 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		FA1C6EDA209E19FA001E5A58 /* Build configuration list for PBXNativeTarget "MyNDUB" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				FA1C6EDB209E19FA001E5A58 /* Debug */,
+				FA1C6EDC209E19FA001E5A58 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		FA1C6EDD209E19FA001E5A58 /* Build configuration list for PBXNativeTarget "MyNDUBTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				FA1C6EDE209E19FA001E5A58 /* Debug */,
+				FA1C6EDF209E19FA001E5A58 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		FA1C6EE0209E19FA001E5A58 /* Build configuration list for PBXNativeTarget "MyNDUBUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				FA1C6EE1209E19FA001E5A58 /* Debug */,
+				FA1C6EE2209E19FA001E5A58 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = FA1C6EAA209E19F8001E5A58 /* Project object */;
+}

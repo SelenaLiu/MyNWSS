@@ -1,0 +1,6 @@
+framework module Pods_MyNDUBUITests {
+  umbrella header "Pods-MyNDUBUITests-umbrella.h"
+
+  export *
+  module * { export * }
+}
