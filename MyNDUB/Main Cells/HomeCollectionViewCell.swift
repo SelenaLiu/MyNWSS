@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Firebase
 
 class HomeCollectionViewCell: UICollectionViewCell, UITableViewDelegate, UITableViewDataSource, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, UIScrollViewDelegate {
     
@@ -97,12 +98,14 @@ class HomeCollectionViewCell: UICollectionViewCell, UITableViewDelegate, UITable
         return tv
     }()
     
+    var eventTitles: [[String]] = []
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         backgroundColor = .white
-        
+        getEventData()
         addSubview(headlineCollectionView)
-        headlineCollectionView.addSubview(headlinePageControl)
+        //headlineCollectionView.addSubview(headlinePageControl)
         addSubview(dateTextView)
         addSubview(eventsLabel)
         addSubview(eventsTableView)
@@ -115,19 +118,47 @@ class HomeCollectionViewCell: UICollectionViewCell, UITableViewDelegate, UITable
         
         eventsTableView.delegate = self
         eventsTableView.dataSource = self
+        eventsTableView.estimatedRowHeight = 100.0
+        eventsTableView.rowHeight = UITableViewAutomaticDimension
         eventsTableView.register(EventsCell.self, forCellReuseIdentifier: cellID)
         
         setup()
         setupTableView()
+        
+        
+        
+        
+    }
+    
+    func getEventData() {
+        Database.database().reference().child("Events").queryOrdered(byChild: "MUN").observe(.childAdded) { (snapshot) in
+            let eventDictionary = snapshot.value as? [String : String]
+            let description = eventDictionary!["description"]
+            let title = eventDictionary!["title"]
+            self.eventTitles.insert([title!, description!], at: 0)
+            //self.eventTitles.append([title!, description!])
+            print("This here: \(self.eventTitles)")
+            self.eventsTableView.reloadData()
+        }
+        
+        Database.database().reference().child("Events").observe(.childRemoved) { (snapshot) in
+            let eventDictionary = snapshot.value as? [String : String]
+            let description = eventDictionary!["description"]
+            let title = eventDictionary!["title"]
+            let index = self.eventTitles.index(of: [title!, description!])
+            self.eventTitles.remove(at: index!)
+            self.eventsTableView.reloadData()
+        }
+        
     }
     
     required init?(coder aDecoder: NSCoder) {
         fatalError()
     }
-    
+
     func setupTableView() {
         eventsTableView.widthAnchor.constraint(equalToConstant: bounds.width).isActive = true
-        eventsTableView.heightAnchor.constraint(equalToConstant: bounds.height - 190).isActive = true
+        eventsTableView.heightAnchor.constraint(equalToConstant: bounds.height - 300).isActive = true
         eventsTableView.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
         eventsTableView.topAnchor.constraint(equalTo: eventsLabel.bottomAnchor).isActive = true
     }
@@ -138,10 +169,10 @@ class HomeCollectionViewCell: UICollectionViewCell, UITableViewDelegate, UITable
         headlineCollectionView.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
         headlineCollectionView.topAnchor.constraint(equalTo: topAnchor).isActive = true
         
-        headlinePageControl.widthAnchor.constraint(equalToConstant: 100).isActive = true
-        headlinePageControl.heightAnchor.constraint(equalToConstant: 20).isActive = true
-        headlinePageControl.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
-        headlinePageControl.bottomAnchor.constraint(equalTo: headlineCollectionView.bottomAnchor, constant: 10).isActive = true
+//        headlinePageControl.widthAnchor.constraint(equalToConstant: 100).isActive = true
+//        headlinePageControl.heightAnchor.constraint(equalToConstant: 20).isActive = true
+//        headlinePageControl.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
+//        headlinePageControl.bottomAnchor.constraint(equalTo: headlineCollectionView.bottomAnchor, constant: 10).isActive = true
         
 //        logo.widthAnchor.constraint(equalToConstant: 100).isActive = true
 //        logo.heightAnchor.constraint(equalToConstant: 120).isActive = true
@@ -173,11 +204,12 @@ class HomeCollectionViewCell: UICollectionViewCell, UITableViewDelegate, UITable
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         let heights = [130, 100, 100, 130, 100, 100, 120]
-        return CGFloat(heights[indexPath.row])
+        return UITableViewAutomaticDimension//CGFloat(heights[indexPath.row])
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 7
+        print("eventTitles: \(self.eventTitles)")
+        return self.eventTitles.count
     }
     
     let nameTextViews = ["Music Department", "Hyack Football", "Math Department", "Honour Society Club", "NWSS Model UN Club", "Debate Club", "NWSS Interact Club"]
@@ -185,9 +217,9 @@ class HomeCollectionViewCell: UICollectionViewCell, UITableViewDelegate, UITable
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: cellID, for: indexPath) as! EventsCell
-        
-        cell.nameTextView.text = nameTextViews[indexPath.row]
-        cell.messagetextView.text = descriptionViews[indexPath.row]
+        print("eventTitles: \(self.eventTitles)")
+        cell.nameTextView.text = self.eventTitles[indexPath.row][0]//nameTextViews[indexPath.row]
+        cell.messagetextView.text = self.eventTitles[indexPath.row][1]//descriptionViews[indexPath.row]
         
         return cell
     }
@@ -195,28 +227,30 @@ class HomeCollectionViewCell: UICollectionViewCell, UITableViewDelegate, UITable
 
 class EventsCell: UITableViewCell {
     
-    let profileImage: UIImageView = {
-        let imageView = UIImageView()
-        imageView.image = #imageLiteral(resourceName: "ProfileIcon")
-        imageView.translatesAutoresizingMaskIntoConstraints = false
-        imageView.layer.cornerRadius = 20
-        imageView.layer.masksToBounds = true
-        return imageView
-    }()
+//    let profileImage: UIImageView = {
+//        let imageView = UIImageView()
+//        imageView.image = #imageLiteral(resourceName: "ProfileIcon")
+//        imageView.translatesAutoresizingMaskIntoConstraints = false
+//        imageView.layer.cornerRadius = 20
+//        imageView.layer.masksToBounds = true
+//        return imageView
+//    }()
     
-    let nameTextView: UITextView = {
-        let textView = UITextView()
+    let nameTextView: UILabel = {
+        let textView = UILabel()
         textView.font = UIFont.boldSystemFont(ofSize: 17)
-        textView.isUserInteractionEnabled = false
+        //textView.isUserInteractionEnabled = false
+        textView.numberOfLines = 0
         textView.translatesAutoresizingMaskIntoConstraints = false
         return textView
     }()
     
-    let messagetextView: UITextView = {
-        let textView = UITextView()
+    let messagetextView: UILabel = {
+        let textView = UILabel()
         textView.font = UIFont.systemFont(ofSize: 15)
         textView.textColor = .gray
-        textView.isUserInteractionEnabled = false
+        textView.numberOfLines = 0
+        //textView.isUserInteractionEnabled = false
         textView.translatesAutoresizingMaskIntoConstraints = false
         return textView
     }()
@@ -224,7 +258,7 @@ class EventsCell: UITableViewCell {
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: .default, reuseIdentifier: reuseIdentifier)
         
-        addSubview(profileImage)
+        //addSubview(profileImage)
         addSubview(nameTextView)
         addSubview(messagetextView)
         
@@ -232,20 +266,21 @@ class EventsCell: UITableViewCell {
     }
     
     func setup() {
-        profileImage.widthAnchor.constraint(equalToConstant: 50).isActive = true
-        profileImage.heightAnchor.constraint(equalToConstant: 50).isActive = true
-        profileImage.topAnchor.constraint(equalTo: topAnchor, constant: 8).isActive = true
-        profileImage.leftAnchor.constraint(equalTo: leftAnchor, constant: 8).isActive = true
+//        profileImage.widthAnchor.constraint(equalToConstant: 50).isActive = true
+//        profileImage.heightAnchor.constraint(equalToConstant: 50).isActive = true
+//        profileImage.topAnchor.constraint(equalTo: topAnchor, constant: 8).isActive = true
+//        profileImage.leftAnchor.constraint(equalTo: leftAnchor, constant: 8).isActive = true
         
         nameTextView.widthAnchor.constraint(equalToConstant: bounds.width - 70).isActive = true
-        nameTextView.heightAnchor.constraint(equalToConstant: 30).isActive = true
+        //nameTextView.heightAnchor.constraint(equalToConstant: 30).isActive = true
         nameTextView.topAnchor.constraint(equalTo: topAnchor, constant: 8).isActive = true
-        nameTextView.leftAnchor.constraint(equalTo: profileImage.rightAnchor, constant: 8).isActive = true
+        nameTextView.leftAnchor.constraint(equalTo: leftAnchor, constant: 8).isActive = true
         
         messagetextView.widthAnchor.constraint(equalToConstant: bounds.width - 30).isActive = true
-        messagetextView.heightAnchor.constraint(equalToConstant: 80).isActive = true
-        messagetextView.leftAnchor.constraint(equalTo: profileImage.rightAnchor, constant: 8).isActive = true
-        messagetextView.topAnchor.constraint(equalTo: nameTextView.bottomAnchor).isActive = true
+        //messagetextView.heightAnchor.constraint(equalToConstant: 80).isActive = true
+        messagetextView.leftAnchor.constraint(equalTo: leftAnchor, constant: 8).isActive = true
+        messagetextView.topAnchor.constraint(equalTo: nameTextView.bottomAnchor, constant: 8).isActive = true
+        messagetextView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -8).isActive = true
     }
     
     required init?(coder aDecoder: NSCoder) {

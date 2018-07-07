@@ -31,6 +31,7 @@
 		FAB6B65F20DF490900474675 /* JTAppleCalendar.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FAB6B65E20DF490900474675 /* JTAppleCalendar.framework */; };
 		FAB6B66120E0A0A600474675 /* EventViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAB6B66020E0A0A600474675 /* EventViewController.swift */; };
 		FAB6B66320E45ABF00474675 /* CreateNoteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAB6B66220E45ABF00474675 /* CreateNoteViewController.swift */; };
+		FAB6B66620EAA8AE00474675 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = FAB6B66520EAA8AE00474675 /* GoogleService-Info.plist */; };
 		FABCACD120D2E648006343AE /* NotesCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FABCACD020D2E648006343AE /* NotesCollectionViewCell.swift */; };
 		FABCACD320D2E6C6006343AE /* Global.swift in Sources */ = {isa = PBXBuildFile; fileRef = FABCACD220D2E6C6006343AE /* Global.swift */; };
 		FAEB9C5320CAF2340048A9CE /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAEB9C5220CAF2340048A9CE /* MapViewController.swift */; };
@@ -91,6 +92,7 @@
 		FAB6B65E20DF490900474675 /* JTAppleCalendar.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = JTAppleCalendar.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		FAB6B66020E0A0A600474675 /* EventViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventViewController.swift; sourceTree = "<group>"; };
 		FAB6B66220E45ABF00474675 /* CreateNoteViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateNoteViewController.swift; sourceTree = "<group>"; };
+		FAB6B66520EAA8AE00474675 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		FABCACD020D2E648006343AE /* NotesCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotesCollectionViewCell.swift; sourceTree = "<group>"; };
 		FABCACD220D2E6C6006343AE /* Global.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Global.swift; sourceTree = "<group>"; };
 		FAEB9C5220CAF2340048A9CE /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
@@ -185,6 +187,7 @@
 				FA1C6EBC209E19FA001E5A58 /* Assets.xcassets */,
 				FA1C6EBE209E19FA001E5A58 /* LaunchScreen.storyboard */,
 				FA1C6EC1209E19FA001E5A58 /* Info.plist */,
+				FAB6B66520EAA8AE00474675 /* GoogleService-Info.plist */,
 			);
 			path = MyNDUB;
 			sourceTree = "<group>";
@@ -360,6 +363,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FAB6B66620EAA8AE00474675 /* GoogleService-Info.plist in Resources */,
 				FA1C6EC0209E19FA001E5A58 /* LaunchScreen.storyboard in Resources */,
 				FA1C6EBD209E19FA001E5A58 /* Assets.xcassets in Resources */,
 				FA1C6EBB209E19F8001E5A58 /* Main.storyboard in Resources */,
@@ -474,11 +478,17 @@
 			);
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-MyNDUB/Pods-MyNDUB-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/GoogleToolboxForMac/GoogleToolboxForMac.framework",
 				"${BUILT_PRODUCTS_DIR}/JTAppleCalendar/JTAppleCalendar.framework",
+				"${BUILT_PRODUCTS_DIR}/leveldb-library/leveldb.framework",
+				"${BUILT_PRODUCTS_DIR}/nanopb/nanopb.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleToolboxForMac.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/JTAppleCalendar.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/leveldb.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/nanopb.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -734,7 +744,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = C9QTGNDXS5;
 				INFOPLIST_FILE = MyNDUB/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = selenaliu.MyNDUB;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -751,7 +761,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = C9QTGNDXS5;
 				INFOPLIST_FILE = MyNDUB/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = selenaliu.MyNDUB;
 				PRODUCT_NAME = "$(TARGET_NAME)";

@@ -59,7 +59,7 @@ class MenuBar: UIView, UICollectionViewDelegate, UICollectionViewDataSource, UIC
         collectionView.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
         
         centerButton.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
-        centerButton.topAnchor.constraint(equalTo: topAnchor, constant: 7).isActive = true
+        centerButton.topAnchor.constraint(equalTo: topAnchor, constant: 12).isActive = true
         centerButton.heightAnchor.constraint(equalToConstant: 40).isActive = true
         centerButton.widthAnchor.constraint(equalToConstant: 40).isActive = true
 
@@ -114,9 +114,17 @@ class MenuBar: UIView, UICollectionViewDelegate, UICollectionViewDataSource, UIC
         return cell
     }
     
+    let cellWidth = 375/10
+    let cellCount = 5
+    let cellSpacing = 24
+    
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let length = 375/7
-        return CGSize(width: CGFloat(length), height: CGFloat(length))
+        return CGSize(width: CGFloat(cellWidth), height: CGFloat(cellWidth))
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
+        
+        return UIEdgeInsetsMake(12, CGFloat(cellSpacing), 0, CGFloat(cellSpacing))
     }
 }
 
@@ -143,8 +151,8 @@ class ImageCollectionViewCell: UICollectionViewCell {
         
         imageView.topAnchor.constraint(equalTo: topAnchor).isActive = true
         imageView.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
-        imageView.heightAnchor.constraint(equalToConstant: 375/7).isActive = true //375/7
-        imageView.widthAnchor.constraint(equalToConstant: 375/11).isActive = true //375/11
+        imageView.heightAnchor.constraint(equalToConstant: bounds.height).isActive = true //375/7
+        imageView.widthAnchor.constraint(equalToConstant: bounds.height).isActive = true //375/11
     }
     
     required init?(coder aDecoder: NSCoder) {

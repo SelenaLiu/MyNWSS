@@ -128,6 +128,8 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
         view.addSubview(menuBar)
         view.addSubview(collectionView)
         menuBar.addSubview(centerButton)
+        
+        //view.backgroundColor = .white
 
         collectionView.delegate = self
         collectionView.dataSource = self
@@ -241,20 +243,23 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
         }
     }
     
+
+    
     func setupMenuBar() {
+        let margins = view.layoutMarginsGuide
         let height = view.bounds.height * 0.153
         menuBar.widthAnchor.constraint(equalToConstant: view.bounds.width).isActive = true
-        menuBar.heightAnchor.constraint(equalToConstant: 80).isActive = true //80
+        menuBar.heightAnchor.constraint(equalToConstant: margins.layoutFrame.height * 0.088).isActive = true //80
         menuBar.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        menuBar.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
+        menuBar.bottomAnchor.constraint(equalTo: margins.bottomAnchor).isActive = true
         
     }
     
     func setup() {
-        
+        let margins = view.layoutMarginsGuide
         collectionView.widthAnchor.constraint(equalToConstant: view.bounds.width).isActive = true
-        collectionView.heightAnchor.constraint(equalToConstant: view.bounds.height * 0.847).isActive = true //0.88
-        collectionView.topAnchor.constraint(equalTo: view.layoutMarginsGuide.topAnchor).isActive = true
+        collectionView.heightAnchor.constraint(equalToConstant: view.bounds.height * 0.88).isActive = true //0.88 0.847 margins.layoutFrame.height - (margins.layoutFrame.height * 0.08)
+        collectionView.topAnchor.constraint(equalTo: margins.topAnchor).isActive = true
         collectionView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         
         

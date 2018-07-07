@@ -51,7 +51,7 @@ class CreateNoteViewController: UIViewController, UITextViewDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.navigationItem.title = "Create a Note"
+        self.navigationItem.title = "Note"
 
         
         if globalVars.isViewingNote {

@@ -43,7 +43,7 @@ class ProfileCollectionViewCell: UICollectionViewCell, UITableViewDelegate, UITa
     
     let nameTextView: UITextView = {
         let textView = UITextView()
-        textView.text = "Selena Liu"
+        textView.text = "Tracy Zhou"
         textView.textAlignment = .center
         textView.backgroundColor = .orange //UIColor(displayP3Red: 180/256, green: 74/256, blue: 35/256, alpha: 1.0)
         textView.isUserInteractionEnabled = false
