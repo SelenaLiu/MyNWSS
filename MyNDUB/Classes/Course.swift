@@ -19,7 +19,7 @@ class Course: NSObject, NSCoding {
     
     private var _name = ""
     private var _day: Int
-    private var _block: String
+    private var _block = ""
     private var _notes: [Notes]
     
     init(name: String, day: Int, block: String, notes: [Notes]) {
@@ -34,16 +34,14 @@ class Course: NSObject, NSCoding {
             _name = nameObj
         }
         
-        if let dayObj = aDecoder.decodeObject(forKey: Keys.Day) as? Int {
+        if let dayObj = aDecoder.decodeInteger(forKey: Keys.Day) as? Int {
             _day = dayObj
         } else {
-            _day = 1
+            self._day = 1
         }
         
         if let blockObj = aDecoder.decodeObject(forKey: Keys.Block) as? String {
             _block = blockObj
-        } else {
-            _block = ""
         }
         
         if let notesObj = aDecoder.decodeObject(forKey: Keys.Notes) as? [Notes] {

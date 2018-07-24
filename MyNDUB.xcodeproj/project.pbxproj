@@ -10,6 +10,9 @@
 		7B7110D63A805B2A6F75B980 /* Pods_MyNDUB.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0981317500EA039BADF367B3 /* Pods_MyNDUB.framework */; };
 		93BC174F359BB6E0811425E6 /* Pods_MyNDUBTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F11BF64E88FAB3EC8D0C7BFC /* Pods_MyNDUBTests.framework */; };
 		9A8054659B4134B0E89CDDB7 /* Pods_MyNDUBUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 17ADEE54393B0D3B2D352C1C /* Pods_MyNDUBUITests.framework */; };
+		FA0B7B682103DB0600903187 /* OnboardingController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA0B7B672103DB0600903187 /* OnboardingController.swift */; };
+		FA0B7B6A2103E59D00903187 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA0B7B692103E59D00903187 /* LoginViewController.swift */; };
+		FA0B7B6C2105050000903187 /* WIPViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA0B7B6B2105050000903187 /* WIPViewController.swift */; };
 		FA1C6EB6209E19F8001E5A58 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA1C6EB5209E19F8001E5A58 /* AppDelegate.swift */; };
 		FA1C6EB8209E19F8001E5A58 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA1C6EB7209E19F8001E5A58 /* ViewController.swift */; };
 		FA1C6EBB209E19F8001E5A58 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FA1C6EB9209E19F8001E5A58 /* Main.storyboard */; };
@@ -26,6 +29,8 @@
 		FA21CB0220D6C43D00D5896C /* Notes.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA21CB0120D6C43D00D5896C /* Notes.swift */; };
 		FA21CB0420D6CCFE00D5896C /* AddCourseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA21CB0320D6CCFE00D5896C /* AddCourseViewController.swift */; };
 		FA40956E20C4BBCA0037CEDA /* ProfileCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA40956D20C4BBCA0037CEDA /* ProfileCollectionViewCell.swift */; };
+		FA50B3BD2106571000BF0270 /* BellTableView2.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA50B3BC2106571000BF0270 /* BellTableView2.swift */; };
+		FA50B3C02106F4E000BF0270 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA50B3BF2106F4E000BF0270 /* SettingsViewController.swift */; };
 		FA5E265320DED5C80056D9B1 /* NotesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA5E265220DED5C80056D9B1 /* NotesViewController.swift */; };
 		FAB6B65D20DF489000474675 /* CalendarCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAB6B65C20DF489000474675 /* CalendarCell.swift */; };
 		FAB6B65F20DF490900474675 /* JTAppleCalendar.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FAB6B65E20DF490900474675 /* JTAppleCalendar.framework */; };
@@ -34,6 +39,7 @@
 		FAB6B66620EAA8AE00474675 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = FAB6B66520EAA8AE00474675 /* GoogleService-Info.plist */; };
 		FABCACD120D2E648006343AE /* NotesCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FABCACD020D2E648006343AE /* NotesCollectionViewCell.swift */; };
 		FABCACD320D2E6C6006343AE /* Global.swift in Sources */ = {isa = PBXBuildFile; fileRef = FABCACD220D2E6C6006343AE /* Global.swift */; };
+		FABD029321065105009FD786 /* BellTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FABD029221065105009FD786 /* BellTableView.swift */; };
 		FAEB9C5320CAF2340048A9CE /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAEB9C5220CAF2340048A9CE /* MapViewController.swift */; };
 		FAEB9C5520CAFA110048A9CE /* MapZoomViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAEB9C5420CAFA110048A9CE /* MapZoomViewController.swift */; };
 /* End PBXBuildFile section */
@@ -65,6 +71,9 @@
 		C1EF7A15B0AE1DA54ED5DD12 /* Pods-MyNDUBUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MyNDUBUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-MyNDUBUITests/Pods-MyNDUBUITests.release.xcconfig"; sourceTree = "<group>"; };
 		D7528F9087BF2060B45F8C24 /* Pods-MyNDUBUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MyNDUBUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MyNDUBUITests/Pods-MyNDUBUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		F11BF64E88FAB3EC8D0C7BFC /* Pods_MyNDUBTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MyNDUBTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		FA0B7B672103DB0600903187 /* OnboardingController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingController.swift; sourceTree = "<group>"; };
+		FA0B7B692103E59D00903187 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
+		FA0B7B6B2105050000903187 /* WIPViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WIPViewController.swift; sourceTree = "<group>"; };
 		FA1C6EB2209E19F8001E5A58 /* MyNDUB.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MyNDUB.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FA1C6EB5209E19F8001E5A58 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		FA1C6EB7209E19F8001E5A58 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -87,6 +96,8 @@
 		FA21CB0120D6C43D00D5896C /* Notes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Notes.swift; sourceTree = "<group>"; };
 		FA21CB0320D6CCFE00D5896C /* AddCourseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddCourseViewController.swift; sourceTree = "<group>"; };
 		FA40956D20C4BBCA0037CEDA /* ProfileCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileCollectionViewCell.swift; sourceTree = "<group>"; };
+		FA50B3BC2106571000BF0270 /* BellTableView2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BellTableView2.swift; sourceTree = "<group>"; };
+		FA50B3BF2106F4E000BF0270 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		FA5E265220DED5C80056D9B1 /* NotesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotesViewController.swift; sourceTree = "<group>"; };
 		FAB6B65C20DF489000474675 /* CalendarCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarCell.swift; sourceTree = "<group>"; };
 		FAB6B65E20DF490900474675 /* JTAppleCalendar.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = JTAppleCalendar.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -95,6 +106,7 @@
 		FAB6B66520EAA8AE00474675 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		FABCACD020D2E648006343AE /* NotesCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotesCollectionViewCell.swift; sourceTree = "<group>"; };
 		FABCACD220D2E6C6006343AE /* Global.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Global.swift; sourceTree = "<group>"; };
+		FABD029221065105009FD786 /* BellTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BellTableView.swift; sourceTree = "<group>"; };
 		FAEB9C5220CAF2340048A9CE /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
 		FAEB9C5420CAFA110048A9CE /* MapZoomViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapZoomViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -215,6 +227,8 @@
 			children = (
 				FABCACD220D2E6C6006343AE /* Global.swift */,
 				FA21CAFF20D6C38700D5896C /* Course.swift */,
+				FABD029221065105009FD786 /* BellTableView.swift */,
+				FA50B3BC2106571000BF0270 /* BellTableView2.swift */,
 				FA21CB0120D6C43D00D5896C /* Notes.swift */,
 			);
 			path = Classes;
@@ -236,7 +250,11 @@
 		FABCACCE20D0387C006343AE /* View Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				FA0B7B672103DB0600903187 /* OnboardingController.swift */,
+				FA0B7B692103E59D00903187 /* LoginViewController.swift */,
 				FA1C6EB7209E19F8001E5A58 /* ViewController.swift */,
+				FA0B7B6B2105050000903187 /* WIPViewController.swift */,
+				FA50B3BF2106F4E000BF0270 /* SettingsViewController.swift */,
 				FA21CB0320D6CCFE00D5896C /* AddCourseViewController.swift */,
 				FAB6B66020E0A0A600474675 /* EventViewController.swift */,
 				FA5E265220DED5C80056D9B1 /* NotesViewController.swift */,
@@ -550,14 +568,20 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FA0B7B6A2103E59D00903187 /* LoginViewController.swift in Sources */,
 				FA21CB0020D6C38700D5896C /* Course.swift in Sources */,
 				FAB6B65D20DF489000474675 /* CalendarCell.swift in Sources */,
+				FA0B7B6C2105050000903187 /* WIPViewController.swift in Sources */,
 				FA21CB0220D6C43D00D5896C /* Notes.swift in Sources */,
 				FAEB9C5320CAF2340048A9CE /* MapViewController.swift in Sources */,
 				FA1C6EB8209E19F8001E5A58 /* ViewController.swift in Sources */,
+				FABD029321065105009FD786 /* BellTableView.swift in Sources */,
+				FA50B3C02106F4E000BF0270 /* SettingsViewController.swift in Sources */,
 				FAB6B66120E0A0A600474675 /* EventViewController.swift in Sources */,
 				FA1C6EEC209F85C4001E5A58 /* CalendarCollectionViewCell.swift in Sources */,
 				FA40956E20C4BBCA0037CEDA /* ProfileCollectionViewCell.swift in Sources */,
+				FA50B3BD2106571000BF0270 /* BellTableView2.swift in Sources */,
+				FA0B7B682103DB0600903187 /* OnboardingController.swift in Sources */,
 				FA1C6EEA209E618A001E5A58 /* GalleryCollectionViewCell.swift in Sources */,
 				FA21CB0420D6CCFE00D5896C /* AddCourseViewController.swift in Sources */,
 				FAB6B66320E45ABF00474675 /* CreateNoteViewController.swift in Sources */,
@@ -744,7 +768,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = C9QTGNDXS5;
 				INFOPLIST_FILE = MyNDUB/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = selenaliu.MyNDUB;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -761,7 +785,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = C9QTGNDXS5;
 				INFOPLIST_FILE = MyNDUB/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = selenaliu.MyNDUB;
 				PRODUCT_NAME = "$(TARGET_NAME)";

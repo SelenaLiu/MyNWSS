@@ -37,7 +37,8 @@ class NotesCollectionViewCell: UICollectionViewCell, UITableViewDelegate, UITabl
     let titleLabel: UITextView = {
         let label = UITextView()
         label.text = "Notes"
-        label.textContainerInset = UIEdgeInsetsMake(0, 30, 0, 0)
+        label.textContainerInset = UIEdgeInsetsMake(15, 30, 0, 0)
+        label.backgroundColor = UIColor(displayP3Red: 236/255, green: 236/255, blue: 236/255, alpha: 1)
         label.isUserInteractionEnabled = false
         label.textAlignment = .left
         label.font = UIFont.boldSystemFont(ofSize: 20)
@@ -79,11 +80,6 @@ class NotesCollectionViewCell: UICollectionViewCell, UITableViewDelegate, UITabl
         return globalVars.courses.count
     }
 
-    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        let title = "Notes"
-        return title
-    }
-
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return 50
     }
@@ -115,12 +111,16 @@ class NotesCollectionViewCell: UICollectionViewCell, UITableViewDelegate, UITabl
     }
     
     func setup() {
-        let margins = layoutMarginsGuide
+        
+        titleLabel.heightAnchor.constraint(equalToConstant: 50).isActive = true
+        titleLabel.widthAnchor.constraint(equalTo: widthAnchor).isActive = true
+        titleLabel.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
+        titleLabel.topAnchor.constraint(equalTo: topAnchor).isActive = true
         
         notesTableView.heightAnchor.constraint(equalTo: heightAnchor).isActive = true
         notesTableView.widthAnchor.constraint(equalTo: widthAnchor).isActive = true
         notesTableView.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
-        notesTableView.topAnchor.constraint(equalTo: margins.topAnchor, constant: 13).isActive = true
+        notesTableView.topAnchor.constraint(equalTo: titleLabel.bottomAnchor).isActive = true
     }
     
     required init?(coder aDecoder: NSCoder) {

@@ -28,7 +28,8 @@ class MapViewController: UIViewController, UICollectionViewDelegate, UICollectio
         
         //SETUP NAVIGATION CONTROLLER
         navigationController?.navigationBar.tintColor = .orange
-        
+        self.navigationController?.navigationBar.backgroundColor = UIColor(displayP3Red: 41/255, green: 40/255, blue: 52/255, alpha: 1.0)
+
         self.navigationItem.title = "School Map"
         self.navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(MapViewController.dismissVC))
         

@@ -85,7 +85,8 @@ class MenuBar: UIView, UICollectionViewDelegate, UICollectionViewDataSource, UIC
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
-        return 24
+        let cellSpacing = self.frame.width/13
+        return cellSpacing
     }
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellID, for: indexPath) as! ImageCollectionViewCell
@@ -114,16 +115,15 @@ class MenuBar: UIView, UICollectionViewDelegate, UICollectionViewDataSource, UIC
         return cell
     }
     
-    let cellWidth = 375/10
     let cellCount = 5
-    let cellSpacing = 24
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        let cellWidth = self.frame.width/11
         return CGSize(width: CGFloat(cellWidth), height: CGFloat(cellWidth))
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
-        
+        let cellSpacing = self.frame.width/18
         return UIEdgeInsetsMake(12, CGFloat(cellSpacing), 0, CGFloat(cellSpacing))
     }
 }

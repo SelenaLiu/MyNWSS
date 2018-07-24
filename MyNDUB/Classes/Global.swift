@@ -13,8 +13,15 @@ let globalVars = Global()
 @IBDesignable
 class Global {
     
+    
+    var eventTitle = ""
+    var eventDescription = ""
+    
+    
     var notes = ""
+    var day = 1
     var courses: [Course]
+    var refreshNow = true
     
     var setCourse: Course
     

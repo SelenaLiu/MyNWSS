@@ -12,42 +12,29 @@ class EventViewController: UIViewController {
     
     let backgroundImage: UIImageView = {
         let imageView = UIImageView()
-        imageView.image = #imageLiteral(resourceName: "eventBackground")
+        imageView.image = #imageLiteral(resourceName: "EventBackground-1")
+        imageView.alpha = 0.5
+        imageView.layer.shadowColor = UIColor.black.cgColor
+        imageView.layer.shadowRadius = 10
+        imageView.layer.shadowOpacity = 1
+        imageView.layer.shadowOffset = CGSize(width: 0, height: 0)
         imageView.translatesAutoresizingMaskIntoConstraints = false
         return imageView
     }()
     
-    let titleBlurEffectView: UIVisualEffectView = {
-        let blurEffect = UIBlurEffect(style: .light)
-        let blurEffectView = UIVisualEffectView(effect: blurEffect)
-        blurEffectView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-        blurEffectView.translatesAutoresizingMaskIntoConstraints = false
-        blurEffectView.alpha = 1
-        return blurEffectView
-    }()
-    
-    let descriptionBlurEffectView: UIVisualEffectView = {
-        let blurEffect = UIBlurEffect(style: .light)
-        let blurEffectView = UIVisualEffectView(effect: blurEffect)
-        blurEffectView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-        blurEffectView.translatesAutoresizingMaskIntoConstraints = false
-        blurEffectView.alpha = 1
-        return blurEffectView
+    let backgroundView: UIView = {
+        let view = UIView()
+        view.backgroundColor = .orange
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
     }()
     
     let eventTitleLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont.systemFont(ofSize: 20)
-        label.text = "TITLE OF EVENT"
-        label.translatesAutoresizingMaskIntoConstraints = false
-        return label
-    }()
-    
-    let descriptionLabel: UILabel = {
-        let label = UILabel()
-        label.font = UIFont.systemFont(ofSize: 20)
+        label.font = UIFont.boldSystemFont(ofSize: 30)
         label.numberOfLines = 0
-        label.text = "This would be where the description of the event shows up. HAOSLDFIE ;alksjdf TIS THAIS DFJK ALSIJ AMAASIN IAHS JALSIDJF IAJ SDIFSI Is it wrapping yet?"
+        label.textAlignment = .center
+        label.text = globalVars.eventTitle
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -55,36 +42,38 @@ class EventViewController: UIViewController {
     let descriptionTextView: UITextView = {
         let tv = UITextView()
         tv.backgroundColor = .clear
-        tv.textContainer.lineBreakMode = .byCharWrapping
+        tv.textContainer.lineBreakMode = .byWordWrapping
         tv.sizeToFit()
-        tv.text = "This would be where the description of the event shows up. HAOSLDFIE ;alksjdf TIS THAIS DFJK ALSIJ AMAASIN IAHS JALSIDJF IAJ SDIFSI Is it wrapping yet?"
+        tv.isEditable = false
+        tv.isScrollEnabled = true
+        tv.text = globalVars.eventDescription
         tv.font = UIFont.systemFont(ofSize: 17)
-        tv.isUserInteractionEnabled = false
+        tv.isUserInteractionEnabled = true
         tv.translatesAutoresizingMaskIntoConstraints = false
         return tv
     }()
     
 
+    override func viewDidLayoutSubviews() {
+        backgroundView.heightAnchor.constraint(equalToConstant: view.safeAreaLayoutGuide.layoutFrame.height * 0.3).isActive = true
+        backgroundImage.heightAnchor.constraint(equalToConstant: view.safeAreaLayoutGuide.layoutFrame.height * 0.3).isActive = true
+        descriptionTextView.heightAnchor.constraint(equalToConstant: (view.safeAreaLayoutGuide.layoutFrame.height * 0.7) - 15).isActive = true
+        
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationController?.navigationBar.tintColor = .orange
-        
-        self.navigationItem.title = "Group"
+        self.navigationController?.navigationBar.backgroundColor = UIColor(displayP3Red: 41/255, green: 40/255, blue: 52/255, alpha: 1.0)
+
+        self.navigationItem.title = "Event Details"
         let backButton = UIBarButtonItem(title: "Back", style: .plain, target: self, action: #selector(EventViewController.dismissVC))
         self.navigationItem.leftBarButtonItem = backButton
         
+        view.addSubview(backgroundView)
         view.addSubview(backgroundImage)
-        view.addSubview(descriptionBlurEffectView)
-        view.addSubview(titleBlurEffectView)
-        descriptionBlurEffectView.layer.cornerRadius = 10
-        titleBlurEffectView.layer.cornerRadius = 10
-        descriptionBlurEffectView.clipsToBounds = true
-        titleBlurEffectView.clipsToBounds = true
+        view.addSubview(eventTitleLabel)
+        view.addSubview(descriptionTextView)
 
-        titleBlurEffectView.contentView.addSubview(eventTitleLabel)
-        descriptionBlurEffectView.contentView.addSubview(descriptionTextView)
-        descriptionBlurEffectView.contentView.addSubview(descriptionLabel)
-        
         setup()
     }
 
@@ -98,35 +87,25 @@ class EventViewController: UIViewController {
     }
     
     func setup() {
+        backgroundView.widthAnchor.constraint(equalTo: view.widthAnchor).isActive = true
+        backgroundView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        backgroundView.topAnchor.constraint(equalTo: view.layoutMarginsGuide.topAnchor).isActive = true
+
         backgroundImage.widthAnchor.constraint(equalTo: view.widthAnchor).isActive = true
-        backgroundImage.heightAnchor.constraint(equalTo: view.heightAnchor).isActive = true
         backgroundImage.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        backgroundImage.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
+        backgroundImage.topAnchor.constraint(equalTo: view.layoutMarginsGuide.topAnchor).isActive = true
         
-        eventTitleLabel.widthAnchor.constraint(equalToConstant: view.bounds.width - 50).isActive = true
-        eventTitleLabel.heightAnchor.constraint(equalToConstant: 30).isActive = true
+        eventTitleLabel.widthAnchor.constraint(equalToConstant: view.bounds.width - 30).isActive = true
         eventTitleLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        eventTitleLabel.topAnchor.constraint(equalTo: view.topAnchor, constant: 100).isActive = true
+        eventTitleLabel.centerYAnchor.constraint(equalTo: backgroundImage.centerYAnchor).isActive = true
         
-        titleBlurEffectView.widthAnchor.constraint(equalToConstant: view.bounds.width - 40).isActive = true
-        titleBlurEffectView.heightAnchor.constraint(equalToConstant: 35).isActive = true
-        titleBlurEffectView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        titleBlurEffectView.centerYAnchor.constraint(equalTo: eventTitleLabel.centerYAnchor).isActive = true
+
         
         descriptionTextView.widthAnchor.constraint(equalToConstant: view.bounds.width - 40).isActive = true
-        descriptionTextView.heightAnchor.constraint(equalToConstant: descriptionTextView.contentSize.height).isActive = true
-        descriptionTextView.topAnchor.constraint(equalTo: titleBlurEffectView.bottomAnchor, constant: 15).isActive = true
+        descriptionTextView.topAnchor.constraint(equalTo: backgroundImage.bottomAnchor, constant: 15).isActive = true
         descriptionTextView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         
-        descriptionLabel.widthAnchor.constraint(equalToConstant: view.bounds.width - 40).isActive = true
-        descriptionLabel.heightAnchor.constraint(equalToConstant: descriptionTextView.contentSize.height).isActive = true
-        descriptionLabel.topAnchor.constraint(equalTo: titleBlurEffectView.bottomAnchor, constant: 15).isActive = true
-        descriptionLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        
-        descriptionBlurEffectView.widthAnchor.constraint(equalToConstant: view.bounds.width - 40).isActive = true
-        descriptionBlurEffectView.heightAnchor.constraint(equalToConstant: descriptionTextView.contentSize.height).isActive = true
-        descriptionBlurEffectView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        descriptionBlurEffectView.topAnchor.constraint(equalTo: eventTitleLabel.bottomAnchor, constant: 15).isActive = true
+
     }
 
 }

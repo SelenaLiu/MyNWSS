@@ -35,7 +35,8 @@ class NotesViewController: UIViewController, UITableViewDelegate, UITableViewDat
         super.viewDidLoad()
         loadData()
         navigationController?.navigationBar.tintColor = .orange
-        
+        self.navigationController?.navigationBar.backgroundColor = UIColor(displayP3Red: 41/255, green: 40/255, blue: 52/255, alpha: 1.0)
+
         self.navigationItem.title = "\(globalVars.notes) Notes"
         self.navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(AddCourseViewController.dismissVC))
         let addNoteButton = UIBarButtonItem(title: "+ Note", style: .plain, target: self, action: #selector(NotesViewController.presentAddNote))

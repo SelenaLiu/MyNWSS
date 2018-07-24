@@ -64,6 +64,8 @@ class AddCourseViewController: UIViewController, UITextFieldDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationController?.navigationBar.tintColor = .orange
+        self.navigationController?.navigationBar.backgroundColor = UIColor(displayP3Red: 41/255, green: 40/255, blue: 52/255, alpha: 1.0)
+
         let blocks = ["A", "B", "C", "D", "Z"]
         
         if globalVars.isEditingCourse == true {
@@ -120,6 +122,7 @@ class AddCourseViewController: UIViewController, UITextFieldDelegate {
         let name = courseNameTF.text!
         let day = daySegment.selectedSegmentIndex + 1
         let block = blocks[blockSegment.selectedSegmentIndex]
+        print("The day: \(day)")
         
         if courseNameTF.text == "" || courseNameTF.text == nil {
             alertController = UIAlertController(title: "Error", message: "Please enter a course name", preferredStyle: .alert)
@@ -173,7 +176,8 @@ class AddCourseViewController: UIViewController, UITextFieldDelegate {
             }
             
             if alertVCTriggered == false {
-                let course = Course(name: name, day: day, block: block, notes: [])
+                let course = Course(name: name, day: Int(day), block: block, notes: [])
+                print("AddCourseVC: \(course.Day)")
                 globalVars.courses.append(course)
                 globalVars.justAddedCourse = true
                 backToProfileVC()
@@ -185,13 +189,14 @@ class AddCourseViewController: UIViewController, UITextFieldDelegate {
         
     }
     
-    func backToProfileVC() {
+    @objc func backToProfileVC() {
         NSKeyedArchiver.archiveRootObject(globalVars.courses, toFile: filePath)
 
         let notesVC = NotesCollectionViewCell()
         notesVC.notesTableView.reloadData()
         let profileVC = ProfileCollectionViewCell()
-        profileVC.bellTableView.reloadData()
+//        profileVC.bellTableView.reloadData()
+//        profileVC.bell2TableView.reloadData()
         presentProfileController()
     }
     

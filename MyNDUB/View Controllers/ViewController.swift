@@ -44,6 +44,7 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
     let galleryButton: UIButton = {
         let button = UIButton(type: .system)
         button.setImage(#imageLiteral(resourceName: "gallery"), for: .normal)
+        button.addTarget(self, action: #selector(ViewController.presentWIPVC), for: .touchDown)
         button.contentMode = .scaleAspectFit
         button.tintColor = .black
         button.translatesAutoresizingMaskIntoConstraints = false
@@ -53,6 +54,7 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
     let directoryButton: UIButton = {
         let button = UIButton(type: .system)
         button.setImage(#imageLiteral(resourceName: "documentsIcon"), for: .normal)
+        button.addTarget(self, action: #selector(ViewController.presentWIPVC), for: .touchDown)
         button.contentMode = .scaleAspectFit
         button.tintColor = .black
         button.translatesAutoresizingMaskIntoConstraints = false
@@ -77,6 +79,13 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
         button.tintColor = .black
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
+    }()
+    
+    let menuBackView: UIView = {
+        let view = UIView()
+        view.backgroundColor = .orange
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
     }()
     
     let blurEffectView: UIVisualEffectView = {
@@ -117,20 +126,49 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
         let navVC = UINavigationController(rootViewController: menuVC)
         present(navVC, animated: true, completion: nil)
     }
+    
+    @objc func presentWIPVC() {
+        handleBlurView()
+        
+        let wipVC = mainStoryboard.instantiateViewController(withIdentifier: "WIPVC")
+        let navVC = UINavigationController(rootViewController: wipVC)
+        present(navVC, animated: true, completion: nil)
+    }
+    
     var galleryCenter: CGPoint!
     var directoryCenter: CGPoint!
     var mapCenter: CGPoint!
     var menuCenter: CGPoint!
     
+    override func viewDidLayoutSubviews() {
+
+        let margins = view.safeAreaLayoutGuide
+        
+        menuBackView.heightAnchor.constraint(equalToConstant: (margins.layoutFrame.size.width * 0.18)).isActive = true
+        
+        menuBar.widthAnchor.constraint(equalToConstant: view.bounds.width).isActive = true
+        menuBar.heightAnchor.constraint(equalToConstant: (margins.layoutFrame.size.width * 0.18)).isActive = true //80, 0.088
+        menuBar.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        menuBar.bottomAnchor.constraint(equalTo: margins.bottomAnchor).isActive = true
+        
+        collectionView.widthAnchor.constraint(equalToConstant: view.bounds.width).isActive = true
+        collectionView.heightAnchor.constraint(equalToConstant: margins.layoutFrame.size.height - (margins.layoutFrame.size.width * 0.18)).isActive = true
+        collectionView.topAnchor.constraint(equalTo: view.layoutMarginsGuide.topAnchor).isActive = true
+        collectionView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+
+    }
     
     override func viewDidLoad() {
+        print("SAFE AREA: \(view.safeAreaLayoutGuide.layoutFrame.size.height)")
+        
         super.viewDidLoad()
-        view.addSubview(menuBar)
+        view.addSubview(menuBackView)
         view.addSubview(collectionView)
+        view.addSubview(menuBar)
         menuBar.addSubview(centerButton)
         
-        //view.backgroundColor = .white
-
+        setup()
+        
         collectionView.delegate = self
         collectionView.dataSource = self
         collectionView.isPagingEnabled = true
@@ -149,7 +187,6 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
 
         blurEffectView.frame = view.bounds
 
-        setup()
         
         setupMenuBar()
         setupBlurEffect()
@@ -246,28 +283,21 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
 
     
     func setupMenuBar() {
-        let margins = view.layoutMarginsGuide
-        let height = view.bounds.height * 0.153
-        menuBar.widthAnchor.constraint(equalToConstant: view.bounds.width).isActive = true
-        menuBar.heightAnchor.constraint(equalToConstant: margins.layoutFrame.height * 0.088).isActive = true //80
-        menuBar.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        menuBar.bottomAnchor.constraint(equalTo: margins.bottomAnchor).isActive = true
-        
+        menuBar.layer.masksToBounds = false
+        menuBar.layer.shadowColor = UIColor.gray.cgColor
+        menuBar.layer.shadowRadius = 2
+        menuBar.layer.shadowOpacity = 0.5
+        menuBar.layer.shadowOffset = CGSize(width: 0, height: -3)
     }
     
     func setup() {
-        let margins = view.layoutMarginsGuide
-        collectionView.widthAnchor.constraint(equalToConstant: view.bounds.width).isActive = true
-        collectionView.heightAnchor.constraint(equalToConstant: view.bounds.height * 0.88).isActive = true //0.88 0.847 margins.layoutFrame.height - (margins.layoutFrame.height * 0.08)
-        collectionView.topAnchor.constraint(equalTo: margins.topAnchor).isActive = true
-        collectionView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        
-        
+        menuBackView.widthAnchor.constraint(equalTo: view.widthAnchor).isActive = true
+        menuBackView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
+    
         centerButton.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         centerButton.topAnchor.constraint(equalTo: menuBar.topAnchor).isActive = true
         centerButton.heightAnchor.constraint(equalToConstant: 40).isActive = true
         centerButton.widthAnchor.constraint(equalToConstant: 40).isActive = true
-        
     }
     
     func scrollToMenuIndex(menuIndex: Int) {
@@ -323,6 +353,7 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
         } else if indexPath.row == 3 {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellIDs[indexPath.row], for: indexPath) as! ProfileCollectionViewCell
             cell.bellTableView.reloadData()
+            cell.bellTableView.reloadData()
             cell.delegate = self
 
             return cell
@@ -338,7 +369,8 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
 
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: view.frame.width, height: view.bounds.height * 0.88)
+        let margins = view.safeAreaLayoutGuide
+        return CGSize(width: view.frame.width, height: margins.layoutFrame.size.height - (margins.layoutFrame.size.width * 0.18))
     }
     
     

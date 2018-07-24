@@ -30,6 +30,10 @@ class HomeCollectionViewCell: UICollectionViewCell, UITableViewDelegate, UITable
         layout.scrollDirection = .horizontal
         cv.backgroundColor = .white
         cv.translatesAutoresizingMaskIntoConstraints = false
+        cv.layer.shadowColor = UIColor.black.cgColor
+        cv.layer.shadowRadius = 10
+        cv.layer.shadowOpacity = 1.0
+        cv.layer.shadowOffset = CGSize(width: 0, height: 0)
         return cv
     }()
     
@@ -85,6 +89,11 @@ class HomeCollectionViewCell: UICollectionViewCell, UITableViewDelegate, UITable
         let label = UITextView()
         label.text = "Recent"
         label.isUserInteractionEnabled = false
+        label.layer.masksToBounds = false
+        label.layer.shadowColor = UIColor.gray.cgColor
+        label.layer.shadowRadius = 3
+        label.layer.shadowOpacity = 1
+        label.layer.shadowOffset = CGSize(width: 0, height: 0)
         label.font = UIFont.boldSystemFont(ofSize: 20)
         label.backgroundColor = UIColor(displayP3Red: 236/255, green: 236/255, blue: 236/255, alpha: 1)
         label.textContainerInset = UIEdgeInsetsMake(13, 30, 10, 0)
@@ -107,9 +116,9 @@ class HomeCollectionViewCell: UICollectionViewCell, UITableViewDelegate, UITable
         addSubview(headlineCollectionView)
         //headlineCollectionView.addSubview(headlinePageControl)
         addSubview(dateTextView)
-        addSubview(eventsLabel)
         addSubview(eventsTableView)
-        
+        addSubview(eventsLabel)
+
         
         headlineCollectionView.delegate = self
         headlineCollectionView.dataSource = self
@@ -137,7 +146,6 @@ class HomeCollectionViewCell: UICollectionViewCell, UITableViewDelegate, UITable
             let title = eventDictionary!["title"]
             self.eventTitles.insert([title!, description!], at: 0)
             //self.eventTitles.append([title!, description!])
-            print("This here: \(self.eventTitles)")
             self.eventsTableView.reloadData()
         }
         
@@ -158,14 +166,14 @@ class HomeCollectionViewCell: UICollectionViewCell, UITableViewDelegate, UITable
 
     func setupTableView() {
         eventsTableView.widthAnchor.constraint(equalToConstant: bounds.width).isActive = true
-        eventsTableView.heightAnchor.constraint(equalToConstant: bounds.height - 300).isActive = true
+        eventsTableView.heightAnchor.constraint(equalToConstant: (bounds.height * 0.7) - 50).isActive = true
         eventsTableView.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
         eventsTableView.topAnchor.constraint(equalTo: eventsLabel.bottomAnchor).isActive = true
     }
     
     func setup() {
         headlineCollectionView.widthAnchor.constraint(equalToConstant: bounds.width).isActive = true
-        headlineCollectionView.heightAnchor.constraint(equalToConstant: 200).isActive = true
+        headlineCollectionView.heightAnchor.constraint(equalToConstant: bounds.height * 0.3).isActive = true
         headlineCollectionView.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
         headlineCollectionView.topAnchor.constraint(equalTo: topAnchor).isActive = true
         
@@ -199,11 +207,13 @@ class HomeCollectionViewCell: UICollectionViewCell, UITableViewDelegate, UITable
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
+        let currentCell = tableView.cellForRow(at: indexPath) as! EventsCell
+        globalVars.eventTitle = currentCell.nameTextView.text!
+        globalVars.eventDescription = currentCell.messagetextView.text!
         delegate?.didClick(segue: "toEventsDescription")
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        let heights = [130, 100, 100, 130, 100, 100, 120]
         return UITableViewAutomaticDimension//CGFloat(heights[indexPath.row])
     }
     
@@ -212,8 +222,6 @@ class HomeCollectionViewCell: UICollectionViewCell, UITableViewDelegate, UITable
         return self.eventTitles.count
     }
     
-    let nameTextViews = ["Music Department", "Hyack Football", "Math Department", "Honour Society Club", "NWSS Model UN Club", "Debate Club", "NWSS Interact Club"]
-    let descriptionViews = ["Come and join us for an evening of jazz at Heretage Grill for NWSS's jazz night! Featuring award-winning senior jazz students!", "Players prepare for practices on Tuesday's and Thursday's after school", "Come by room 227 for reimbursments for 2017-2018 math contests", "Let your parents know about the HS Gala on May 30th in the school's library! Tickets are 8$ pre-order and 10$ at the door!", "Register for Prince of Wales MUN by May 25th, late fees are 25$", "Meetings Tuesdays at lunch and Thursday's after school", "Bubble tea sale on Thursday! Come by the pearson foyer for 5$ bubble tea, and help support our cause!"]
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: cellID, for: indexPath) as! EventsCell
