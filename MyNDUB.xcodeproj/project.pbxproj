@@ -29,8 +29,9 @@
 		FA21CB0220D6C43D00D5896C /* Notes.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA21CB0120D6C43D00D5896C /* Notes.swift */; };
 		FA21CB0420D6CCFE00D5896C /* AddCourseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA21CB0320D6CCFE00D5896C /* AddCourseViewController.swift */; };
 		FA40956E20C4BBCA0037CEDA /* ProfileCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA40956D20C4BBCA0037CEDA /* ProfileCollectionViewCell.swift */; };
-		FA50B3BD2106571000BF0270 /* BellTableView2.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA50B3BC2106571000BF0270 /* BellTableView2.swift */; };
 		FA50B3C02106F4E000BF0270 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA50B3BF2106F4E000BF0270 /* SettingsViewController.swift */; };
+		FA50B3C22108004900BF0270 /* Account.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA50B3C12108004900BF0270 /* Account.swift */; };
+		FA50B3C42108E6C100BF0270 /* Event.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA50B3C32108E6C100BF0270 /* Event.swift */; };
 		FA5E265320DED5C80056D9B1 /* NotesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA5E265220DED5C80056D9B1 /* NotesViewController.swift */; };
 		FAB6B65D20DF489000474675 /* CalendarCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAB6B65C20DF489000474675 /* CalendarCell.swift */; };
 		FAB6B65F20DF490900474675 /* JTAppleCalendar.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FAB6B65E20DF490900474675 /* JTAppleCalendar.framework */; };
@@ -39,7 +40,6 @@
 		FAB6B66620EAA8AE00474675 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = FAB6B66520EAA8AE00474675 /* GoogleService-Info.plist */; };
 		FABCACD120D2E648006343AE /* NotesCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FABCACD020D2E648006343AE /* NotesCollectionViewCell.swift */; };
 		FABCACD320D2E6C6006343AE /* Global.swift in Sources */ = {isa = PBXBuildFile; fileRef = FABCACD220D2E6C6006343AE /* Global.swift */; };
-		FABD029321065105009FD786 /* BellTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FABD029221065105009FD786 /* BellTableView.swift */; };
 		FAEB9C5320CAF2340048A9CE /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAEB9C5220CAF2340048A9CE /* MapViewController.swift */; };
 		FAEB9C5520CAFA110048A9CE /* MapZoomViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAEB9C5420CAFA110048A9CE /* MapZoomViewController.swift */; };
 /* End PBXBuildFile section */
@@ -96,8 +96,9 @@
 		FA21CB0120D6C43D00D5896C /* Notes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Notes.swift; sourceTree = "<group>"; };
 		FA21CB0320D6CCFE00D5896C /* AddCourseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddCourseViewController.swift; sourceTree = "<group>"; };
 		FA40956D20C4BBCA0037CEDA /* ProfileCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileCollectionViewCell.swift; sourceTree = "<group>"; };
-		FA50B3BC2106571000BF0270 /* BellTableView2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BellTableView2.swift; sourceTree = "<group>"; };
 		FA50B3BF2106F4E000BF0270 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
+		FA50B3C12108004900BF0270 /* Account.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Account.swift; sourceTree = "<group>"; };
+		FA50B3C32108E6C100BF0270 /* Event.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Event.swift; sourceTree = "<group>"; };
 		FA5E265220DED5C80056D9B1 /* NotesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotesViewController.swift; sourceTree = "<group>"; };
 		FAB6B65C20DF489000474675 /* CalendarCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarCell.swift; sourceTree = "<group>"; };
 		FAB6B65E20DF490900474675 /* JTAppleCalendar.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = JTAppleCalendar.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -106,7 +107,6 @@
 		FAB6B66520EAA8AE00474675 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		FABCACD020D2E648006343AE /* NotesCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotesCollectionViewCell.swift; sourceTree = "<group>"; };
 		FABCACD220D2E6C6006343AE /* Global.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Global.swift; sourceTree = "<group>"; };
-		FABD029221065105009FD786 /* BellTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BellTableView.swift; sourceTree = "<group>"; };
 		FAEB9C5220CAF2340048A9CE /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
 		FAEB9C5420CAFA110048A9CE /* MapZoomViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapZoomViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -227,8 +227,8 @@
 			children = (
 				FABCACD220D2E6C6006343AE /* Global.swift */,
 				FA21CAFF20D6C38700D5896C /* Course.swift */,
-				FABD029221065105009FD786 /* BellTableView.swift */,
-				FA50B3BC2106571000BF0270 /* BellTableView2.swift */,
+				FA50B3C32108E6C100BF0270 /* Event.swift */,
+				FA50B3C12108004900BF0270 /* Account.swift */,
 				FA21CB0120D6C43D00D5896C /* Notes.swift */,
 			);
 			path = Classes;
@@ -569,18 +569,17 @@
 			buildActionMask = 2147483647;
 			files = (
 				FA0B7B6A2103E59D00903187 /* LoginViewController.swift in Sources */,
+				FA50B3C22108004900BF0270 /* Account.swift in Sources */,
 				FA21CB0020D6C38700D5896C /* Course.swift in Sources */,
 				FAB6B65D20DF489000474675 /* CalendarCell.swift in Sources */,
 				FA0B7B6C2105050000903187 /* WIPViewController.swift in Sources */,
 				FA21CB0220D6C43D00D5896C /* Notes.swift in Sources */,
 				FAEB9C5320CAF2340048A9CE /* MapViewController.swift in Sources */,
 				FA1C6EB8209E19F8001E5A58 /* ViewController.swift in Sources */,
-				FABD029321065105009FD786 /* BellTableView.swift in Sources */,
 				FA50B3C02106F4E000BF0270 /* SettingsViewController.swift in Sources */,
 				FAB6B66120E0A0A600474675 /* EventViewController.swift in Sources */,
 				FA1C6EEC209F85C4001E5A58 /* CalendarCollectionViewCell.swift in Sources */,
 				FA40956E20C4BBCA0037CEDA /* ProfileCollectionViewCell.swift in Sources */,
-				FA50B3BD2106571000BF0270 /* BellTableView2.swift in Sources */,
 				FA0B7B682103DB0600903187 /* OnboardingController.swift in Sources */,
 				FA1C6EEA209E618A001E5A58 /* GalleryCollectionViewCell.swift in Sources */,
 				FA21CB0420D6CCFE00D5896C /* AddCourseViewController.swift in Sources */,
@@ -593,6 +592,7 @@
 				FABCACD120D2E648006343AE /* NotesCollectionViewCell.swift in Sources */,
 				FA1C6EE4209E1AF3001E5A58 /* MenuBar.swift in Sources */,
 				FA1C6EE6209E3A1A001E5A58 /* HomeCollectionViewCell.swift in Sources */,
+				FA50B3C42108E6C100BF0270 /* Event.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

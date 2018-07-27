@@ -10,6 +10,19 @@ import UIKit
 
 class EventViewController: UIViewController {
     
+    var eventFilePath: String {
+        let manager = FileManager.default
+        let url = manager.urls(for: .documentDirectory, in: .userDomainMask).first
+        
+        return url!.appendingPathComponent("EventData").path
+    }
+    
+    func loadData() {
+        if let ourData = NSKeyedUnarchiver.unarchiveObject(withFile: eventFilePath) as? [Event] {
+            globalVars.pastAndFutureEvents = ourData
+        }
+    }
+    
     let backgroundImage: UIImageView = {
         let imageView = UIImageView()
         imageView.image = #imageLiteral(resourceName: "EventBackground-1")
@@ -53,6 +66,18 @@ class EventViewController: UIViewController {
         return tv
     }()
     
+    let bookmarkIndicator: UIImageView = {
+        let imageView = UIImageView()
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        imageView.image = #imageLiteral(resourceName: "bookmark-icon-3-614x460")
+        imageView.image = imageView.image!.withRenderingMode(.alwaysTemplate)
+        imageView.isUserInteractionEnabled = true
+        //imageView.clipsToBounds = true
+        //imageView.contentMode = .scaleToFill
+        imageView.tintColor = .black
+        return imageView
+    }()
+    
 
     override func viewDidLayoutSubviews() {
         backgroundView.heightAnchor.constraint(equalToConstant: view.safeAreaLayoutGuide.layoutFrame.height * 0.3).isActive = true
@@ -62,6 +87,7 @@ class EventViewController: UIViewController {
     }
     override func viewDidLoad() {
         super.viewDidLoad()
+        loadData()
         navigationController?.navigationBar.tintColor = .orange
         self.navigationController?.navigationBar.backgroundColor = UIColor(displayP3Red: 41/255, green: 40/255, blue: 52/255, alpha: 1.0)
 
@@ -73,8 +99,31 @@ class EventViewController: UIViewController {
         view.addSubview(backgroundImage)
         view.addSubview(eventTitleLabel)
         view.addSubview(descriptionTextView)
+        view.addSubview(bookmarkIndicator)
+        bookmarkIndicator.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(EventViewController.handleBookmarked)))
 
         setup()
+    }
+    
+    @objc func handleBookmarked() {
+        print("triggered")
+        print("EventVC: \(globalVars.pastAndFutureEvents.count)")
+        for event in globalVars.pastAndFutureEvents {
+            print("EventVC: \(event.Title), \(eventTitleLabel.text)")
+            if event.Title == eventTitleLabel.text {
+                if bookmarkIndicator.tintColor == UIColor.black {
+                    self.bookmarkIndicator.tintColor = .orange
+                    event.IsBookmarked = true
+                } else {
+                    self.bookmarkIndicator.tintColor = .black
+                    event.IsBookmarked = false
+                }
+            }
+        }
+        
+        NSKeyedArchiver.archiveRootObject(globalVars.pastAndFutureEvents, toFile: eventFilePath)
+        
+        //save button state to phone
     }
 
     override func didReceiveMemoryWarning() {
@@ -99,7 +148,10 @@ class EventViewController: UIViewController {
         eventTitleLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         eventTitleLabel.centerYAnchor.constraint(equalTo: backgroundImage.centerYAnchor).isActive = true
         
-
+        bookmarkIndicator.widthAnchor.constraint(equalToConstant: view.bounds.width * 0.2).isActive = true
+        bookmarkIndicator.heightAnchor.constraint(equalToConstant: view.bounds.width * 0.2).isActive = true
+        bookmarkIndicator.topAnchor.constraint(equalTo: backgroundImage.topAnchor).isActive = true
+        bookmarkIndicator.rightAnchor.constraint(equalTo: view.rightAnchor).isActive = true
         
         descriptionTextView.widthAnchor.constraint(equalToConstant: view.bounds.width - 40).isActive = true
         descriptionTextView.topAnchor.constraint(equalTo: backgroundImage.bottomAnchor, constant: 15).isActive = true

@@ -61,11 +61,21 @@ class ProfileCollectionViewCell: UICollectionViewCell, UITableViewDelegate, UITa
         
         return url!.appendingPathComponent("Data").path
     }
-    
+    var accountFilePath: String {
+        let manager = FileManager.default
+        let url = manager.urls(for: .documentDirectory, in: .userDomainMask).first
+        
+        return url!.appendingPathComponent("AccountData").path
+    }
     
     func loadData() {
         if let ourData = NSKeyedUnarchiver.unarchiveObject(withFile: filePath) as? [Course] {
             globalVars.courses = ourData
+        }
+    }
+    func loadAccountData() {
+        if let ourData = NSKeyedUnarchiver.unarchiveObject(withFile: accountFilePath) as? Account {
+            globalVars.accountInfo = ourData
         }
     }
     
@@ -129,7 +139,10 @@ class ProfileCollectionViewCell: UICollectionViewCell, UITableViewDelegate, UITa
 
             return cell
         } else if tableView == bookMarkedTableView {
-            let cell = tableView.dequeueReusableCell(withIdentifier: "cell3ID", for: indexPath)
+            let cell = tableView.dequeueReusableCell(withIdentifier: "cell3ID", for: indexPath) as! EventsCell
+            cell.nameTextView.text = globalVars.pastAndFutureEvents[indexPath.row].Title
+            cell.messagetextView.text = globalVars.pastAndFutureEvents[indexPath.row].Description
+            
             return cell
         } else {
             let cell = tableView.dequeueReusableCell(withIdentifier: "cell4ID", for: indexPath)
@@ -154,7 +167,7 @@ class ProfileCollectionViewCell: UICollectionViewCell, UITableViewDelegate, UITa
     let profileBackView: UIView = {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
-        view.backgroundColor = UIColor(displayP3Red: 100/255, green: 200/255, blue: 220/255, alpha: 1)//UIColor(displayP3Red: 180/256, green: 74/256, blue: 35/256, alpha: 1.0)
+        view.backgroundColor = UIColor(displayP3Red: 29/255, green: 60/255, blue: 80/255, alpha: 1.0)//UIColor(displayP3Red: 180/256, green: 74/256, blue: 35/256, alpha: 1.0)
         return view
     }()
     
@@ -188,7 +201,7 @@ class ProfileCollectionViewCell: UICollectionViewCell, UITableViewDelegate, UITa
         let textView = UITextView()
         textView.text = "Tracy Zhou"
         textView.textAlignment = .center
-        textView.backgroundColor = UIColor(displayP3Red: 100/255, green: 200/255, blue: 220/255, alpha: 1) //UIColor(displayP3Red: 180/256, green: 74/256, blue: 35/256, alpha: 1.0)
+        textView.backgroundColor = UIColor(displayP3Red: 29/255, green: 60/255, blue: 80/255, alpha: 1.0) //UIColor(displayP3Red: 180/256, green: 74/256, blue: 35/256, alpha: 1.0)
         textView.isUserInteractionEnabled = false
         textView.font = UIFont.boldSystemFont(ofSize: 17)
         textView.textColor = .white
@@ -200,7 +213,7 @@ class ProfileCollectionViewCell: UICollectionViewCell, UITableViewDelegate, UITa
         let textView = UITextView()
         textView.text = "Student # / Grade"
         textView.textAlignment = .center
-        textView.backgroundColor = UIColor(displayP3Red: 100/255, green: 200/255, blue: 220/255, alpha: 1) //UIColor(displayP3Red: 180/256, green: 74/256, blue: 35/256, alpha: 1.0)
+        textView.backgroundColor = UIColor(displayP3Red: 29/255, green: 60/255, blue: 80/255, alpha: 1.0) //UIColor(displayP3Red: 180/256, green: 74/256, blue: 35/256, alpha: 1.0)
         textView.isUserInteractionEnabled = false
         textView.font = UIFont.italicSystemFont(ofSize: 14)
         textView.textColor = .white
@@ -211,7 +224,7 @@ class ProfileCollectionViewCell: UICollectionViewCell, UITableViewDelegate, UITa
     let segment: UISegmentedControl = {
         let segment = UISegmentedControl()
         segment.tintColor = .white
-        segment.backgroundColor = UIColor(displayP3Red: 100/255, green: 200/255, blue: 220/255, alpha: 1)//UIColor(displayP3Red: 180/256, green: 74/256, blue: 35/256, alpha: 1.0)
+        segment.backgroundColor = UIColor(displayP3Red: 29/255, green: 60/255, blue: 80/255, alpha: 1.0)//UIColor(displayP3Red: 180/256, green: 74/256, blue: 35/256, alpha: 1.0)
         segment.insertSegment(withTitle: "Bell Schedule", at: 0, animated: true)
         segment.insertSegment(withTitle: "School Info", at: 1, animated: true)
         segment.insertSegment(withTitle: "My Events", at: 2, animated: true)
@@ -243,8 +256,13 @@ class ProfileCollectionViewCell: UICollectionViewCell, UITableViewDelegate, UITa
     @objc func changeViews() {
         if segment.selectedSegmentIndex == 0 {
             self.schoolInfoView.isHidden = true
-            bellTableView.isHidden = false
-            bell2TableView.isHidden = false
+            if daySegment.selectedSegmentIndex == 0 {
+                bellTableView.isHidden = false
+                bell2TableView.isHidden = false
+            } else {
+                bellTableView.isHidden = true
+                bell2TableView.isHidden = false
+            }
             daySegment.isHidden = false
             bookMarkedTableView.isHidden = true
 
@@ -367,17 +385,26 @@ class ProfileCollectionViewCell: UICollectionViewCell, UITableViewDelegate, UITa
         delegate?.didClick(segue: "toSettings")
         
     }
+    
+    override func layoutSubviews() {
+        loadAccountData()
+        profileView.image = globalVars.accountInfo.ProfileImage
+    }
+    
+    
 
     override init(frame: CGRect) {
         super.init(frame: frame)
+        loadData()
         addSubview(profileBackView)
         profileBackView.addSubview(nameTextView)
         //profileBackView.addSubview(gradeTextView)
         profileBackView.addSubview(roundView)
         
         addSubview(profileView)
+        profileView.image = globalVars.accountInfo.ProfileImage
         addSubview(addEditButton)
-        addEditButton.layer.shadowColor = UIColor.gray.cgColor
+        addEditButton.layer.shadowColor = UIColor.black.cgColor
         addEditButton.layer.shadowOffset = CGSize(width: 0, height: 0)
         addEditButton.layer.shadowOpacity = 1.0
         addEditButton.layer.shadowRadius = 3
@@ -400,7 +427,7 @@ class ProfileCollectionViewCell: UICollectionViewCell, UITableViewDelegate, UITa
         addSubview(bookMarkedTableView)
         bookMarkedTableView.delegate = self
         bookMarkedTableView.dataSource = self
-        bookMarkedTableView.register(UITableViewCell.self, forCellReuseIdentifier: "cell3ID")
+        bookMarkedTableView.register(EventsCell.self, forCellReuseIdentifier: "cell3ID")
         addSubview(schoolInfoView)
         addSubview(daySegment)
         addSubview(segment)
@@ -408,15 +435,21 @@ class ProfileCollectionViewCell: UICollectionViewCell, UITableViewDelegate, UITa
         segment.layer.shadowOffset = CGSize(width: 0, height: 3)
         segment.layer.shadowOpacity = 0.5
         segment.layer.shadowRadius = 3
+        
         schoolInfoView.addSubview(visitLabel)
         schoolInfoView.addSubview(stackView)
+        
         stackView.addArrangedSubview(websiteButton)
         stackView.addArrangedSubview(twitterButton)
         stackView.addArrangedSubview(instagramButton)
+        
         instagramButton.setBackgroundImage(#imageLiteral(resourceName: "instagram"), for: .normal)
         twitterButton.setBackgroundImage(#imageLiteral(resourceName: "twitter logo"), for: .normal)
         websiteButton.setBackgroundImage(#imageLiteral(resourceName: "sd-40-logo"), for: .normal)
-
+        
+        instagramButton.addTarget(self, action: #selector(ProfileCollectionViewCell.handleInstagram), for: .touchDown)
+        websiteButton.addTarget(self, action: #selector(ProfileCollectionViewCell.handleWebsite), for: .touchDown)
+        twitterButton.addTarget(self, action: #selector(ProfileCollectionViewCell.handleTwitter), for: .touchDown)
 
         
         for course in globalVars.courses {
@@ -435,6 +468,18 @@ class ProfileCollectionViewCell: UICollectionViewCell, UITableViewDelegate, UITa
         segment.layer.cornerRadius = 0
         setupLinks()
         setup()
+    }
+    
+    @objc func handleInstagram() {
+        UIApplication.shared.open(URL(string: "https://www.instagram.com/hyackfootball/")!, options: [:], completionHandler: nil)
+    }
+    
+    @objc func handleTwitter() {
+        UIApplication.shared.open(URL(string: "https://twitter.com/newwestschools?lang=en")!, options: [:], completionHandler: nil)
+    }
+    
+    @objc func handleWebsite() {
+        UIApplication.shared.open(URL(string: "https://nwss.ca/")!, options: [:], completionHandler: nil)
     }
     
     func setupLinks() {

@@ -7,16 +7,19 @@
 //
 
 import Foundation
+import UIKit
 
 let globalVars = Global()
 
 @IBDesignable
 class Global {
     
+    var accountInfo = Account(profileImage: UIImage(named: "cuteOwl")!, email: "")
     
     var eventTitle = ""
     var eventDescription = ""
     
+    var pastAndFutureEvents: [Event]
     
     var notes = ""
     var day = 1
@@ -39,6 +42,7 @@ class Global {
     var courseNotesName: String = ""
     
     init() {
+        pastAndFutureEvents = []
         courses = []
         setCourse = Course(name: "", day: 0, block: "", notes: [])
         viewingNote = Notes(title: "", text: "")

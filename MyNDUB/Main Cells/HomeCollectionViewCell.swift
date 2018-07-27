@@ -107,7 +107,6 @@ class HomeCollectionViewCell: UICollectionViewCell, UITableViewDelegate, UITable
         return tv
     }()
     
-    var eventTitles: [[String]] = []
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -139,26 +138,61 @@ class HomeCollectionViewCell: UICollectionViewCell, UITableViewDelegate, UITable
         
     }
     
+    var eventTitles: [[String]] = []
+    var events: [Event] = []
+    
+    var eventFilePath: String {
+        let manager = FileManager.default
+        let url = manager.urls(for: .documentDirectory, in: .userDomainMask).first
+        
+        return url!.appendingPathComponent("EventData").path
+    }
+    
+    func loadData() {
+        if let ourData = NSKeyedUnarchiver.unarchiveObject(withFile: eventFilePath) as? [Event] {
+            globalVars.pastAndFutureEvents = ourData
+        }
+    }
+    
     func getEventData() {
-        Database.database().reference().child("Events").queryOrdered(byChild: "MUN").observe(.childAdded) { (snapshot) in
+        loadData()
+        globalVars.pastAndFutureEvents = []
+
+        // adds the new event to the top of the tableView
+        Database.database().reference().child("Events").queryOrderedByKey().observe(.childAdded) { (snapshot) in
             let eventDictionary = snapshot.value as? [String : String]
             let description = eventDictionary!["description"]
             let title = eventDictionary!["title"]
-            self.eventTitles.insert([title!, description!], at: 0)
-            //self.eventTitles.append([title!, description!])
+            let date = eventDictionary!["date"]
+            self.eventTitles.insert([title!, description!, date!], at: 0)
+            
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateFormat = "MM/DD/YYYY"
+            let newEvent = Event(title: title!, description: description!, date: date!, isBookmarked: false)
+            globalVars.pastAndFutureEvents.insert(newEvent, at: 0)
+            NSKeyedArchiver.archiveRootObject(globalVars.pastAndFutureEvents, toFile: self.eventFilePath)
+            
             self.eventsTableView.reloadData()
+
+            print("Event Titles Count: \(self.eventTitles.count)")
         }
         
+        
+        
+        // deletes the event from the tableView
         Database.database().reference().child("Events").observe(.childRemoved) { (snapshot) in
             let eventDictionary = snapshot.value as? [String : String]
-            let description = eventDictionary!["description"]
             let title = eventDictionary!["title"]
-            let index = self.eventTitles.index(of: [title!, description!])
-            self.eventTitles.remove(at: index!)
+            for event in globalVars.pastAndFutureEvents {
+                if title! == event.Title {
+                    globalVars.pastAndFutureEvents.remove(at: globalVars.pastAndFutureEvents.index(of: event)!)
+                }
+            }
+            NSKeyedArchiver.archiveRootObject(globalVars.pastAndFutureEvents, toFile: self.eventFilePath)
             self.eventsTableView.reloadData()
         }
-        
     }
+    
     
     required init?(coder aDecoder: NSCoder) {
         fatalError()
@@ -207,6 +241,7 @@ class HomeCollectionViewCell: UICollectionViewCell, UITableViewDelegate, UITable
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
+        print("SELECT TV: ", globalVars.pastAndFutureEvents[indexPath.row].Title)
         let currentCell = tableView.cellForRow(at: indexPath) as! EventsCell
         globalVars.eventTitle = currentCell.nameTextView.text!
         globalVars.eventDescription = currentCell.messagetextView.text!
@@ -218,16 +253,14 @@ class HomeCollectionViewCell: UICollectionViewCell, UITableViewDelegate, UITable
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        print("eventTitles: \(self.eventTitles)")
         return self.eventTitles.count
     }
     
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: cellID, for: indexPath) as! EventsCell
-        print("eventTitles: \(self.eventTitles)")
-        cell.nameTextView.text = self.eventTitles[indexPath.row][0]//nameTextViews[indexPath.row]
-        cell.messagetextView.text = self.eventTitles[indexPath.row][1]//descriptionViews[indexPath.row]
+        cell.nameTextView.text = eventTitles[indexPath.row][0]
+        cell.messagetextView.text = eventTitles[indexPath.row][1]
         
         return cell
     }
@@ -235,19 +268,9 @@ class HomeCollectionViewCell: UICollectionViewCell, UITableViewDelegate, UITable
 
 class EventsCell: UITableViewCell {
     
-//    let profileImage: UIImageView = {
-//        let imageView = UIImageView()
-//        imageView.image = #imageLiteral(resourceName: "ProfileIcon")
-//        imageView.translatesAutoresizingMaskIntoConstraints = false
-//        imageView.layer.cornerRadius = 20
-//        imageView.layer.masksToBounds = true
-//        return imageView
-//    }()
-    
     let nameTextView: UILabel = {
         let textView = UILabel()
         textView.font = UIFont.boldSystemFont(ofSize: 17)
-        //textView.isUserInteractionEnabled = false
         textView.numberOfLines = 0
         textView.translatesAutoresizingMaskIntoConstraints = false
         return textView
@@ -258,7 +281,6 @@ class EventsCell: UITableViewCell {
         textView.font = UIFont.systemFont(ofSize: 15)
         textView.textColor = .gray
         textView.numberOfLines = 0
-        //textView.isUserInteractionEnabled = false
         textView.translatesAutoresizingMaskIntoConstraints = false
         return textView
     }()
@@ -274,18 +296,12 @@ class EventsCell: UITableViewCell {
     }
     
     func setup() {
-//        profileImage.widthAnchor.constraint(equalToConstant: 50).isActive = true
-//        profileImage.heightAnchor.constraint(equalToConstant: 50).isActive = true
-//        profileImage.topAnchor.constraint(equalTo: topAnchor, constant: 8).isActive = true
-//        profileImage.leftAnchor.constraint(equalTo: leftAnchor, constant: 8).isActive = true
-        
+
         nameTextView.widthAnchor.constraint(equalToConstant: bounds.width - 70).isActive = true
-        //nameTextView.heightAnchor.constraint(equalToConstant: 30).isActive = true
         nameTextView.topAnchor.constraint(equalTo: topAnchor, constant: 8).isActive = true
         nameTextView.leftAnchor.constraint(equalTo: leftAnchor, constant: 8).isActive = true
         
         messagetextView.widthAnchor.constraint(equalToConstant: bounds.width - 30).isActive = true
-        //messagetextView.heightAnchor.constraint(equalToConstant: 80).isActive = true
         messagetextView.leftAnchor.constraint(equalTo: leftAnchor, constant: 8).isActive = true
         messagetextView.topAnchor.constraint(equalTo: nameTextView.bottomAnchor, constant: 8).isActive = true
         messagetextView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -8).isActive = true

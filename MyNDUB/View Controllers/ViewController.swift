@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Firebase
 
 class ViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, didClickCell {
     
@@ -140,6 +141,10 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
     var mapCenter: CGPoint!
     var menuCenter: CGPoint!
     
+
+    
+    
+    
     override func viewDidLayoutSubviews() {
 
         let margins = view.safeAreaLayoutGuide
@@ -156,6 +161,15 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
         collectionView.topAnchor.constraint(equalTo: view.layoutMarginsGuide.topAnchor).isActive = true
         collectionView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
 
+    }
+    
+    
+    
+    
+    override func viewDidAppear(_ animated: Bool) {
+//        func collectionView(self.collectionView, cellForItemAt: <#T##IndexPath#>)
+//        let cell = collectionView.cellForItem(at: IndexPath(item: 4, section: 1)) as! ProfileCollectionViewCell
+//        cell.profileView.image = globalVars.accountInfo.ProfileImage
     }
     
     override func viewDidLoad() {
@@ -203,7 +217,6 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
         menuButton.center = centerButton.center
         
         menuBar.collectionView.selectItem(at: IndexPath(item: 0, section: 0), animated: false, scrollPosition: [])
-        
     }
     
     
