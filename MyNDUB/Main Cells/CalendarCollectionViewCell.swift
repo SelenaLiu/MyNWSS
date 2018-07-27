@@ -137,7 +137,9 @@ class CalendarCollectionViewCell: UICollectionViewCell, JTAppleCalendarViewDeleg
     
     let schoolDayLabel: UILabel = {
         let label = UILabel()
-        label.text = "Day 1"
+        let formatter = DateFormatter()
+        formatter.dateFormat = "MM/dd/yyyy"
+        label.text = formatter.string(from: Date())
         label.textAlignment = .left
         label.translatesAutoresizingMaskIntoConstraints = false
         return label

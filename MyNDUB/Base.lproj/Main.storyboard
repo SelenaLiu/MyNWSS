@@ -42,6 +42,7 @@
                         <segue destination="KVA-NN-GGl" kind="presentation" identifier="toAddCourseVC" id="4u2-js-FgT"/>
                         <segue destination="Wjj-ic-9cW" kind="presentation" identifier="toEventsDescription" id="muN-ce-xj1"/>
                         <segue destination="q4a-fz-za8" kind="show" identifier="toSettings" id="hFz-Gx-QLF"/>
+                        <segue destination="RRy-R2-axg" kind="presentation" identifier="toOnboarding" id="kZE-d7-1EI"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -133,7 +134,7 @@
         <!--Onboarding View Controller-->
         <scene sceneID="6WN-Dm-1gb">
             <objects>
-                <viewController id="RRy-R2-axg" customClass="OnboardingViewController" customModule="MyNDUB" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="OnboardingVC" id="RRy-R2-axg" customClass="OnboardingViewController" customModule="MyNDUB" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="0Ls-FO-xTL">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -141,12 +142,29 @@
                         <viewLayoutGuide key="safeArea" id="zeE-yG-i2P"/>
                     </view>
                     <connections>
-                        <segue destination="N83-Ti-uda" kind="show" identifier="toLogin" id="Fwx-di-GRD"/>
+                        <segue destination="BYZ-38-t0r" kind="show" identifier="toMainVC" id="0RM-Sl-XGU"/>
+                        <segue destination="fzh-cD-cft" kind="show" identifier="toSignUp" id="KN7-gt-A0Z"/>
+                        <segue destination="N83-Ti-uda" kind="show" identifier="toLogin" id="9bj-p7-Ngw"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dro-2w-33I" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1772" y="92"/>
+            <point key="canvasLocation" x="-1238" y="92"/>
+        </scene>
+        <!--Sign Up View Controller-->
+        <scene sceneID="6zt-fb-C07">
+            <objects>
+                <viewController id="fzh-cD-cft" customClass="SignUpViewController" customModule="MyNDUB" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="XHR-IW-ENn">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <viewLayoutGuide key="safeArea" id="Twq-og-NKd"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="MFL-02-U0i" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-418" y="10"/>
         </scene>
         <!--Login View Controller-->
         <scene sceneID="tui-Ht-Uvo">
@@ -165,7 +183,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="WjS-eJ-kYe" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-937" y="92"/>
+            <point key="canvasLocation" x="-418" y="734"/>
         </scene>
         <!--Caf View Controller-->
         <scene sceneID="gdf-9o-edo">
@@ -210,7 +228,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="TdP-q6-6V2" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2572" y="-237"/>
+            <point key="canvasLocation" x="2554" y="-267"/>
         </scene>
         <!--Settings View Controller-->
         <scene sceneID="aaV-mX-JDW">
@@ -223,6 +241,9 @@
                         <viewLayoutGuide key="safeArea" id="2R5-T5-Ceh"/>
                     </view>
                     <navigationItem key="navigationItem" id="ATK-V2-dTy"/>
+                    <connections>
+                        <segue destination="RRy-R2-axg" kind="presentation" identifier="toLoginVC" id="FTe-gi-LBw"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="OlS-u1-Ox5" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -262,7 +283,9 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
+        <segue reference="kZE-d7-1EI"/>
         <segue reference="CaH-ac-JG4"/>
+        <segue reference="0RM-Sl-XGU"/>
         <segue reference="0LO-WD-5uA"/>
     </inferredMetricsTieBreakers>
 </document>

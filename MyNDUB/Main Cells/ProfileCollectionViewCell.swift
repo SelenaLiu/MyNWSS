@@ -11,7 +11,7 @@ import UIKit
 class ProfileCollectionViewCell: UICollectionViewCell, UITableViewDelegate, UITableViewDataSource, UITextViewDelegate {
     
     var delegate: didClickCell?
-
+    var bookmarkedEvents: [Event] = []
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if tableView == bellTableView || tableView == bell2TableView {
@@ -51,7 +51,7 @@ class ProfileCollectionViewCell: UICollectionViewCell, UITableViewDelegate, UITa
         if tableView == bellTableView || tableView == bell2TableView {
             return 5
         } else {
-            return 5
+            return bookmarkedEvents.count
         }
     }
     
@@ -140,8 +140,8 @@ class ProfileCollectionViewCell: UICollectionViewCell, UITableViewDelegate, UITa
             return cell
         } else if tableView == bookMarkedTableView {
             let cell = tableView.dequeueReusableCell(withIdentifier: "cell3ID", for: indexPath) as! EventsCell
-            cell.nameTextView.text = globalVars.pastAndFutureEvents[indexPath.row].Title
-            cell.messagetextView.text = globalVars.pastAndFutureEvents[indexPath.row].Description
+            cell.nameTextView.text = bookmarkedEvents[indexPath.row].Title
+            cell.messagetextView.text = bookmarkedEvents[indexPath.row].Description
             
             return cell
         } else {
@@ -199,7 +199,7 @@ class ProfileCollectionViewCell: UICollectionViewCell, UITableViewDelegate, UITa
     
     let nameTextView: UITextView = {
         let textView = UITextView()
-        textView.text = "Tracy Zhou"
+        textView.text = globalVars.accountInfo.Name
         textView.textAlignment = .center
         textView.backgroundColor = UIColor(displayP3Red: 29/255, green: 60/255, blue: 80/255, alpha: 1.0) //UIColor(displayP3Red: 180/256, green: 74/256, blue: 35/256, alpha: 1.0)
         textView.isUserInteractionEnabled = false
@@ -248,6 +248,7 @@ class ProfileCollectionViewCell: UICollectionViewCell, UITableViewDelegate, UITa
     
     let bookMarkedTableView: UITableView = {
         let tv = UITableView()
+        tv.isScrollEnabled = true
         tv.isHidden = true
         tv.translatesAutoresizingMaskIntoConstraints = false
         return tv
@@ -346,6 +347,7 @@ class ProfileCollectionViewCell: UICollectionViewCell, UITableViewDelegate, UITa
     let bellTableView: UITableView = {
         let tv = UITableView()
         tv.isHidden = false
+        tv.isScrollEnabled = false
         tv.translatesAutoresizingMaskIntoConstraints = false
         return tv
     }()
@@ -353,6 +355,7 @@ class ProfileCollectionViewCell: UICollectionViewCell, UITableViewDelegate, UITa
     let bell2TableView: UITableView = {
         let tv = UITableView()
         tv.isHidden = true
+        tv.isScrollEnabled = false
         tv.translatesAutoresizingMaskIntoConstraints = false
         return tv
     }()
@@ -391,11 +394,20 @@ class ProfileCollectionViewCell: UICollectionViewCell, UITableViewDelegate, UITa
         profileView.image = globalVars.accountInfo.ProfileImage
     }
     
-    
+    func handleBookmarkedEvents() {
+        for event in globalVars.pastAndFutureEvents {
+            if event.IsBookmarked {
+                bookmarkedEvents.append(event)
+            }
+        }
+    }
 
     override init(frame: CGRect) {
         super.init(frame: frame)
         loadData()
+        loadAccountData()
+        print("ProfileVC: ", globalVars.accountInfo.Name, globalVars.accountInfo.Email, globalVars.accountInfo.ProfileImage)
+        handleBookmarkedEvents()
         addSubview(profileBackView)
         profileBackView.addSubview(nameTextView)
         //profileBackView.addSubview(gradeTextView)
@@ -452,10 +464,6 @@ class ProfileCollectionViewCell: UICollectionViewCell, UITableViewDelegate, UITa
         twitterButton.addTarget(self, action: #selector(ProfileCollectionViewCell.handleTwitter), for: .touchDown)
 
         
-        for course in globalVars.courses {
-            print("Course Name: \(course.Name), Course Day: \(course.Day), Course Block: \(course.Block)")
-        }
-
 
         schoolInfoView.isHidden = true
         self.profileView.layer.cornerRadius = bounds.width * 0.3/2

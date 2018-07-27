@@ -28,6 +28,7 @@
 		FA21CB0020D6C38700D5896C /* Course.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA21CAFF20D6C38700D5896C /* Course.swift */; };
 		FA21CB0220D6C43D00D5896C /* Notes.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA21CB0120D6C43D00D5896C /* Notes.swift */; };
 		FA21CB0420D6CCFE00D5896C /* AddCourseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA21CB0320D6CCFE00D5896C /* AddCourseViewController.swift */; };
+		FA28BD4C210BD9BA00CD553F /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA28BD4B210BD9BA00CD553F /* SignUpViewController.swift */; };
 		FA40956E20C4BBCA0037CEDA /* ProfileCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA40956D20C4BBCA0037CEDA /* ProfileCollectionViewCell.swift */; };
 		FA50B3C02106F4E000BF0270 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA50B3BF2106F4E000BF0270 /* SettingsViewController.swift */; };
 		FA50B3C22108004900BF0270 /* Account.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA50B3C12108004900BF0270 /* Account.swift */; };
@@ -95,6 +96,7 @@
 		FA21CAFF20D6C38700D5896C /* Course.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Course.swift; sourceTree = "<group>"; };
 		FA21CB0120D6C43D00D5896C /* Notes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Notes.swift; sourceTree = "<group>"; };
 		FA21CB0320D6CCFE00D5896C /* AddCourseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddCourseViewController.swift; sourceTree = "<group>"; };
+		FA28BD4B210BD9BA00CD553F /* SignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
 		FA40956D20C4BBCA0037CEDA /* ProfileCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileCollectionViewCell.swift; sourceTree = "<group>"; };
 		FA50B3BF2106F4E000BF0270 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		FA50B3C12108004900BF0270 /* Account.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Account.swift; sourceTree = "<group>"; };
@@ -251,6 +253,7 @@
 			isa = PBXGroup;
 			children = (
 				FA0B7B672103DB0600903187 /* OnboardingController.swift */,
+				FA28BD4B210BD9BA00CD553F /* SignUpViewController.swift */,
 				FA0B7B692103E59D00903187 /* LoginViewController.swift */,
 				FA1C6EB7209E19F8001E5A58 /* ViewController.swift */,
 				FA0B7B6B2105050000903187 /* WIPViewController.swift */,
@@ -496,6 +499,7 @@
 			);
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-MyNDUB/Pods-MyNDUB-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/GTMSessionFetcher/GTMSessionFetcher.framework",
 				"${BUILT_PRODUCTS_DIR}/GoogleToolboxForMac/GoogleToolboxForMac.framework",
 				"${BUILT_PRODUCTS_DIR}/JTAppleCalendar/JTAppleCalendar.framework",
 				"${BUILT_PRODUCTS_DIR}/leveldb-library/leveldb.framework",
@@ -503,6 +507,7 @@
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GTMSessionFetcher.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleToolboxForMac.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/JTAppleCalendar.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/leveldb.framework",
@@ -592,6 +597,7 @@
 				FABCACD120D2E648006343AE /* NotesCollectionViewCell.swift in Sources */,
 				FA1C6EE4209E1AF3001E5A58 /* MenuBar.swift in Sources */,
 				FA1C6EE6209E3A1A001E5A58 /* HomeCollectionViewCell.swift in Sources */,
+				FA28BD4C210BD9BA00CD553F /* SignUpViewController.swift in Sources */,
 				FA50B3C42108E6C100BF0270 /* Event.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

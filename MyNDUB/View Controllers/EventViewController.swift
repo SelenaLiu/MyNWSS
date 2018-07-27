@@ -10,6 +10,8 @@ import UIKit
 
 class EventViewController: UIViewController {
     
+    var inspectingEvent: Event = Event(title: "", description: "", date: "", isBookmarked: false)
+    
     var eventFilePath: String {
         let manager = FileManager.default
         let url = manager.urls(for: .documentDirectory, in: .userDomainMask).first
@@ -95,11 +97,27 @@ class EventViewController: UIViewController {
         let backButton = UIBarButtonItem(title: "Back", style: .plain, target: self, action: #selector(EventViewController.dismissVC))
         self.navigationItem.leftBarButtonItem = backButton
         
+        for event in globalVars.pastAndFutureEvents {
+            if event.Title == globalVars.eventTitle {
+                inspectingEvent = event
+            }
+        }
+        
+        print("EventVC: inpecting event", inspectingEvent.Title, inspectingEvent.IsBookmarked)
+        
         view.addSubview(backgroundView)
         view.addSubview(backgroundImage)
         view.addSubview(eventTitleLabel)
         view.addSubview(descriptionTextView)
         view.addSubview(bookmarkIndicator)
+        
+        print(inspectingEvent.IsBookmarked)
+        if inspectingEvent.IsBookmarked {
+            bookmarkIndicator.tintColor = .orange
+        } else {
+            bookmarkIndicator.tintColor = .black
+        }
+        
         bookmarkIndicator.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(EventViewController.handleBookmarked)))
 
         setup()
@@ -108,21 +126,20 @@ class EventViewController: UIViewController {
     @objc func handleBookmarked() {
         print("triggered")
         print("EventVC: \(globalVars.pastAndFutureEvents.count)")
-        for event in globalVars.pastAndFutureEvents {
-            print("EventVC: \(event.Title), \(eventTitleLabel.text)")
-            if event.Title == eventTitleLabel.text {
-                if bookmarkIndicator.tintColor == UIColor.black {
-                    self.bookmarkIndicator.tintColor = .orange
-                    event.IsBookmarked = true
-                } else {
-                    self.bookmarkIndicator.tintColor = .black
-                    event.IsBookmarked = false
-                }
-            }
+        let index = globalVars.pastAndFutureEvents.index(of: inspectingEvent)
+        print("EventVC: index: ", index)
+        if bookmarkIndicator.tintColor == UIColor.black {
+            self.bookmarkIndicator.tintColor = .orange
+            inspectingEvent.IsBookmarked = true
+        } else {
+            self.bookmarkIndicator.tintColor = .black
+            inspectingEvent.IsBookmarked = false
         }
+        print("Second", inspectingEvent.IsBookmarked)
+        globalVars.pastAndFutureEvents[index!] = inspectingEvent
         
         NSKeyedArchiver.archiveRootObject(globalVars.pastAndFutureEvents, toFile: eventFilePath)
-        
+        print(globalVars.pastAndFutureEvents[index!].IsBookmarked)
         //save button state to phone
     }
 
@@ -132,7 +149,9 @@ class EventViewController: UIViewController {
     
 
     @objc func dismissVC() {
-        dismiss(animated: true, completion: nil)
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        self.present(storyboard.instantiateViewController(withIdentifier: "MainVC"), animated: true, completion: nil)
+        //dismiss(animated: true, completion: nil)
     }
     
     func setup() {

@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "82E6FD18908ECC29EB5FD83E8BE156FD"
+               BlueprintIdentifier = "5F99B22CB0A5562FFE0D633A5288A7C5"
                BuildableName = "Pods_MyNDUB.framework"
                BlueprintName = "Pods-MyNDUB"
                ReferencedContainer = "container:Pods.xcodeproj">
@@ -45,7 +45,7 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "82E6FD18908ECC29EB5FD83E8BE156FD"
+            BlueprintIdentifier = "5F99B22CB0A5562FFE0D633A5288A7C5"
             BuildableName = "Pods_MyNDUB.framework"
             BlueprintName = "Pods-MyNDUB"
             ReferencedContainer = "container:Pods.xcodeproj">

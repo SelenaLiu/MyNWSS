@@ -13,14 +13,17 @@ class Account: NSObject, NSCoding {
     
     struct Keys {
         static let ProfileImage = "profileImage"
+        static let Name = "name"
         static let Email = "email"
     }
     
     private var _profileImage: UIImage
+    private var _name = ""
     private var _email = ""
     
-    init(profileImage: UIImage, email: String) {
+    init(profileImage: UIImage, name: String, email: String) {
         _profileImage = profileImage
+        _name = name
         _email = email
     }
     
@@ -31,6 +34,10 @@ class Account: NSObject, NSCoding {
             self._profileImage = UIImage(named: "cuteOwl")!
         }
         
+        if let nameObj = aDecoder.decodeObject(forKey: Keys.Name) as? String {
+            self._name = nameObj
+        }
+        
         if let emailObj = aDecoder.decodeObject(forKey: Keys.Email) as? String {
             self._email = emailObj
         }
@@ -38,6 +45,7 @@ class Account: NSObject, NSCoding {
     
     func encode(with aCoder: NSCoder) {
         aCoder.encode(_profileImage, forKey: Keys.ProfileImage)
+        aCoder.encode(_name, forKey: Keys.Name)
         aCoder.encode(_email, forKey: Keys.Email)
     }
     
@@ -47,6 +55,15 @@ class Account: NSObject, NSCoding {
         }
         set {
             _profileImage = newValue
+        }
+    }
+    
+    var Name: String {
+        get {
+            return _name
+        }
+        set {
+            _name = newValue
         }
     }
     

@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Firebase
 
 class SettingsViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
@@ -109,6 +110,7 @@ class SettingsViewController: UIViewController, UIImagePickerControllerDelegate,
         stackView.addArrangedSubview(emailLabel)
         view.addSubview(editEmailButton)
         view.addSubview(logoutButton)
+        logoutButton.addTarget(self, action: #selector(SettingsViewController.handleLogout), for: .touchDown)
         //view.addSubview(daySwitch)
         
         setup()
@@ -220,11 +222,11 @@ class SettingsViewController: UIViewController, UIImagePickerControllerDelegate,
         var selectedImageFromPicker: UIImage?
         if let editedImage = info["UIImagePickerControllerEditedImage"] {
             selectedImageFromPicker = editedImage as! UIImage
-            globalVars.accountInfo = Account(profileImage: selectedImageFromPicker!, email: "")
+            globalVars.accountInfo.ProfileImage = selectedImageFromPicker!
             NSKeyedArchiver.archiveRootObject(globalVars.accountInfo, toFile: filePath)
         } else if let originalImage = info["UIImagePickerControllerOriginalImage"] {
             selectedImageFromPicker = originalImage as! UIImage
-            globalVars.accountInfo = Account(profileImage: selectedImageFromPicker!, email: "")
+            globalVars.accountInfo.ProfileImage = selectedImageFromPicker!
             NSKeyedArchiver.archiveRootObject(globalVars.accountInfo, toFile: filePath)
         }
         
@@ -236,6 +238,11 @@ class SettingsViewController: UIViewController, UIImagePickerControllerDelegate,
     
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
         dismiss(animated: true, completion: nil)
+    }
+    
+    @objc func handleLogout() {
+        try! Auth.auth().signOut()
+        self.performSegue(withIdentifier: "toLoginVC", sender: self)
     }
 
 }

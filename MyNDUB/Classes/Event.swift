@@ -20,7 +20,7 @@ class Event: NSObject, NSCoding {
     private var _title = ""
     private var _description = ""
     private var _date = ""
-    private var _isBookmarked = false
+    private var _isBookmarked: Bool
     
     init(title: String, description: String, date: String, isBookmarked: Bool) {
         _title = title
@@ -44,6 +44,8 @@ class Event: NSObject, NSCoding {
         
         if let isBookmarkedObj = aDecoder.decodeObject(forKey: Keys.IsBookmarked) as? Bool {
             self._isBookmarked = isBookmarkedObj
+        } else {
+            self._isBookmarked = false
         }
     }
     

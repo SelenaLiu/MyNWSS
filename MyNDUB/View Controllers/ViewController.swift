@@ -141,9 +141,6 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
     var mapCenter: CGPoint!
     var menuCenter: CGPoint!
     
-
-    
-    
     
     override func viewDidLayoutSubviews() {
 
@@ -164,12 +161,24 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
     }
     
     
-    
-    
     override func viewDidAppear(_ animated: Bool) {
+        if Auth.auth().currentUser?.uid == nil {
+            perform(#selector(ViewController.handleLogout), with: nil, afterDelay: 0)
+        }
 //        func collectionView(self.collectionView, cellForItemAt: <#T##IndexPath#>)
 //        let cell = collectionView.cellForItem(at: IndexPath(item: 4, section: 1)) as! ProfileCollectionViewCell
 //        cell.profileView.image = globalVars.accountInfo.ProfileImage
+    }
+    
+    @objc func handleLogout() {
+        
+        do {
+            try Auth.auth().signOut()
+            print("got here")
+        } catch let logoutError {
+            print(logoutError)
+        }
+        self.performSegue(withIdentifier: "toOnboarding", sender: self)
     }
     
     override func viewDidLoad() {
@@ -218,7 +227,6 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
         
         menuBar.collectionView.selectItem(at: IndexPath(item: 0, section: 0), animated: false, scrollPosition: [])
     }
-    
     
     
     lazy var menuBar: MenuBar = {

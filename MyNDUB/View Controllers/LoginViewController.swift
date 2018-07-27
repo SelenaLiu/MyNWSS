@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Firebase
 
 class LoginViewController: UIViewController {
     
@@ -21,28 +22,11 @@ class LoginViewController: UIViewController {
     let titleLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.text = "Join Us"
+        label.text = "Login"
         label.textAlignment = .center
         label.textColor = .white
         label.font = UIFont.boldSystemFont(ofSize: 50)
         return label
-    }()
-    
-    let loginRegisterSegment: UISegmentedControl = {
-        let segment = UISegmentedControl()
-        segment.tintColor = .white
-        segment.insertSegment(withTitle: "Sign In", at: 0, animated: true)
-        segment.insertSegment(withTitle: "Sign Up", at: 1, animated: true)
-        segment.translatesAutoresizingMaskIntoConstraints = false
-        segment.addTarget(self, action: #selector(LoginViewController.handleSegmentControl), for: .valueChanged)
-        segment.selectedSegmentIndex = 1
-        return segment
-    }()
-    
-    let nameTextField: inputTextField = {
-        let textField = inputTextField()
-        textField.attributedPlaceholder = NSAttributedString(string: "First and Last Name", attributes: [NSAttributedStringKey.foregroundColor: UIColor.white])
-        return textField
     }()
     
     let emailTextField: inputTextField = {
@@ -53,6 +37,7 @@ class LoginViewController: UIViewController {
     
     let passwordTextField: inputTextField = {
         let textField = inputTextField()
+        textField.isSecureTextEntry = true
         textField.attributedPlaceholder = NSAttributedString(string: "Password", attributes: [NSAttributedStringKey.foregroundColor: UIColor.white])
         return textField
     }()
@@ -63,44 +48,58 @@ class LoginViewController: UIViewController {
         button.backgroundColor = .clear
         button.layer.borderWidth = 2.0
         button.layer.borderColor = UIColor.white.cgColor
-        button.setTitle("Done", for: .normal)
-        button.addTarget(self, action: #selector(LoginViewController.toHome), for: .touchDown)
+        button.setTitle("Continue", for: .normal)
         button.titleLabel?.font = UIFont.systemFont(ofSize: 16)
         button.setTitleColor(.white, for: .normal)
         button.layer.cornerRadius = 10
         return button
     }()
     
-    @objc func toHome() {
-        performSegue(withIdentifier: "toHome", sender: self)
-    }
-    
-    @objc func handleSegmentControl() {
-        if loginRegisterSegment.selectedSegmentIndex == 0 {
-            nameTextField.attributedPlaceholder = NSAttributedString(string: "Email", attributes: [NSAttributedStringKey.foregroundColor: UIColor.white])
-            emailTextField.attributedPlaceholder = NSAttributedString(string: "Password", attributes: [NSAttributedStringKey.foregroundColor: UIColor.white])
-            passwordTextField.isHidden = true
-        } else {
-            nameTextField.attributedPlaceholder = NSAttributedString(string: "First and Last Name", attributes: [NSAttributedStringKey.foregroundColor: UIColor.white])
-            emailTextField.attributedPlaceholder = NSAttributedString(string: "Email", attributes: [NSAttributedStringKey.foregroundColor: UIColor.white])
-            passwordTextField.isHidden = false
-
-        }
-    }
-    
+    let backButton: UIButton = {
+        let button = UIButton(type: .system)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.backgroundColor = .clear
+        button.setTitle("Back", for: .normal)
+        button.addTarget(self, action: #selector(LoginViewController.dismissVC), for: .touchDown)
+        button.titleLabel?.font = UIFont.systemFont(ofSize: 16)
+        button.setTitleColor(.white, for: .normal)
+        return button
+    }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .orange
         view.addSubview(backgroundImage)
         view.addSubview(titleLabel)
-        view.addSubview(loginRegisterSegment)
-        view.addSubview(nameTextField)
         view.addSubview(emailTextField)
         view.addSubview(passwordTextField)
+        view.addSubview(backButton)
         view.addSubview(doneButton)
+        doneButton.addTarget(self, action: #selector(LoginViewController.handleLogin), for: .touchDown)
         
         setup()
+    }
+    
+    @objc func dismissVC() {
+        dismiss(animated: true, completion: nil)
+    }
+    
+    @objc func handleLogin() {
+        guard let email = self.emailTextField.text else { return }
+        guard let password = self.passwordTextField.text else { return }
+        
+        
+        Auth.auth().signIn(withEmail: email, password: password) { (user, error) in
+            if error != nil {
+                print(error)
+            } else {
+                globalVars.accountInfo = Account(profileImage: UIImage(named: "cuteOwl")!, name: "", email: self.emailTextField.text!)
+                NSKeyedArchiver.archiveRootObject(globalVars.accountInfo, toFile: self.accountFilePath)
+                self.performSegue(withIdentifier: "toHome", sender: self)
+            }
+        }
+        
+
     }
 
     override func didReceiveMemoryWarning() {
@@ -118,18 +117,8 @@ class LoginViewController: UIViewController {
         titleLabel.heightAnchor.constraint(equalToConstant: 100).isActive = true
         titleLabel.topAnchor.constraint(equalTo: view.topAnchor, constant: 200).isActive = true
         
-        loginRegisterSegment.widthAnchor.constraint(equalToConstant: view.bounds.width * 0.8).isActive = true
-        loginRegisterSegment.heightAnchor.constraint(equalToConstant: 35).isActive = true
-        loginRegisterSegment.topAnchor.constraint(equalTo: titleLabel.bottomAnchor).isActive = true
-        loginRegisterSegment.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        
-        nameTextField.widthAnchor.constraint(equalToConstant: view.bounds.width * 0.8).isActive = true
-        nameTextField.topAnchor.constraint(equalTo: loginRegisterSegment.bottomAnchor, constant: 10).isActive = true
-        nameTextField.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        nameTextField.heightAnchor.constraint(equalToConstant: 40).isActive = true
-        
         emailTextField.widthAnchor.constraint(equalToConstant: view.bounds.width * 0.8).isActive = true
-        emailTextField.topAnchor.constraint(equalTo: nameTextField.bottomAnchor, constant: 10).isActive = true
+        emailTextField.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 30).isActive = true
         emailTextField.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         emailTextField.heightAnchor.constraint(equalToConstant: 40).isActive = true
         
@@ -137,6 +126,11 @@ class LoginViewController: UIViewController {
         passwordTextField.topAnchor.constraint(equalTo: emailTextField.bottomAnchor, constant: 10).isActive = true
         passwordTextField.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         passwordTextField.heightAnchor.constraint(equalToConstant: 40).isActive = true
+        
+        backButton.widthAnchor.constraint(equalToConstant: view.bounds.width * 0.3).isActive = true
+        backButton.topAnchor.constraint(equalTo: doneButton.bottomAnchor, constant: 10).isActive = true
+        backButton.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        backButton.heightAnchor.constraint(equalToConstant: 40).isActive = true
         
         doneButton.widthAnchor.constraint(equalToConstant: view.bounds.width * 0.3).isActive = true
         doneButton.topAnchor.constraint(equalTo: passwordTextField.bottomAnchor, constant: 50).isActive = true
@@ -146,9 +140,18 @@ class LoginViewController: UIViewController {
 
 }
 
+extension LoginViewController {
+    var accountFilePath: String {
+        let manager = FileManager.default
+        let url = manager.urls(for: .documentDirectory, in: .userDomainMask).first
+        
+        return url!.appendingPathComponent("AccountData").path
+    }
+}
+
 class inputTextField: UITextField {
     override func didMoveToWindow() {
-        self.isSecureTextEntry = true
+        self.textColor = .white
         self.layer.cornerRadius = 5
         self.layer.borderColor = UIColor.white.cgColor
         let paddingView = UIView(frame: CGRect(x: 0, y: 0, width: 10, height: self.frame.height))
