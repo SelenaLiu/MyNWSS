@@ -18,6 +18,8 @@ class Global {
     var eventTitle = ""
     var eventDescription = ""
     
+    var loadProfileCell = false
+    
     var pastAndFutureEvents: [Event]
     
     var notes = ""

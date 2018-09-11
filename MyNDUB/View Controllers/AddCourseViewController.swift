@@ -113,9 +113,9 @@ class AddCourseViewController: UIViewController, UITextFieldDelegate {
         loadData()
         
         var alertController: UIAlertController = UIAlertController()
-        alertController = UIAlertController(title: "404", message: "IDK what's happening", preferredStyle: .alert)
-        let OK = UIAlertAction(title: "FIX IT", style: .cancel, handler: nil)
-        alertController.addAction(OK)
+//        alertController = UIAlertController(title: "404", message: "IDK what's happening", preferredStyle: .alert)
+//        let OK = UIAlertAction(title: "FIX IT", style: .cancel, handler: nil)
+//        alertController.addAction(OK)
         var alertVCTriggered = false
         
         let blocks = ["A", "B", "C", "D", "Z"]
@@ -191,12 +191,11 @@ class AddCourseViewController: UIViewController, UITextFieldDelegate {
     
     @objc func backToProfileVC() {
         NSKeyedArchiver.archiveRootObject(globalVars.courses, toFile: filePath)
+        globalVars.loadProfileCell = true
 
         let notesVC = NotesCollectionViewCell()
         notesVC.notesTableView.reloadData()
         let profileVC = ProfileCollectionViewCell()
-//        profileVC.bellTableView.reloadData()
-//        profileVC.bell2TableView.reloadData()
         presentProfileController()
     }
     

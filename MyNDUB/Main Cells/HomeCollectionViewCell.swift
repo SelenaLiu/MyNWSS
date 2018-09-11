@@ -126,7 +126,7 @@ class HomeCollectionViewCell: UICollectionViewCell, UITableViewDelegate, UITable
         
         eventsTableView.delegate = self
         eventsTableView.dataSource = self
-        eventsTableView.estimatedRowHeight = 100.0
+        //eventsTableView.estimatedRowHeight = 100.0
         eventsTableView.rowHeight = UITableViewAutomaticDimension
         eventsTableView.register(EventsCell.self, forCellReuseIdentifier: cellID)
         

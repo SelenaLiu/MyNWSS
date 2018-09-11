@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		7B7110D63A805B2A6F75B980 /* Pods_MyNDUB.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0981317500EA039BADF367B3 /* Pods_MyNDUB.framework */; };
 		93BC174F359BB6E0811425E6 /* Pods_MyNDUBTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F11BF64E88FAB3EC8D0C7BFC /* Pods_MyNDUBTests.framework */; };
 		9A8054659B4134B0E89CDDB7 /* Pods_MyNDUBUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 17ADEE54393B0D3B2D352C1C /* Pods_MyNDUBUITests.framework */; };
 		FA0B7B682103DB0600903187 /* OnboardingController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA0B7B672103DB0600903187 /* OnboardingController.swift */; };
@@ -29,11 +28,14 @@
 		FA21CB0220D6C43D00D5896C /* Notes.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA21CB0120D6C43D00D5896C /* Notes.swift */; };
 		FA21CB0420D6CCFE00D5896C /* AddCourseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA21CB0320D6CCFE00D5896C /* AddCourseViewController.swift */; };
 		FA28BD4C210BD9BA00CD553F /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA28BD4B210BD9BA00CD553F /* SignUpViewController.swift */; };
+		FA28BD4E210BFB8400CD553F /* SignUpExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA28BD4D210BFB8400CD553F /* SignUpExtension.swift */; };
 		FA40956E20C4BBCA0037CEDA /* ProfileCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA40956D20C4BBCA0037CEDA /* ProfileCollectionViewCell.swift */; };
 		FA50B3C02106F4E000BF0270 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA50B3BF2106F4E000BF0270 /* SettingsViewController.swift */; };
 		FA50B3C22108004900BF0270 /* Account.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA50B3C12108004900BF0270 /* Account.swift */; };
 		FA50B3C42108E6C100BF0270 /* Event.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA50B3C32108E6C100BF0270 /* Event.swift */; };
 		FA5E265320DED5C80056D9B1 /* NotesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA5E265220DED5C80056D9B1 /* NotesViewController.swift */; };
+		FA8E2FD6212A76E9003A0658 /* Pods_MyNDUB.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0981317500EA039BADF367B3 /* Pods_MyNDUB.framework */; };
+		FA8E2FD7212A76E9003A0658 /* Pods_MyNDUB.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 0981317500EA039BADF367B3 /* Pods_MyNDUB.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		FAB6B65D20DF489000474675 /* CalendarCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAB6B65C20DF489000474675 /* CalendarCell.swift */; };
 		FAB6B65F20DF490900474675 /* JTAppleCalendar.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FAB6B65E20DF490900474675 /* JTAppleCalendar.framework */; };
 		FAB6B66120E0A0A600474675 /* EventViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAB6B66020E0A0A600474675 /* EventViewController.swift */; };
@@ -61,6 +63,20 @@
 			remoteInfo = MyNDUB;
 		};
 /* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		FA8E2FD5212A76E3003A0658 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				FA8E2FD7212A76E9003A0658 /* Pods_MyNDUB.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		0981317500EA039BADF367B3 /* Pods_MyNDUB.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MyNDUB.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -97,11 +113,13 @@
 		FA21CB0120D6C43D00D5896C /* Notes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Notes.swift; sourceTree = "<group>"; };
 		FA21CB0320D6CCFE00D5896C /* AddCourseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddCourseViewController.swift; sourceTree = "<group>"; };
 		FA28BD4B210BD9BA00CD553F /* SignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
+		FA28BD4D210BFB8400CD553F /* SignUpExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpExtension.swift; sourceTree = "<group>"; };
 		FA40956D20C4BBCA0037CEDA /* ProfileCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileCollectionViewCell.swift; sourceTree = "<group>"; };
 		FA50B3BF2106F4E000BF0270 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		FA50B3C12108004900BF0270 /* Account.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Account.swift; sourceTree = "<group>"; };
 		FA50B3C32108E6C100BF0270 /* Event.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Event.swift; sourceTree = "<group>"; };
 		FA5E265220DED5C80056D9B1 /* NotesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotesViewController.swift; sourceTree = "<group>"; };
+		FA8E2FD2212A76E2003A0658 /* JTAppleCalendar.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = JTAppleCalendar.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		FAB6B65C20DF489000474675 /* CalendarCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarCell.swift; sourceTree = "<group>"; };
 		FAB6B65E20DF490900474675 /* JTAppleCalendar.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = JTAppleCalendar.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		FAB6B66020E0A0A600474675 /* EventViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventViewController.swift; sourceTree = "<group>"; };
@@ -119,7 +137,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				FAB6B65F20DF490900474675 /* JTAppleCalendar.framework in Frameworks */,
-				7B7110D63A805B2A6F75B980 /* Pods_MyNDUB.framework in Frameworks */,
+				FA8E2FD6212A76E9003A0658 /* Pods_MyNDUB.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -169,6 +187,7 @@
 		FA1C6EA9209E19F8001E5A58 = {
 			isa = PBXGroup;
 			children = (
+				FA8E2FD2212A76E2003A0658 /* JTAppleCalendar.framework */,
 				FA1C6EB4209E19F8001E5A58 /* MyNDUB */,
 				FA1C6EC9209E19FA001E5A58 /* MyNDUBTests */,
 				FA1C6ED4209E19FA001E5A58 /* MyNDUBUITests */,
@@ -249,12 +268,21 @@
 			path = "Main Cells";
 			sourceTree = "<group>";
 		};
-		FABCACCE20D0387C006343AE /* View Controllers */ = {
+		FA56E4A82141A03F0018E313 /* Onboarding VC's */ = {
 			isa = PBXGroup;
 			children = (
 				FA0B7B672103DB0600903187 /* OnboardingController.swift */,
+				FA28BD4D210BFB8400CD553F /* SignUpExtension.swift */,
 				FA28BD4B210BD9BA00CD553F /* SignUpViewController.swift */,
 				FA0B7B692103E59D00903187 /* LoginViewController.swift */,
+			);
+			path = "Onboarding VC's";
+			sourceTree = "<group>";
+		};
+		FABCACCE20D0387C006343AE /* View Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				FA56E4A82141A03F0018E313 /* Onboarding VC's */,
 				FA1C6EB7209E19F8001E5A58 /* ViewController.swift */,
 				FA0B7B6B2105050000903187 /* WIPViewController.swift */,
 				FA50B3BF2106F4E000BF0270 /* SettingsViewController.swift */,
@@ -281,6 +309,7 @@
 				FA1C6EB0209E19F8001E5A58 /* Resources */,
 				760166377608FDC400E42A85 /* [CP] Embed Pods Frameworks */,
 				B5BB6EDB2810F3B5D55221A7 /* [CP] Copy Pods Resources */,
+				FA8E2FD5212A76E3003A0658 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -594,6 +623,7 @@
 				FA1C6EE8209E3AD8001E5A58 /* CafViewController.swift in Sources */,
 				FABCACD320D2E6C6006343AE /* Global.swift in Sources */,
 				FA5E265320DED5C80056D9B1 /* NotesViewController.swift in Sources */,
+				FA28BD4E210BFB8400CD553F /* SignUpExtension.swift in Sources */,
 				FABCACD120D2E648006343AE /* NotesCollectionViewCell.swift in Sources */,
 				FA1C6EE4209E1AF3001E5A58 /* MenuBar.swift in Sources */,
 				FA1C6EE6209E3A1A001E5A58 /* HomeCollectionViewCell.swift in Sources */,

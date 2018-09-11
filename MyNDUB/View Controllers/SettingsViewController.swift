@@ -25,7 +25,7 @@ class SettingsViewController: UIViewController, UIImagePickerControllerDelegate,
         imageView.layer.borderWidth = 5
         imageView.layer.borderColor = UIColor.orange.cgColor
         imageView.contentMode = .scaleToFill
-        imageView.image = #imageLiteral(resourceName: "cuteOwl")
+        //imageView.image = #imageLiteral(resourceName: "cuteOwl")
         imageView.translatesAutoresizingMaskIntoConstraints = false
         return imageView
     }()
@@ -92,7 +92,44 @@ class SettingsViewController: UIViewController, UIImagePickerControllerDelegate,
         return button
     }()
     
+    func handleLoadAccountData() {
+        let user = Auth.auth().currentUser?.uid
+        var imageURL = ""
+        Database.database().reference().child("users").child(user!).observe(.value, with: { (snapshot) in
+            if let dictionary = snapshot.value as? [String:AnyObject] {
+                self.nameLabel.text = dictionary["name"] as? String
+                imageURL = dictionary["profileImage"] as! String
+                self.emailLabel.text = dictionary["email"] as? String
+            }
+            
+            
+            let url = URL(string: imageURL)
 
+            URLSession.shared.dataTask(with: url!, completionHandler: { (data, response, error) in
+                if error != nil {
+                    print(error!)
+                    return
+                }
+                DispatchQueue.main.sync {
+                    self.profileView.image = UIImage(data: data!)
+                    print("NewMessagesVC: CELLIMAGE = \(UIImage(data: data!)?.size)")
+                    
+                }
+                
+            }).resume()
+        }, withCancel: nil)
+    }
+    
+    func handleEmailData() {
+        //change email data
+//        let user = Auth.auth().currentUser?.uid
+//        Database.database().reference().child("users").child(user!).chil
+//        let ref = Database.database().reference(fromURL: "https://mynwss.firebaseio.com/").child("users")
+//        var usernameRef = ref.child((Auth.auth().currentUser?.uid)!)
+//        usernameRef.
+        
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         loadData()
@@ -107,6 +144,9 @@ class SettingsViewController: UIViewController, UIImagePickerControllerDelegate,
         view.addSubview(changePictureButton)
         view.addSubview(stackView)
         stackView.addArrangedSubview(nameLabel)
+        //handleLoadAccountData()
+
+        
         stackView.addArrangedSubview(emailLabel)
         view.addSubview(editEmailButton)
         view.addSubview(logoutButton)
@@ -165,6 +205,7 @@ class SettingsViewController: UIViewController, UIImagePickerControllerDelegate,
         let alertController = UIAlertController(title: "Email Address", message: "Please enter your new email address", preferredStyle: .alert)
         let saveAction = UIAlertAction(title: "Save", style: .default, handler: {(alertAction: UIAlertAction) in
             let emailAddress = alertController.textFields?[0].text
+            self.handleEmailData()
             let emailRegEx = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,64}"
             
             let emailTest = NSPredicate(format:"SELF MATCHES %@", emailRegEx)

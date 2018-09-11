@@ -66,6 +66,9 @@ class LoginViewController: UIViewController {
         return button
     }()
     
+    var bottomConstraint: NSLayoutConstraint?
+
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .orange
@@ -77,11 +80,29 @@ class LoginViewController: UIViewController {
         view.addSubview(doneButton)
         doneButton.addTarget(self, action: #selector(LoginViewController.handleLogin), for: .touchDown)
         
+        bottomConstraint = NSLayoutConstraint(item:  self.backButton, attribute: NSLayoutAttribute.bottom, relatedBy: .equal, toItem: self.view, attribute: .centerX, multiplier: 1, constant: 250)
+        view.addConstraint(bottomConstraint!)
+        NotificationCenter.default.addObserver(self, selector: #selector(SignUpViewController.keyboardWillShow), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
+        
         setup()
     }
     
     @objc func dismissVC() {
         dismiss(animated: true, completion: nil)
+    }
+    
+    @objc func keyboardWillShow(notification: NSNotification) {
+        if let info = notification.userInfo {
+            
+            let rect: CGRect = info["UIKeyboardFrameEndUserInfoKey"] as! CGRect
+            
+            self.view.layoutIfNeeded()
+            
+            UIView.animate(withDuration: 0.25) {
+                self.view.layoutIfNeeded()
+                self.bottomConstraint?.constant = -(rect.height + 20)
+            }
+        }
     }
     
     @objc func handleLogin() {
@@ -91,7 +112,10 @@ class LoginViewController: UIViewController {
         
         Auth.auth().signIn(withEmail: email, password: password) { (user, error) in
             if error != nil {
-                print(error)
+                let alertController = UIAlertController(title: "Error", message: error?.localizedDescription, preferredStyle: .alert)
+                let cancelAction = UIAlertAction(title: "Ok", style: .default, handler: nil)
+                alertController.addAction(cancelAction)
+                self.present(alertController, animated: true, completion: nil)
             } else {
                 globalVars.accountInfo = Account(profileImage: UIImage(named: "cuteOwl")!, name: "", email: self.emailTextField.text!)
                 NSKeyedArchiver.archiveRootObject(globalVars.accountInfo, toFile: self.accountFilePath)
@@ -115,7 +139,7 @@ class LoginViewController: UIViewController {
         titleLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         titleLabel.widthAnchor.constraint(equalToConstant: view.bounds.width).isActive = true
         titleLabel.heightAnchor.constraint(equalToConstant: 100).isActive = true
-        titleLabel.topAnchor.constraint(equalTo: view.topAnchor, constant: 200).isActive = true
+        titleLabel.topAnchor.constraint(equalTo: view.topAnchor, constant: 10).isActive = true
         
         emailTextField.widthAnchor.constraint(equalToConstant: view.bounds.width * 0.8).isActive = true
         emailTextField.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 30).isActive = true

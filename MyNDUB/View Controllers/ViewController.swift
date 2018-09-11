@@ -143,7 +143,7 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
     
     
     override func viewDidLayoutSubviews() {
-
+        //self.viewDidLayoutSubviews()
         let margins = view.safeAreaLayoutGuide
         
         menuBackView.heightAnchor.constraint(equalToConstant: (margins.layoutFrame.size.width * 0.18)).isActive = true
@@ -157,7 +157,19 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
         collectionView.heightAnchor.constraint(equalToConstant: margins.layoutFrame.size.height - (margins.layoutFrame.size.width * 0.18)).isActive = true
         collectionView.topAnchor.constraint(equalTo: view.layoutMarginsGuide.topAnchor).isActive = true
         collectionView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-
+        
+        
+    }
+    
+    override func viewWillLayoutSubviews() {
+        var count = 0
+        if globalVars.loadProfileCell == true {
+            count += 1
+            if count == 3 {
+                globalVars.loadProfileCell = false
+            }
+            self.collectionView.contentOffset = CGPoint(x: self.collectionView.contentSize.width - view.bounds.width, y: 0)
+        }
     }
     
     
@@ -165,9 +177,8 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
         if Auth.auth().currentUser?.uid == nil {
             perform(#selector(ViewController.handleLogout), with: nil, afterDelay: 0)
         }
-//        func collectionView(self.collectionView, cellForItemAt: <#T##IndexPath#>)
-//        let cell = collectionView.cellForItem(at: IndexPath(item: 4, section: 1)) as! ProfileCollectionViewCell
-//        cell.profileView.image = globalVars.accountInfo.ProfileImage
+        
+        self.collectionView.reloadData()
     }
     
     @objc func handleLogout() {
@@ -180,6 +191,7 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
         }
         self.performSegue(withIdentifier: "toOnboarding", sender: self)
     }
+
     
     override func viewDidLoad() {
         print("SAFE AREA: \(view.safeAreaLayoutGuide.layoutFrame.size.height)")
@@ -225,7 +237,6 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
         mapButton.center = centerButton.center
         menuButton.center = centerButton.center
         
-        menuBar.collectionView.selectItem(at: IndexPath(item: 0, section: 0), animated: false, scrollPosition: [])
     }
     
     

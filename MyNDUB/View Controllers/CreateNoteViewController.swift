@@ -10,6 +10,8 @@ import UIKit
 
 class CreateNoteViewController: UIViewController, UITextViewDelegate {
     
+    
+    
     // retrieving data
     var filePath: String {
         let manager = FileManager.default
@@ -74,6 +76,7 @@ class CreateNoteViewController: UIViewController, UITextViewDelegate {
         setup()
     }
     
+    var delegate: ReloadNotesTableView?
     
     @objc func saveNote() {
         print("save note")
@@ -99,14 +102,14 @@ class CreateNoteViewController: UIViewController, UITextViewDelegate {
             }
         }
         
-        
-
         NSKeyedArchiver.archiveRootObject(globalVars.courses, toFile: filePath)
                 
         let notesVC = NotesViewController()
+        loadData()
         notesVC.tableView.reloadData()
         self.navigationController?.popViewController(animated: true)
     }
+    
     
     func textViewDidChange(_ textView: UITextView) {
         self.navigationItem.rightBarButtonItem?.isEnabled = true
