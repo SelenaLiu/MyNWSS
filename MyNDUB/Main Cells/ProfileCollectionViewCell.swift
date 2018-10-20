@@ -19,7 +19,7 @@ class ProfileCollectionViewCell: UICollectionViewCell, UITableViewDelegate, UITa
     let addEditButton: UIButton = {
         let button = UIButton(type: .system)
         button.setImage(#imageLiteral(resourceName: "settings"), for: .normal)
-        button.tintColor = .orange //UIColor(displayP3Red: 186, green: 226, blue: 227, alpha: 1.0)
+        button.tintColor = UIColor.black
         button.titleLabel?.font = UIFont.systemFont(ofSize: 15)
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
@@ -28,6 +28,7 @@ class ProfileCollectionViewCell: UICollectionViewCell, UITableViewDelegate, UITa
     let titleLabel: UILabel = {
         let label = UILabel()
         label.text = "Profile"
+        label.backgroundColor = .orange
         label.textAlignment = .center
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
@@ -36,12 +37,12 @@ class ProfileCollectionViewCell: UICollectionViewCell, UITableViewDelegate, UITa
     let segment: UISegmentedControl = {
         let segment = UISegmentedControl()
         segment.tintColor = .white
-        segment.backgroundColor = UIColor(displayP3Red: 29/255, green: 60/255, blue: 80/255, alpha: 1.0)//UIColor(displayP3Red: 180/256, green: 74/256, blue: 35/256, alpha: 1.0)
+        segment.backgroundColor = UIColor.darkGray
         segment.insertSegment(withTitle: "Bell Schedule", at: 0, animated: true)
         segment.insertSegment(withTitle: "School Info", at: 1, animated: true)
-        segment.insertSegment(withTitle: "My Events", at: 2, animated: true)
         segment.translatesAutoresizingMaskIntoConstraints = false
         segment.layer.cornerRadius = 0
+        segment.layer.masksToBounds = true
         segment.selectedSegmentIndex = 0
         return segment
     }()
@@ -49,11 +50,12 @@ class ProfileCollectionViewCell: UICollectionViewCell, UITableViewDelegate, UITa
     let daySegment: UISegmentedControl = {
         let segment = UISegmentedControl()
         segment.tintColor = .white
-        segment.backgroundColor = .orange//UIColor(displayP3Red: 180/256, green: 74/256, blue: 35/256, alpha: 1.0)
+        segment.backgroundColor = UIColor.darkGray//UIColor(displayP3Red: 228/255, green: 56/255, blue: 57/255, alpha: 1.0)
         segment.insertSegment(withTitle: "Day 1", at: 0, animated: true)
         segment.insertSegment(withTitle: "Day 2", at: 1, animated: true)
         segment.translatesAutoresizingMaskIntoConstraints = false
         segment.layer.cornerRadius = 0
+        segment.layer.masksToBounds = true
         segment.selectedSegmentIndex = 0
         return segment
     }()
@@ -71,7 +73,7 @@ class ProfileCollectionViewCell: UICollectionViewCell, UITableViewDelegate, UITa
         tv.textContainer.lineBreakMode = .byWordWrapping
         tv.sizeToFit()
         tv.text = "Connect to NWSS's Social Media"
-        tv.font = UIFont(name: "Superclarendon-Light", size: 20)
+        tv.font = UIFont.systemFont(ofSize: 20)
         tv.textAlignment = .center
         tv.isUserInteractionEnabled = false
         tv.translatesAutoresizingMaskIntoConstraints = false
@@ -136,6 +138,55 @@ class ProfileCollectionViewCell: UICollectionViewCell, UITableViewDelegate, UITa
         return tv
     }()
     
+    var courseFilePath: String {
+        let manager = FileManager.default
+        let url = manager.urls(for: .documentDirectory, in: .userDomainMask).first
+        
+        return url!.appendingPathComponent("Data").path
+    }
+    
+    func loadData() {
+        if let ourData = NSKeyedUnarchiver.unarchiveObject(withFile: courseFilePath) as? [Course] {
+            globalVars.courses = ourData
+        }
+    }
+    
+    func getCourseData() {
+        loadData()
+        globalVars.courses = []
+        
+        // retreives course data from Firebase
+        let currentUserUID = Auth.auth().currentUser?.uid
+
+        Database.database().reference().child("users").child(currentUserUID!).child("courses").observeSingleEvent(of: .value, with: { (snapshot) in
+            let courseDict = snapshot.value as? [String : [String:Any]]
+            print("COURSE DICT: ", courseDict)
+            if courseDict != nil {
+                for value in courseDict! {
+                    let name = value.key
+                    let block = value.value["block"] as! String
+                    let day = value.value["day"] as! Int
+                    let notesValue = value.value["notes"] as? [String:String]
+                    var notes: [Notes] = []
+                    if notesValue != nil {
+                        for note in notesValue! {
+                            let noteTitle = note.key
+                            let noteText = note.value
+                            notes.append(Notes(title: noteTitle, text: noteText))
+                        }
+                    }
+
+                    let course = Course(name: name, day: day, block: block, notes: notes)
+                    globalVars.courses.append(course)
+                    NSKeyedArchiver.archiveRootObject(globalVars.courses, toFile: self.courseFilePath)
+                    self.bellTableView.reloadData()
+                    self.bell2TableView.reloadData()
+                }
+            }
+
+        })
+    }
+    
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if tableView == bellTableView || tableView == bell2TableView {
@@ -172,12 +223,6 @@ class ProfileCollectionViewCell: UICollectionViewCell, UITableViewDelegate, UITa
         return 5
     }
     
-    var filePath: String {
-        let manager = FileManager.default
-        let url = manager.urls(for: .documentDirectory, in: .userDomainMask).first
-        
-        return url!.appendingPathComponent("Data").path
-    }
     var accountFilePath: String {
         let manager = FileManager.default
         let url = manager.urls(for: .documentDirectory, in: .userDomainMask).first
@@ -185,11 +230,7 @@ class ProfileCollectionViewCell: UICollectionViewCell, UITableViewDelegate, UITa
         return url!.appendingPathComponent("AccountData").path
     }
     
-    func loadData() {
-        if let ourData = NSKeyedUnarchiver.unarchiveObject(withFile: filePath) as? [Course] {
-            globalVars.courses = ourData
-        }
-    }
+    
     func loadAccountData() {
         if let ourData = NSKeyedUnarchiver.unarchiveObject(withFile: accountFilePath) as? Account {
             globalVars.accountInfo = ourData
@@ -263,12 +304,14 @@ class ProfileCollectionViewCell: UICollectionViewCell, UITableViewDelegate, UITa
     func setFontsForBellSchedule(cell: bellTableCell) {
         if cell.courseTextView.text == "" || cell.courseTextView.text == nil || cell.courseTextView.text == "Tap to edit/add a course" {
             cell.courseTextView.text = "Tap to edit/add a course"
-            cell.courseTextView.font = UIFont.italicSystemFont(ofSize: 13)
+            cell.courseTextView.font = UIFont.italicSystemFont(ofSize: cell.frame.height * 0.17)
             cell.courseTextView.textColor = .lightGray
         } else {
-            cell.courseTextView.font = UIFont.boldSystemFont(ofSize: 17)
+            cell.courseTextView.font = UIFont.boldSystemFont(ofSize: cell.frame.height * 0.2)
             cell.courseTextView.textColor = .black
         }
+        
+        cell.timeTextView.font = UIFont.systemFont(ofSize: cell.frame.height * 0.19)
     }
     
     
@@ -334,15 +377,36 @@ class ProfileCollectionViewCell: UICollectionViewCell, UITableViewDelegate, UITa
     override init(frame: CGRect) {
         super.init(frame: frame)
         loadData()
-
         print("ProfileVC: ", globalVars.accountInfo.Name, globalVars.accountInfo.Email, globalVars.accountInfo.ProfileImage)
         
-        addSubview(addEditButton)
+        //Checks for connection to internet to see what to load for courses
+        let connectedRef = Database.database().reference(withPath: ".info/connected")
+        connectedRef.observe(.value, with: { snapshot in
+            if let connected = snapshot.value as? Bool, connected {
+                print("Connected")
+                self.getCourseData()
+            } else {
+                print("Not connected")
+                self.loadData()
+                self.bellTableView.reloadData()
+                self.bell2TableView.reloadData()
+            }
+        })
+        
+        addSubview(daySegment)
+        addSubview(segment)
         addSubview(titleLabel)
-        addEditButton.layer.shadowColor = UIColor.black.cgColor
-        addEditButton.layer.shadowOffset = CGSize(width: 0, height: 0)
-        addEditButton.layer.shadowOpacity = 1.0
-        addEditButton.layer.shadowRadius = 3
+        titleLabel.layer.shadowColor = UIColor.black.cgColor
+        titleLabel.layer.shadowOpacity = 0.5
+        titleLabel.layer.shadowOffset = CGSize(width: 0, height: 3)
+        titleLabel.layer.shadowRadius = 3
+        titleLabel.font = UIFont.boldSystemFont(ofSize: bounds.width * 0.06)
+        addSubview(addEditButton)
+        
+//        addEditButton.layer.shadowColor = UIColor.black.cgColor
+//        addEditButton.layer.shadowOffset = CGSize(width: 0, height: 0)
+//        addEditButton.layer.shadowOpacity = 1.0
+//        addEditButton.layer.shadowRadius = 3
         addEditButton.addTarget(self, action: #selector(ProfileCollectionViewCell.presentSettings), for: .touchUpInside)
 
         segment.addTarget(self, action: #selector(ProfileCollectionViewCell.changeViews), for: .valueChanged)
@@ -360,8 +424,7 @@ class ProfileCollectionViewCell: UICollectionViewCell, UITableViewDelegate, UITa
         bell2TableView.register(bellTableCell.self, forCellReuseIdentifier: "cell2ID")
         
         addSubview(schoolInfoView)
-        addSubview(daySegment)
-        addSubview(segment)
+        
         segment.layer.shadowColor = UIColor.gray.cgColor
         segment.layer.shadowOffset = CGSize(width: 0, height: 3)
         segment.layer.shadowOpacity = 0.5
@@ -408,29 +471,29 @@ class ProfileCollectionViewCell: UICollectionViewCell, UITableViewDelegate, UITa
         addEditButton.centerYAnchor.constraint(equalTo: titleLabel.centerYAnchor).isActive = true
         addEditButton.rightAnchor.constraint(equalTo: rightAnchor, constant: -10).isActive = true
         
-        titleLabel.widthAnchor.constraint(equalToConstant: bounds.width/2).isActive = true
+        titleLabel.widthAnchor.constraint(equalToConstant: bounds.width).isActive = true
         titleLabel.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
         titleLabel.heightAnchor.constraint(equalToConstant: bounds.width * 0.2).isActive = true
         titleLabel.topAnchor.constraint(equalTo: topAnchor).isActive = true
         
         segment.topAnchor.constraint(equalTo: titleLabel.bottomAnchor).isActive = true
         segment.widthAnchor.constraint(equalToConstant: bounds.width).isActive = true
-        segment.heightAnchor.constraint(equalToConstant: bounds.width * 0.2).isActive = true
+        segment.heightAnchor.constraint(equalToConstant: bounds.width * 0.15).isActive = true
         segment.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
         
         daySegment.topAnchor.constraint(equalTo: segment.bottomAnchor).isActive = true
         daySegment.widthAnchor.constraint(equalToConstant: bounds.width).isActive = true
-        daySegment.heightAnchor.constraint(equalToConstant: bounds.width * 0.2).isActive = true
+        daySegment.heightAnchor.constraint(equalToConstant: bounds.width * 0.1).isActive = true
         daySegment.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
         
         bellTableView.widthAnchor.constraint(equalToConstant: bounds.width).isActive = true
         bellTableView.topAnchor.constraint(equalTo: daySegment.bottomAnchor).isActive = true
-        bellTableView.heightAnchor.constraint(equalToConstant: bounds.height * 0.7 - 70).isActive = true
+        bellTableView.heightAnchor.constraint(equalToConstant: bounds.height - (bounds.width * 0.45)).isActive = true
         bellTableView.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
         
         bell2TableView.widthAnchor.constraint(equalToConstant: bounds.width).isActive = true
         bell2TableView.topAnchor.constraint(equalTo: daySegment.bottomAnchor).isActive = true
-        bell2TableView.heightAnchor.constraint(equalToConstant: bounds.height * 0.7 - 70).isActive = true
+        bell2TableView.heightAnchor.constraint(equalToConstant: bounds.height - (bounds.width * 0.45)).isActive = true
         bell2TableView.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
         
         visitLabel.topAnchor.constraint(equalTo: segment.bottomAnchor, constant: 10).isActive = true
@@ -481,6 +544,7 @@ class bellTableCell: UITableViewCell {
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         addSubview(timeTextView)
+        timeTextView.font = UIFont.systemFont(ofSize: frame.height * 0.35)
         addSubview(courseTextView)
         
         setup()

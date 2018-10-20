@@ -11,64 +11,42 @@ import Firebase
 
 class SignUpViewController: UIViewController {
     
-    let backgroundImage: UIImageView = {
-        let imageView = UIImageView()
-        imageView.image = #imageLiteral(resourceName: "LoginBackground")
-        imageView.alpha = 0.7
-        imageView.translatesAutoresizingMaskIntoConstraints = false
-        return imageView
-    }()
     
     let titleLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.text = "Sign Up"
+        label.text = "Create an Account"
         label.textAlignment = .center
-        label.textColor = .white
-        label.font = UIFont.boldSystemFont(ofSize: 50)
+        label.textColor = .orange
+        label.font = UIFont.systemFont(ofSize: 40)
         return label
-    }()
-    
-    let profileView: UIImageView = {
-        let imageView = UIImageView()
-        imageView.layer.masksToBounds = true
-        imageView.layer.borderWidth = 5
-        imageView.isUserInteractionEnabled = true
-        imageView.layer.borderColor = UIColor.white.cgColor
-        imageView.contentMode = .scaleToFill
-        imageView.layer.masksToBounds = true
-        imageView.image = #imageLiteral(resourceName: "cuteOwl")
-        imageView.translatesAutoresizingMaskIntoConstraints = false
-        return imageView
     }()
     
     let nameTextField: inputTextField = {
         let textField = inputTextField()
-        textField.attributedPlaceholder = NSAttributedString(string: "First and Last Name", attributes: [NSAttributedStringKey.foregroundColor: UIColor.white])
+        textField.attributedPlaceholder = NSAttributedString(string: "First and Last Name", attributes: [NSAttributedStringKey.foregroundColor: UIColor.gray])
         return textField
     }()
     
     let emailTextField: inputTextField = {
         let textField = inputTextField()
-        textField.attributedPlaceholder = NSAttributedString(string: "Email", attributes: [NSAttributedStringKey.foregroundColor: UIColor.white])
+        textField.attributedPlaceholder = NSAttributedString(string: "Email", attributes: [NSAttributedStringKey.foregroundColor: UIColor.gray])
         return textField
     }()
     
     let passwordTextField: inputTextField = {
         let textField = inputTextField()
         textField.isSecureTextEntry = true
-        textField.attributedPlaceholder = NSAttributedString(string: "Password", attributes: [NSAttributedStringKey.foregroundColor: UIColor.white])
+        textField.attributedPlaceholder = NSAttributedString(string: "Password", attributes: [NSAttributedStringKey.foregroundColor: UIColor.gray])
         return textField
     }()
     
     let doneButton: UIButton = {
         let button = UIButton(type: .system)
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.backgroundColor = .clear
-        button.layer.borderWidth = 2.0
-        button.layer.borderColor = UIColor.white.cgColor
+        button.backgroundColor = .orange
         button.setTitle("Continue", for: .normal)
-        button.titleLabel?.font = UIFont.systemFont(ofSize: 16)
+        button.addTarget(self, action: #selector(SignUpViewController.handleDone), for: .touchDown)
         button.setTitleColor(.white, for: .normal)
         button.layer.cornerRadius = 10
         return button
@@ -77,11 +55,12 @@ class SignUpViewController: UIViewController {
     let backButton: UIButton = {
         let button = UIButton(type: .system)
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.backgroundColor = .clear
+        button.backgroundColor = .orange
         button.setTitle("Back", for: .normal)
+        button.layer.masksToBounds = true
         button.addTarget(self, action: #selector(SignUpViewController.dismissVC), for: .touchDown)
-        button.titleLabel?.font = UIFont.systemFont(ofSize: 16)
         button.setTitleColor(.white, for: .normal)
+        button.layer.cornerRadius = 10
         return button
     }()
     
@@ -90,15 +69,21 @@ class SignUpViewController: UIViewController {
     }
     
     var bottomConstraint: NSLayoutConstraint?
+    
+    var isConnectedToInternet = false
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        let connectedRef = Database.database().reference(withPath: ".info/connected")
+        connectedRef.observe(.value, with: { snapshot in
+            if let connected = snapshot.value as? Bool, connected {
+                print("Connected")
+                self.isConnectedToInternet = true
+            }
+        })
 
-        super.viewDidLoad()
-        view.backgroundColor = .orange
-        view.addSubview(backgroundImage)
         view.addSubview(titleLabel)
-        view.addSubview(profileView)
         view.addSubview(nameTextField)
         view.addSubview(emailTextField)
         view.addSubview(passwordTextField)
@@ -106,19 +91,30 @@ class SignUpViewController: UIViewController {
         view.addSubview(backButton)
         doneButton.addTarget(self, action: #selector(SignUpViewController.handleRegister), for: .touchDown)
         
-        bottomConstraint = NSLayoutConstraint(item:  self.backButton, attribute: NSLayoutAttribute.bottom, relatedBy: .equal, toItem: self.view, attribute: .bottom, multiplier: 1, constant: 0)
-        view.addConstraint(bottomConstraint!)
+        
         NotificationCenter.default.addObserver(self, selector: #selector(SignUpViewController.keyboardWillShow), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
         
         setup()
         
-        profileView.layer.cornerRadius = view.bounds.width * 0.3 / 2
-        profileView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(SignUpViewController.handleSelectProfileImage)))
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+    override open var shouldAutorotate: Bool {
+        return false
+    }
+    
+    @objc func handleDone() {
+        if isConnectedToInternet {
+            handleRegister()
+        } else {
+            let alertVC = UIAlertController(title: "Connection Failure", message: "You are not currently connected to a network. Please reconnect before you change your courses.", preferredStyle: .alert)
+            alertVC.addAction(UIAlertAction(title: "Ok", style: .cancel, handler: nil))
+            self.present(alertVC, animated: true, completion: nil)
+        }
     }
     
     
@@ -131,7 +127,13 @@ class SignUpViewController: UIViewController {
             
             UIView.animate(withDuration: 0.25) {
                 self.view.layoutIfNeeded()
-                self.bottomConstraint?.constant = -(rect.height + 20)
+                self.backButton.frame.origin.y = (self.view.frame.height - rect.height - self.backButton.frame.height - 10)
+                self.doneButton.frame.origin.y = (self.backButton.frame.origin.y - self.doneButton.frame.height - 10)
+                self.passwordTextField.frame.origin.y = (self.doneButton.frame.origin.y - self.passwordTextField.frame.height - 10)
+                self.emailTextField.frame.origin.y = (self.passwordTextField.frame.origin.y - self.emailTextField.frame.height - 10)
+                self.nameTextField.frame.origin.y = (self.emailTextField.frame.origin.y - self.nameTextField.frame.height - 10)
+                self.titleLabel.frame.origin.y = (self.nameTextField.frame.origin.y - self.titleLabel.frame.height - 30)
+                
             }
         }
     }
@@ -140,7 +142,6 @@ class SignUpViewController: UIViewController {
         guard let email = self.emailTextField.text else { return }
         guard let password = self.passwordTextField.text else { return }
         guard let name = self.nameTextField.text else { return }
-        guard let image = profileView.image else { return }
         print("SignUpVC: ", name, email)
         Auth.auth().createUser(withEmail: email, password: password) { (user, error) in
             if error != nil {
@@ -152,28 +153,16 @@ class SignUpViewController: UIViewController {
             } else {
                 print("User created!")
                 
-                guard let uid = user?.uid else {
+                //guard let uid = user?.uid else {
+                let currentUserUID = Auth.auth().currentUser?.uid
+                
+                let values = ["name": name, "email": email, "courses": []] as [String : Any]
+                self.registerUserIntoDatabaseUsingUID(uid: currentUserUID!, values: values)
+                
                     return
-                }
-                let imageUID = NSUUID().uuidString
-                let storageRef = Storage.storage().reference().child("profile_images").child("\(imageUID).png")
-                if let uploadData = UIImagePNGRepresentation(self.profileView.image!) {
-                    storageRef.putData(uploadData, metadata: nil, completion: { (metadata, error) in
-                        if error != nil {
-                            print(error!)
-                            return
-                        }
-                        
-                        if let profileImageURL = metadata?.downloadURL()?.absoluteString {
-                            let values = ["name": name, "email": email, "profileImage": profileImageURL]
-                            self.registerUserIntoDatabaseUsingUID(uid: uid, values: values)
-                            
-                        }
-                        
-                    })
-                    
-                }
+
                 self.performSegue(withIdentifier: "toHome", sender: self)
+
             }
         }
         
@@ -195,67 +184,41 @@ class SignUpViewController: UIViewController {
         })
     }
     
-//    func uploadProfileImage(_ image: UIImage, completion: @escaping ((_ url: URL?) -> ())) {
-//        guard let uid = Auth.auth().currentUser?.uid else { return }
-//        let storageRef = Storage.storage().reference().child("users/\(uid)")
-//
-//        guard let imageData = UIImageJPEGRepresentation(image, 0.75) else { return }
-//
-//        let metaData = StorageMetadata()
-//        metaData.contentType = "img/jpg"
-//        storageRef.putData(imageData, metadata: metaData) { metaData, error in
-//            if error != nil {
-//                print (error)
-//            } else {
-//                //success!
-//                if let url = metaData?.downloadURL() {
-//                    completion(url)
-//                } else {
-//                    completion(nil)
-//                }
-//            }
-//        }
-//    }
     
     func setup() {
-        backgroundImage.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
-        backgroundImage.widthAnchor.constraint(equalTo: view.widthAnchor).isActive = true
-        backgroundImage.heightAnchor.constraint(equalTo: view.heightAnchor).isActive = true
         
         titleLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         titleLabel.widthAnchor.constraint(equalToConstant: view.bounds.width).isActive = true
-        titleLabel.heightAnchor.constraint(equalToConstant: 100).isActive = true
-        titleLabel.topAnchor.constraint(equalTo: view.topAnchor, constant: 100).isActive = true
+        titleLabel.heightAnchor.constraint(equalToConstant: view.bounds.width * 0.08).isActive = true
+        titleLabel.bottomAnchor.constraint(equalTo: nameTextField.topAnchor, constant: -30).isActive = true
         
-        profileView.widthAnchor.constraint(equalToConstant: view.bounds.width * 0.3).isActive = true
-        profileView.heightAnchor.constraint(equalToConstant: view.bounds.width * 0.3).isActive = true
-        profileView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        profileView.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 10).isActive = true
         
         nameTextField.widthAnchor.constraint(equalToConstant: view.bounds.width * 0.8).isActive = true
-        nameTextField.topAnchor.constraint(equalTo: profileView.bottomAnchor, constant: 30).isActive = true
+        nameTextField.bottomAnchor.constraint(equalTo: emailTextField.topAnchor, constant: -10).isActive = true
         nameTextField.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        nameTextField.heightAnchor.constraint(equalToConstant: 40).isActive = true
+        nameTextField.heightAnchor.constraint(equalToConstant: view.bounds.width * 0.08).isActive = true
         
         emailTextField.widthAnchor.constraint(equalToConstant: view.bounds.width * 0.8).isActive = true
-        emailTextField.topAnchor.constraint(equalTo: nameTextField.bottomAnchor, constant: 10).isActive = true
+        emailTextField.bottomAnchor.constraint(equalTo: passwordTextField.topAnchor, constant: -10).isActive = true
         emailTextField.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        emailTextField.heightAnchor.constraint(equalToConstant: 40).isActive = true
+        emailTextField.heightAnchor.constraint(equalToConstant: view.bounds.width * 0.08).isActive = true
         
         passwordTextField.widthAnchor.constraint(equalToConstant: view.bounds.width * 0.8).isActive = true
-        passwordTextField.topAnchor.constraint(equalTo: emailTextField.bottomAnchor, constant: 10).isActive = true
+        passwordTextField.bottomAnchor.constraint(equalTo: doneButton.topAnchor, constant: -10).isActive = true
         passwordTextField.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        passwordTextField.heightAnchor.constraint(equalToConstant: 40).isActive = true
+        passwordTextField.heightAnchor.constraint(equalToConstant: view.bounds.width * 0.08).isActive = true
         
-        backButton.widthAnchor.constraint(equalToConstant: view.bounds.width * 0.3).isActive = true
-        backButton.topAnchor.constraint(equalTo: doneButton.bottomAnchor, constant: 10).isActive = true
-        backButton.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        backButton.heightAnchor.constraint(equalToConstant: 40).isActive = true
-        
-        doneButton.widthAnchor.constraint(equalToConstant: view.bounds.width * 0.3).isActive = true
-        doneButton.topAnchor.constraint(equalTo: passwordTextField.bottomAnchor, constant: 50).isActive = true
         doneButton.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        doneButton.heightAnchor.constraint(equalToConstant: 40).isActive = true
+        doneButton.widthAnchor.constraint(equalToConstant: view.bounds.width * 0.5).isActive = true
+        doneButton.heightAnchor.constraint(equalToConstant: 30).isActive = true
+        doneButton.bottomAnchor.constraint(equalTo: backButton.topAnchor, constant: -10).isActive = true
+        
+        backButton.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        backButton.widthAnchor.constraint(equalToConstant: view.bounds.width * 0.5).isActive = true
+        backButton.heightAnchor.constraint(equalToConstant: 30).isActive = true
+        backButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -(view.bounds.height/3)).isActive = true
+        
+        
     }
 }
 

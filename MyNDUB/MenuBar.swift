@@ -53,7 +53,7 @@ class MenuBar: UIView, UICollectionViewDelegate, UICollectionViewDataSource, UIC
     
     func setup() {
         
-        collectionView.widthAnchor.constraint(equalToConstant: 375).isActive = true
+        collectionView.widthAnchor.constraint(equalTo: widthAnchor).isActive = true
         collectionView.heightAnchor.constraint(equalToConstant: 50).isActive = true
         collectionView.topAnchor.constraint(equalTo: topAnchor).isActive = true
         collectionView.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
@@ -85,7 +85,7 @@ class MenuBar: UIView, UICollectionViewDelegate, UICollectionViewDataSource, UIC
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
-        let cellSpacing = self.frame.width/13
+        let cellSpacing = (self.frame.width - (self.frame.height * 5)) //(self.frame.width/13)
         return cellSpacing
     }
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {

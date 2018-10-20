@@ -33,7 +33,7 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
     }()
     
     let centerButton: UIButton = {
-        let button = UIButton(type: .system)
+        let button = UIButton(type: .custom)
         button.setImage(#imageLiteral(resourceName: "xButton"), for: .normal)
         button.layer.cornerRadius = button.bounds.height/2
         button.addTarget(self, action: #selector(ViewController.triggerBlurEffect), for: .touchDown)
@@ -43,7 +43,7 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
     }()
     
     let galleryButton: UIButton = {
-        let button = UIButton(type: .system)
+        let button = UIButton(type: .custom)
         button.setImage(#imageLiteral(resourceName: "gallery"), for: .normal)
         button.addTarget(self, action: #selector(ViewController.presentWIPVC), for: .touchDown)
         button.contentMode = .scaleAspectFit
@@ -53,7 +53,7 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
     }()
     
     let directoryButton: UIButton = {
-        let button = UIButton(type: .system)
+        let button = UIButton(type: .custom)
         button.setImage(#imageLiteral(resourceName: "documentsIcon"), for: .normal)
         button.addTarget(self, action: #selector(ViewController.presentWIPVC), for: .touchDown)
         button.contentMode = .scaleAspectFit
@@ -63,7 +63,7 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
     }()
     
     let mapButton: UIButton = {
-        let button = UIButton(type: .system)
+        let button = UIButton(type: .custom)
         button.setImage(#imageLiteral(resourceName: "mapIcon"), for: .normal)
         button.addTarget(self, action: #selector(ViewController.presentMapVC), for: .touchDown)
         button.contentMode = .scaleAspectFit
@@ -73,9 +73,9 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
     }()
     
     let menuButton: UIButton = {
-        let button = UIButton(type: .system)
+        let button = UIButton(type: .custom)
         button.setImage(#imageLiteral(resourceName: "restaurant"), for: .normal)
-        button.addTarget(self, action: #selector(ViewController.presentMenuVC), for: .touchDown)
+        button.addTarget(self, action: #selector(ViewController.presentWIPVC), for: .touchDown)
         button.contentMode = .scaleAspectFit
         button.tintColor = .black
         button.translatesAutoresizingMaskIntoConstraints = false
@@ -116,8 +116,7 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
         handleBlurView()
         
         let mapVC = mainStoryboard.instantiateViewController(withIdentifier: "MapVC")
-        let navVC = UINavigationController(rootViewController: mapVC)
-        present(navVC, animated: true, completion: nil)
+        present(mapVC, animated: true, completion: nil)
     }
     
     @objc func presentMenuVC() {
@@ -132,8 +131,7 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
         handleBlurView()
         
         let wipVC = mainStoryboard.instantiateViewController(withIdentifier: "WIPVC")
-        let navVC = UINavigationController(rootViewController: wipVC)
-        present(navVC, animated: true, completion: nil)
+        present(wipVC, animated: true, completion: nil)
     }
     
     var galleryCenter: CGPoint!
@@ -177,6 +175,7 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
         if Auth.auth().currentUser?.uid == nil {
             perform(#selector(ViewController.handleLogout), with: nil, afterDelay: 0)
         }
+        globalVars.loadProfileCell = false
         
         self.collectionView.reloadData()
     }
@@ -195,8 +194,8 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
     
     override func viewDidLoad() {
         print("SAFE AREA: \(view.safeAreaLayoutGuide.layoutFrame.size.height)")
-        
         super.viewDidLoad()
+        view.backgroundColor = .orange
         view.addSubview(menuBackView)
         view.addSubview(collectionView)
         view.addSubview(menuBar)
@@ -219,7 +218,6 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
         blurEffectView.contentView.addSubview(mapButton)
         blurEffectView.contentView.addSubview(menuButton)
         
-
         blurEffectView.frame = view.bounds
 
         
@@ -255,8 +253,8 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
         
         galleryButton.rightAnchor.constraint(equalTo: directoryButton.leftAnchor, constant: -20).isActive = true
         galleryButton.bottomAnchor.constraint(equalTo: menuBar.topAnchor, constant: -10).isActive = true
-        galleryButton.heightAnchor.constraint(equalToConstant: 40).isActive = true
-        galleryButton.widthAnchor.constraint(equalToConstant: 40).isActive = true
+        galleryButton.heightAnchor.constraint(equalToConstant: 30).isActive = true
+        galleryButton.widthAnchor.constraint(equalToConstant: 30).isActive = true
         galleryButton.center.x = view.bounds.width/2 - 100
         galleryButton.center.y = view.bounds.height - 100
         
@@ -276,8 +274,8 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
         
         menuButton.leftAnchor.constraint(equalTo: mapButton.rightAnchor, constant: 20).isActive = true
         menuButton.bottomAnchor.constraint(equalTo: menuBar.topAnchor, constant: -10).isActive = true
-        menuButton.heightAnchor.constraint(equalToConstant: 40).isActive = true
-        menuButton.widthAnchor.constraint(equalToConstant: 40).isActive = true
+        menuButton.heightAnchor.constraint(equalToConstant: 30).isActive = true
+        menuButton.widthAnchor.constraint(equalToConstant: 30).isActive = true
         menuButton.center.x = view.bounds.width/2 + 100
         menuButton.center.y = view.bounds.height - 100
         

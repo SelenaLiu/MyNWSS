@@ -111,7 +111,23 @@ class HomeCollectionViewCell: UICollectionViewCell, UITableViewDelegate, UITable
     override init(frame: CGRect) {
         super.init(frame: frame)
         backgroundColor = .white
-        getEventData()
+        let connectedRef = Database.database().reference(withPath: ".info/connected")
+        connectedRef.observe(.value, with: { snapshot in
+            if let connected = snapshot.value as? Bool, connected {
+                print("Connected")
+                self.getEventData()
+            } else {
+                print("Not connected")
+                if self.eventTitles == [] {
+                    self.loadData()
+                    print(self.eventTitles, globalVars.pastAndFutureEvents)
+                    self.loadDisconnectedData()
+                    self.eventsTableView.reloadData()
+                }
+                
+            }
+        })
+
         addSubview(headlineCollectionView)
         //headlineCollectionView.addSubview(headlinePageControl)
         addSubview(dateTextView)
@@ -157,6 +173,7 @@ class HomeCollectionViewCell: UICollectionViewCell, UITableViewDelegate, UITable
     func getEventData() {
         loadData()
         globalVars.pastAndFutureEvents = []
+        eventTitles = []
 
         // adds the new event to the top of the tableView
         Database.database().reference().child("Events").queryOrderedByKey().observe(.childAdded) { (snapshot) in
@@ -167,7 +184,7 @@ class HomeCollectionViewCell: UICollectionViewCell, UITableViewDelegate, UITable
             self.eventTitles.insert([title!, description!, date!], at: 0)
             
             let dateFormatter = DateFormatter()
-            dateFormatter.dateFormat = "MM/DD/YYYY"
+            dateFormatter.dateFormat = "MM/DD/YY"
             let newEvent = Event(title: title!, description: description!, date: date!, isBookmarked: false)
             globalVars.pastAndFutureEvents.insert(newEvent, at: 0)
             NSKeyedArchiver.archiveRootObject(globalVars.pastAndFutureEvents, toFile: self.eventFilePath)
@@ -190,6 +207,12 @@ class HomeCollectionViewCell: UICollectionViewCell, UITableViewDelegate, UITable
             }
             NSKeyedArchiver.archiveRootObject(globalVars.pastAndFutureEvents, toFile: self.eventFilePath)
             self.eventsTableView.reloadData()
+        }
+    }
+    
+    func loadDisconnectedData() {
+        for event in globalVars.pastAndFutureEvents {
+            eventTitles.append([event.Title, event.Description, event.Date])
         }
     }
     
@@ -245,6 +268,12 @@ class HomeCollectionViewCell: UICollectionViewCell, UITableViewDelegate, UITable
         let currentCell = tableView.cellForRow(at: indexPath) as! EventsCell
         globalVars.eventTitle = currentCell.nameTextView.text!
         globalVars.eventDescription = currentCell.messagetextView.text!
+        let formatter = DateFormatter()
+        formatter.dateFormat = "MM/dd/yyyy"
+        let date = formatter.date(from: self.eventTitles[indexPath.row].last!)
+        formatter.dateFormat = "MMM d, yyyy"
+        let string = formatter.string(from: date!)
+        globalVars.eventDate = string
         delegate?.didClick(segue: "toEventsDescription")
     }
     
@@ -253,14 +282,16 @@ class HomeCollectionViewCell: UICollectionViewCell, UITableViewDelegate, UITable
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return self.eventTitles.count
+        return globalVars.pastAndFutureEvents.count
     }
     
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: cellID, for: indexPath) as! EventsCell
-        cell.nameTextView.text = eventTitles[indexPath.row][0]
-        cell.messagetextView.text = eventTitles[indexPath.row][1]
+        if eventTitles.count != 0 {
+            cell.nameTextView.text = eventTitles[indexPath.row][0]
+            cell.messagetextView.text = eventTitles[indexPath.row][1]
+        }
         
         return cell
     }

@@ -34,14 +34,11 @@ class NotesCollectionViewCell: UICollectionViewCell, UITableViewDelegate, UITabl
         return tv
     }()
     
-    let titleLabel: UITextView = {
-        let label = UITextView()
+    let titleLabel: UILabel = {
+        let label = UILabel()
         label.text = "Notes"
-        label.textContainerInset = UIEdgeInsetsMake(15, 30, 0, 0)
-        label.backgroundColor = UIColor(displayP3Red: 236/255, green: 236/255, blue: 236/255, alpha: 1)
-        label.isUserInteractionEnabled = false
-        label.textAlignment = .left
-        label.font = UIFont.boldSystemFont(ofSize: 20)
+        label.backgroundColor = .orange
+        label.textAlignment = .center
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -101,9 +98,14 @@ class NotesCollectionViewCell: UICollectionViewCell, UITableViewDelegate, UITabl
     override init(frame: CGRect) {
         super.init(frame: frame)
         loadData()
-        addSubview(titleLabel)
-        notesTableView.register(UITableViewCell.self, forCellReuseIdentifier: notesCellID)
         addSubview(notesTableView)
+        addSubview(titleLabel)
+        titleLabel.font = UIFont.boldSystemFont(ofSize: bounds.width * 0.06)
+        titleLabel.layer.shadowColor = UIColor.gray.cgColor
+        titleLabel.layer.shadowOpacity = 1
+        titleLabel.layer.shadowOffset = CGSize(width: 0, height: 3)
+        titleLabel.layer.shadowRadius = 3
+        notesTableView.register(UITableViewCell.self, forCellReuseIdentifier: notesCellID)
         notesTableView.dataSource = self
         notesTableView.delegate = self
         
@@ -112,12 +114,12 @@ class NotesCollectionViewCell: UICollectionViewCell, UITableViewDelegate, UITabl
     
     func setup() {
         
-        titleLabel.heightAnchor.constraint(equalToConstant: 50).isActive = true
-        titleLabel.widthAnchor.constraint(equalTo: widthAnchor).isActive = true
+        titleLabel.widthAnchor.constraint(equalToConstant: bounds.width).isActive = true
         titleLabel.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
+        titleLabel.heightAnchor.constraint(equalToConstant: bounds.width * 0.2).isActive = true
         titleLabel.topAnchor.constraint(equalTo: topAnchor).isActive = true
         
-        notesTableView.heightAnchor.constraint(equalTo: heightAnchor).isActive = true
+        notesTableView.heightAnchor.constraint(equalToConstant: bounds.height * 0.8).isActive = true
         notesTableView.widthAnchor.constraint(equalTo: widthAnchor).isActive = true
         notesTableView.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
         notesTableView.topAnchor.constraint(equalTo: titleLabel.bottomAnchor).isActive = true

@@ -17,6 +17,7 @@ class Global {
     var accountInfo = Account(profileImage: UIImage(named: "cuteOwl")!, name: "", email: "")
     var eventTitle = ""
     var eventDescription = ""
+    var eventDate = ""
     
     var loadProfileCell = false
     

@@ -30,13 +30,7 @@ class CafViewController: UIViewController, UITableViewDelegate, UITableViewDataS
                     "$3.00/plate - vegetarian option",
                     "$2.50 - vegetarian option"]
     
-    let titleLabel: UILabel = {
-        let label = UILabel()
-        label.text = "Today's Cafeteria Menu"
-        label.font = UIFont.boldSystemFont(ofSize: 20)
-        label.translatesAutoresizingMaskIntoConstraints = false
-        return label
-    }()
+    
     
     let menuTableView: UITableView = {
         let tv = UITableView()
@@ -54,14 +48,12 @@ class CafViewController: UIViewController, UITableViewDelegate, UITableViewDataS
         
         view.backgroundColor = .white
         
-        view.addSubview(titleLabel)
         view.addSubview(menuTableView)
         
         menuTableView.delegate = self
         menuTableView.dataSource = self
         menuTableView.register(FoodCell.self, forCellReuseIdentifier: cellID)
         
-        setup()
         setupTableView()
     }
     
@@ -71,18 +63,11 @@ class CafViewController: UIViewController, UITableViewDelegate, UITableViewDataS
     
     func setupTableView() {
         menuTableView.widthAnchor.constraint(equalToConstant: view.bounds.width).isActive = true
-        menuTableView.heightAnchor.constraint(equalToConstant: view.bounds.height - 115).isActive = true
+        menuTableView.heightAnchor.constraint(equalToConstant: view.bounds.height).isActive = true
         menuTableView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        menuTableView.topAnchor.constraint(equalTo: titleLabel.bottomAnchor).isActive = true
+        menuTableView.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
     }
     
-    func setup() {
-        titleLabel.widthAnchor.constraint(equalToConstant: view.bounds.width - 30).isActive = true
-        titleLabel.heightAnchor.constraint(equalToConstant: 50).isActive = true
-        titleLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        titleLabel.topAnchor.constraint(equalTo: view.topAnchor, constant: 50).isActive = true
-        
-    }
     
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {

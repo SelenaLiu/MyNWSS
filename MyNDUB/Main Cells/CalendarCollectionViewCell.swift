@@ -18,6 +18,7 @@ class CalendarCollectionViewCell: UICollectionViewCell, JTAppleCalendarViewDeleg
     let dateSelectedTextColor = UIColor.white
     let dateNotSelectedTextColor = UIColor(displayP3Red: 50/256, green: 50/256, blue: 50/256, alpha: 1)
     let selectedCellColor = UIColor.orange
+    let eventCellColor = UIColor(displayP3Red: 251/256, green: 199/256, blue: 107/256, alpha: 0.5)
     let notSelectedCellColor = UIColor(displayP3Red: 250/256, green: 250/256, blue: 250/256, alpha: 1)
     
     var eventCounter = 0
@@ -138,7 +139,7 @@ class CalendarCollectionViewCell: UICollectionViewCell, JTAppleCalendarViewDeleg
     let schoolDayLabel: UILabel = {
         let label = UILabel()
         let formatter = DateFormatter()
-        formatter.dateFormat = "MM/dd/yyyy"
+        formatter.dateFormat = "MMMM dd"
         label.text = formatter.string(from: Date())
         label.textAlignment = .left
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -169,6 +170,10 @@ class CalendarCollectionViewCell: UICollectionViewCell, JTAppleCalendarViewDeleg
         calendarCollectionView.register(CalendarCell.self, forCellWithReuseIdentifier: "cellID")
         
         calendarCollectionView.selectDates([Date()], triggerSelectionDelegate: false)
+        calendarCollectionView.scrollToDate(Date(), animateScroll: false)
+        calendarCollectionView.scrollingMode = .stopAtEachCalendarFrame
+        let date = self.formatter.string(from: Date())
+        print("Date: ", date)
         
         addSubview(schoolDayLabel)
         addSubview(eventTableView)
@@ -212,15 +217,23 @@ class CalendarCollectionViewCell: UICollectionViewCell, JTAppleCalendarViewDeleg
             } else {
                 validCell.label.textColor = outsideMonthColor
             }
-            
-            formatter.dateFormat = "yyyy-MM-dd"
+            var eventDates: [String] = []
+            for event in globalVars.pastAndFutureEvents {
+                formatter.dateFormat = "MM/dd/yyyy"
+                let date1 = formatter.date(from: event.Date)
+                let stringDate = formatter.string(from: date1!)
+                eventDates.append(stringDate)
+            }
+            //formatter.dateFormat = "yyyy-MM-dd"
             let cellDate = formatter.string(from: cellState.date)
             let today = formatter.string(from: Date())
             if cellDate == today {
                 validCell.backgroundColor = .gray
+            } else if eventDates.contains(cellDate) {
+                validCell.backgroundColor = eventCellColor
+
             } else {
                 validCell.backgroundColor = notSelectedCellColor
-
             }
         }
     }
@@ -229,7 +242,7 @@ class CalendarCollectionViewCell: UICollectionViewCell, JTAppleCalendarViewDeleg
         //change schoolDayLabel text here
         guard let validCell = cell as? CalendarCell else { return }
         
-        formatter.dateFormat = "MM/dd/yyyy"//"MMMM dd"
+        formatter.dateFormat = "MMMM dd"
         let date = formatter.string(from: cellState.date)
 
         
@@ -238,7 +251,11 @@ class CalendarCollectionViewCell: UICollectionViewCell, JTAppleCalendarViewDeleg
             self.eventTitles = []
             var labelText = ""
             for event in globalVars.pastAndFutureEvents {
-                if event.Date == date {
+                formatter.dateFormat = "MM/dd/yyyy"
+                let date1 = formatter.date(from: event.Date)
+                formatter.dateFormat = "MMMM dd"
+                let eventDate = formatter.string(from: date1!)
+                if eventDate == date {
                     eventCounter += 1
                     eventTitles.append(event.Title)
                     labelText = "\(event.Title)"
@@ -268,11 +285,11 @@ class CalendarCollectionViewCell: UICollectionViewCell, JTAppleCalendarViewDeleg
         let margins = layoutMarginsGuide
         monthYearLabel.topAnchor.constraint(equalTo: margins.topAnchor).isActive = true
         monthYearLabel.widthAnchor.constraint(equalToConstant: bounds.width).isActive = true
-        monthYearLabel.heightAnchor.constraint(equalToConstant: 30).isActive = true
+        monthYearLabel.heightAnchor.constraint(equalToConstant: bounds.width * 0.05).isActive = true
         monthYearLabel.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
         
         stackView.widthAnchor.constraint(equalToConstant: bounds.width - 30).isActive = true
-        stackView.heightAnchor.constraint(equalToConstant: 30).isActive = true
+        stackView.heightAnchor.constraint(equalToConstant: bounds.width * 0.05).isActive = true
         stackView.topAnchor.constraint(equalTo: monthYearLabel.bottomAnchor).isActive = true
         stackView.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
 
@@ -283,11 +300,11 @@ class CalendarCollectionViewCell: UICollectionViewCell, JTAppleCalendarViewDeleg
         
         schoolDayLabel.leftAnchor.constraint(equalTo: calendarCollectionView.leftAnchor).isActive = true
         schoolDayLabel.widthAnchor.constraint(equalToConstant: bounds.width).isActive = true
-        schoolDayLabel.heightAnchor.constraint(equalToConstant: 30).isActive = true
+        schoolDayLabel.heightAnchor.constraint(equalToConstant: bounds.width * 0.05).isActive = true
         schoolDayLabel.topAnchor.constraint(equalTo: calendarCollectionView.bottomAnchor, constant: 10).isActive = true
         
         eventTableView.widthAnchor.constraint(equalToConstant: bounds.width).isActive = true
-        eventTableView.heightAnchor.constraint(equalToConstant: 50).isActive = true
+        eventTableView.heightAnchor.constraint(equalToConstant: bounds.height - (20 + bounds.width * 0.15 + bounds.height/1.5)).isActive = true
         eventTableView.topAnchor.constraint(equalTo: schoolDayLabel.bottomAnchor).isActive = true
         eventTableView.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
     }
@@ -323,11 +340,20 @@ class CalendarCollectionViewCell: UICollectionViewCell, JTAppleCalendarViewDeleg
         cell.backgroundColor = UIColor(displayP3Red: 250/256, green: 250/256, blue: 250/256, alpha: 1)
         sharedFunction(myCell: cell, cellState: cellState, date: date)
         handleColorChanges(cell: cell, cellState: cellState)
+        var eventDates: [String] = []
+        for event in globalVars.pastAndFutureEvents {
+            formatter.dateFormat = "MM/dd/yyyy"
+            let date1 = formatter.date(from: event.Date)
+            let stringDate = formatter.string(from: date1!)
+            eventDates.append(stringDate)
+        }
         
         let cellDate = formatter.string(from: date)
         let today = formatter.string(from: Date())
         if cellDate == today {
             cell.backgroundColor = .gray
+        } else if eventDates.contains(cellDate) {
+            cell.backgroundColor = eventCellColor
         }
 
         return cell
@@ -336,9 +362,7 @@ class CalendarCollectionViewCell: UICollectionViewCell, JTAppleCalendarViewDeleg
     func calendar(_ calendar: JTAppleCalendarView, didSelectDate date: Date, cell: JTAppleCell?, cellState: CellState) {
         loadData()
         print(globalVars.pastAndFutureEvents.count)
-        for event in globalVars.pastAndFutureEvents {
-            print("\(event.Date)")
-        }
+        
         handleColorChanges(cell: cell, cellState: cellState)
         handleTextChanges(cell: cell, cellState: cellState)
     }
@@ -368,16 +392,20 @@ class CalendarCollectionViewCell: UICollectionViewCell, JTAppleCalendarViewDeleg
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         let currentCell = tableView.cellForRow(at: indexPath)
+        
         for event in globalVars.pastAndFutureEvents {
             if event.Title == currentCell?.textLabel?.text {
-                globalVars.eventDescription = (currentCell?.textLabel?.text)!
+                globalVars.eventDescription = event.Description
+                globalVars.eventTitle = event.Title
             }
         }
+        
         
         delegate?.didClick(segue: "toEventsDescription")
     }
     
 }
+
 
 
 

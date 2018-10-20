@@ -11,6 +11,31 @@ import UIKit
 class MapViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     
     //COLLECTIONVIEW SETUP
+    let titleLabel: UILabel = {
+        let label = UILabel()
+        label.text = "School Map"
+        label.backgroundColor = .orange
+        label.textAlignment = .center
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
+    
+    let backView: UIView = {
+        let view = UIView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.backgroundColor = .white
+        return view
+    }()
+    
+    let backButton: UIButton = {
+        let button = UIButton(type: .system)
+        button.setTitle("Back", for: .normal)
+        button.addTarget(self, action: #selector(MapViewController.dismissVC), for: .touchDown)
+        button.tintColor = .white
+        button.translatesAutoresizingMaskIntoConstraints = false
+        return button
+    }()
+    
     let collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         let cv = UICollectionView(frame: .zero, collectionViewLayout: layout)
@@ -25,21 +50,23 @@ class MapViewController: UIViewController, UICollectionViewDelegate, UICollectio
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        view.backgroundColor = .orange
         
-        //SETUP NAVIGATION CONTROLLER
-        navigationController?.navigationBar.tintColor = .orange
-        self.navigationController?.navigationBar.backgroundColor = UIColor(displayP3Red: 41/255, green: 40/255, blue: 52/255, alpha: 1.0)
-
-        self.navigationItem.title = "School Map"
-        self.navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(MapViewController.dismissVC))
-        
-        
+        view.addSubview(backView)
         view.addSubview(collectionView)
+        view.addSubview(titleLabel)
+        view.addSubview(backButton)
+        
+        titleLabel.layer.shadowColor = UIColor.gray.cgColor
+        titleLabel.layer.shadowOpacity = 1
+        titleLabel.layer.shadowOffset = CGSize(width: 0, height: 4)
+        titleLabel.layer.shadowRadius = 3
+        titleLabel.font = UIFont.boldSystemFont(ofSize: view.bounds.width * 0.06)
+        
         collectionView.register(SideCollectionViewCell.self, forCellWithReuseIdentifier: "cellID")
         collectionView.isPagingEnabled = true
         collectionView.delegate = self
         collectionView.dataSource = self
-        view.backgroundColor = .white
         
         setup()
     }
@@ -79,9 +106,22 @@ class MapViewController: UIViewController, UICollectionViewDelegate, UICollectio
     }
     
     func setup() {
-        collectionView.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
+        backView.widthAnchor.constraint(equalToConstant: view.bounds.width).isActive = true
+        backView.heightAnchor.constraint(equalToConstant: view.bounds.height).isActive = true
+        backView.topAnchor.constraint(equalTo: view.layoutMarginsGuide.topAnchor).isActive = true
+        backView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        
+        titleLabel.widthAnchor.constraint(equalToConstant: view.bounds.width).isActive = true
+        titleLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        titleLabel.heightAnchor.constraint(equalToConstant: view.bounds.width * 0.2).isActive = true
+        titleLabel.topAnchor.constraint(equalTo: view.layoutMarginsGuide.topAnchor).isActive = true
+        
+        backButton.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 20).isActive = true
+        backButton.centerYAnchor.constraint(equalTo: titleLabel.centerYAnchor).isActive = true
+        
+        collectionView.topAnchor.constraint(equalTo: titleLabel.bottomAnchor).isActive = true
         collectionView.widthAnchor.constraint(equalToConstant: view.bounds.width).isActive = true
-        collectionView.heightAnchor.constraint(equalToConstant: view.bounds.height).isActive = true
+        collectionView.heightAnchor.constraint(equalToConstant: view.bounds.height - (view.bounds.width * 0.2)).isActive = true
         collectionView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         
     }
@@ -133,7 +173,7 @@ class SideCollectionViewCell: UICollectionViewCell {
         topImage.heightAnchor.constraint(equalToConstant: bounds.height/2).isActive = true
         topImage.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
         
-        bottomImage.bottomAnchor.constraint(equalTo: bottomAnchor).isActive = true
+        bottomImage.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -20).isActive = true
         bottomImage.widthAnchor.constraint(equalToConstant: bounds.width).isActive = true
         bottomImage.heightAnchor.constraint(equalToConstant: bounds.height/2).isActive = true
         bottomImage.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true

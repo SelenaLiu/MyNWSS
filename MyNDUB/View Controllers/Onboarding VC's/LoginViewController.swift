@@ -11,42 +11,34 @@ import Firebase
 
 class LoginViewController: UIViewController {
     
-    let backgroundImage: UIImageView = {
-        let imageView = UIImageView()
-        imageView.image = #imageLiteral(resourceName: "LoginBackground")
-        imageView.alpha = 0.7
-        imageView.translatesAutoresizingMaskIntoConstraints = false
-        return imageView
-    }()
     
     let titleLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.text = "Login"
         label.textAlignment = .center
-        label.textColor = .white
+        label.textColor = .orange
         label.font = UIFont.boldSystemFont(ofSize: 50)
         return label
     }()
     
     let emailTextField: inputTextField = {
         let textField = inputTextField()
-        textField.attributedPlaceholder = NSAttributedString(string: "Email", attributes: [NSAttributedStringKey.foregroundColor: UIColor.white])
+        textField.attributedPlaceholder = NSAttributedString(string: "Email", attributes: [NSAttributedStringKey.foregroundColor: UIColor.gray])
         return textField
     }()
     
     let passwordTextField: inputTextField = {
         let textField = inputTextField()
         textField.isSecureTextEntry = true
-        textField.attributedPlaceholder = NSAttributedString(string: "Password", attributes: [NSAttributedStringKey.foregroundColor: UIColor.white])
+        textField.attributedPlaceholder = NSAttributedString(string: "Password", attributes: [NSAttributedStringKey.foregroundColor: UIColor.gray])
         return textField
     }()
     
     let doneButton: UIButton = {
         let button = UIButton(type: .system)
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.backgroundColor = .clear
-        button.layer.borderWidth = 2.0
+        button.backgroundColor = .orange
         button.layer.borderColor = UIColor.white.cgColor
         button.setTitle("Continue", for: .normal)
         button.titleLabel?.font = UIFont.systemFont(ofSize: 16)
@@ -58,30 +50,38 @@ class LoginViewController: UIViewController {
     let backButton: UIButton = {
         let button = UIButton(type: .system)
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.backgroundColor = .clear
+        button.backgroundColor = .orange
         button.setTitle("Back", for: .normal)
         button.addTarget(self, action: #selector(LoginViewController.dismissVC), for: .touchDown)
         button.titleLabel?.font = UIFont.systemFont(ofSize: 16)
         button.setTitleColor(.white, for: .normal)
+        button.layer.cornerRadius = 10
         return button
     }()
     
-    var bottomConstraint: NSLayoutConstraint?
+    var origin: CGPoint?
 
-    
+    var isConnectedToInternet = false
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .orange
-        view.addSubview(backgroundImage)
+        
+        let connectedRef = Database.database().reference(withPath: ".info/connected")
+        connectedRef.observe(.value, with: { snapshot in
+            if let connected = snapshot.value as? Bool, connected {
+                print("Connected")
+                self.isConnectedToInternet = true
+            }
+        })
+        
         view.addSubview(titleLabel)
         view.addSubview(emailTextField)
         view.addSubview(passwordTextField)
         view.addSubview(backButton)
         view.addSubview(doneButton)
-        doneButton.addTarget(self, action: #selector(LoginViewController.handleLogin), for: .touchDown)
+        doneButton.addTarget(self, action: #selector(LoginViewController.handleDone), for: .touchDown)
         
-        bottomConstraint = NSLayoutConstraint(item:  self.backButton, attribute: NSLayoutAttribute.bottom, relatedBy: .equal, toItem: self.view, attribute: .centerX, multiplier: 1, constant: 250)
-        view.addConstraint(bottomConstraint!)
+
         NotificationCenter.default.addObserver(self, selector: #selector(SignUpViewController.keyboardWillShow), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
         
         setup()
@@ -90,6 +90,7 @@ class LoginViewController: UIViewController {
     @objc func dismissVC() {
         dismiss(animated: true, completion: nil)
     }
+    
     
     @objc func keyboardWillShow(notification: NSNotification) {
         if let info = notification.userInfo {
@@ -100,8 +101,23 @@ class LoginViewController: UIViewController {
             
             UIView.animate(withDuration: 0.25) {
                 self.view.layoutIfNeeded()
-                self.bottomConstraint?.constant = -(rect.height + 20)
+                self.backButton.frame.origin.y = (self.view.frame.height - rect.height - self.backButton.frame.height - 10)
+                self.doneButton.frame.origin.y = (self.backButton.frame.origin.y - self.doneButton.frame.height - 10)
+                self.passwordTextField.frame.origin.y = (self.doneButton.frame.origin.y - self.passwordTextField.frame.height - 10)
+                self.emailTextField.frame.origin.y = (self.passwordTextField.frame.origin.y - self.emailTextField.frame.height - 10)
+                self.titleLabel.frame.origin.y = (self.emailTextField.frame.origin.y - self.titleLabel.frame.height - 10)
+
             }
+        }
+    }
+    
+    @objc func handleDone() {
+        if isConnectedToInternet {
+            handleLogin()
+        } else {
+            let alertVC = UIAlertController(title: "Connection Failure", message: "You are not currently connected to a network. Please reconnect before you change your courses.", preferredStyle: .alert)
+            alertVC.addAction(UIAlertAction(title: "Ok", style: .cancel, handler: nil))
+            self.present(alertVC, animated: true, completion: nil)
         }
     }
     
@@ -118,6 +134,7 @@ class LoginViewController: UIViewController {
                 self.present(alertController, animated: true, completion: nil)
             } else {
                 globalVars.accountInfo = Account(profileImage: UIImage(named: "cuteOwl")!, name: "", email: self.emailTextField.text!)
+                //UserDefaults.setValue(email, forKey: "email")
                 NSKeyedArchiver.archiveRootObject(globalVars.accountInfo, toFile: self.accountFilePath)
                 self.performSegue(withIdentifier: "toHome", sender: self)
             }
@@ -132,34 +149,36 @@ class LoginViewController: UIViewController {
     
 
     func setup() {
-        backgroundImage.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
-        backgroundImage.widthAnchor.constraint(equalTo: view.widthAnchor).isActive = true
-        backgroundImage.heightAnchor.constraint(equalTo: view.heightAnchor).isActive = true
         
         titleLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         titleLabel.widthAnchor.constraint(equalToConstant: view.bounds.width).isActive = true
         titleLabel.heightAnchor.constraint(equalToConstant: 100).isActive = true
-        titleLabel.topAnchor.constraint(equalTo: view.topAnchor, constant: 10).isActive = true
+        titleLabel.bottomAnchor.constraint(equalTo: emailTextField.topAnchor, constant: -30).isActive = true
         
         emailTextField.widthAnchor.constraint(equalToConstant: view.bounds.width * 0.8).isActive = true
-        emailTextField.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 30).isActive = true
+        emailTextField.bottomAnchor.constraint(equalTo: passwordTextField.topAnchor, constant: -10).isActive = true
         emailTextField.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         emailTextField.heightAnchor.constraint(equalToConstant: 40).isActive = true
         
         passwordTextField.widthAnchor.constraint(equalToConstant: view.bounds.width * 0.8).isActive = true
-        passwordTextField.topAnchor.constraint(equalTo: emailTextField.bottomAnchor, constant: 10).isActive = true
+        passwordTextField.bottomAnchor.constraint(equalTo: doneButton.topAnchor, constant: -50).isActive = true
         passwordTextField.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         passwordTextField.heightAnchor.constraint(equalToConstant: 40).isActive = true
         
-        backButton.widthAnchor.constraint(equalToConstant: view.bounds.width * 0.3).isActive = true
-        backButton.topAnchor.constraint(equalTo: doneButton.bottomAnchor, constant: 10).isActive = true
+        doneButton.widthAnchor.constraint(equalToConstant: view.bounds.width * 0.5).isActive = true
+        doneButton.bottomAnchor.constraint(equalTo: backButton.topAnchor, constant: -10).isActive = true
+        doneButton.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        doneButton.heightAnchor.constraint(equalToConstant: 40).isActive = true
+        
+        backButton.widthAnchor.constraint(equalToConstant: view.bounds.width * 0.5).isActive = true
+        backButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -(view.bounds.height/3)).isActive = true
         backButton.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         backButton.heightAnchor.constraint(equalToConstant: 40).isActive = true
         
-        doneButton.widthAnchor.constraint(equalToConstant: view.bounds.width * 0.3).isActive = true
-        doneButton.topAnchor.constraint(equalTo: passwordTextField.bottomAnchor, constant: 50).isActive = true
-        doneButton.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        doneButton.heightAnchor.constraint(equalToConstant: 40).isActive = true
+    }
+    
+    override open var shouldAutorotate: Bool {
+        return false
     }
 
 }
@@ -175,9 +194,9 @@ extension LoginViewController {
 
 class inputTextField: UITextField {
     override func didMoveToWindow() {
-        self.textColor = .white
+        self.textColor = .orange
         self.layer.cornerRadius = 5
-        self.layer.borderColor = UIColor.white.cgColor
+        self.layer.borderColor = UIColor.orange.cgColor
         let paddingView = UIView(frame: CGRect(x: 0, y: 0, width: 10, height: self.frame.height))
         self.leftView = paddingView
         self.leftViewMode = .always
