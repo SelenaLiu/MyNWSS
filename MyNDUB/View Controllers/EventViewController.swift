@@ -163,6 +163,10 @@ class EventViewController: UIViewController {
         
 
     }
+    
+    override open var shouldAutorotate: Bool {
+        return false
+    }
 
 }
 

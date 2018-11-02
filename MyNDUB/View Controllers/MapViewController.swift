@@ -10,6 +10,10 @@ import UIKit
 
 class MapViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     
+    override open var shouldAutorotate: Bool {
+        return false
+    }
+    
     //COLLECTIONVIEW SETUP
     let titleLabel: UILabel = {
         let label = UILabel()
@@ -195,4 +199,5 @@ class SideCollectionViewCell: UICollectionViewCell {
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
 }

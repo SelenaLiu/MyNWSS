@@ -59,6 +59,16 @@ class LoginViewController: UIViewController {
         return button
     }()
     
+    let continueWithoutButton: UIButton = {
+        let button = UIButton(type: .system)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.setTitle("Continue without account", for: .normal)
+        button.addTarget(self, action: #selector(LoginViewController.handleContinueWithout), for: .touchDown)
+        button.titleLabel?.font = UIFont.systemFont(ofSize: 16)
+        button.setTitleColor(.gray, for: .normal)
+        return button
+    }()
+    
     var origin: CGPoint?
 
     var isConnectedToInternet = false
@@ -79,6 +89,7 @@ class LoginViewController: UIViewController {
         view.addSubview(passwordTextField)
         view.addSubview(backButton)
         view.addSubview(doneButton)
+        view.addSubview(continueWithoutButton)
         doneButton.addTarget(self, action: #selector(LoginViewController.handleDone), for: .touchDown)
         
 
@@ -103,6 +114,7 @@ class LoginViewController: UIViewController {
                 self.view.layoutIfNeeded()
                 self.backButton.frame.origin.y = (self.view.frame.height - rect.height - self.backButton.frame.height - 10)
                 self.doneButton.frame.origin.y = (self.backButton.frame.origin.y - self.doneButton.frame.height - 10)
+                self.continueWithoutButton.frame.origin.y = (self.doneButton.frame.origin.y - self.continueWithoutButton.frame.height - 10)
                 self.passwordTextField.frame.origin.y = (self.doneButton.frame.origin.y - self.passwordTextField.frame.height - 10)
                 self.emailTextField.frame.origin.y = (self.passwordTextField.frame.origin.y - self.emailTextField.frame.height - 10)
                 self.titleLabel.frame.origin.y = (self.emailTextField.frame.origin.y - self.titleLabel.frame.height - 10)
@@ -142,6 +154,11 @@ class LoginViewController: UIViewController {
         
 
     }
+    
+    @objc func handleContinueWithout() {
+        globalVars.hasAccount = false
+        self.performSegue(withIdentifier: "toHome", sender: self)
+    }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -165,6 +182,11 @@ class LoginViewController: UIViewController {
         passwordTextField.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         passwordTextField.heightAnchor.constraint(equalToConstant: 40).isActive = true
         
+        continueWithoutButton.widthAnchor.constraint(equalToConstant: view.bounds.width * 0.5).isActive = true
+        continueWithoutButton.bottomAnchor.constraint(equalTo: doneButton.topAnchor, constant: -10).isActive = true
+        continueWithoutButton.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        continueWithoutButton.heightAnchor.constraint(equalToConstant: 40).isActive = true
+        
         doneButton.widthAnchor.constraint(equalToConstant: view.bounds.width * 0.5).isActive = true
         doneButton.bottomAnchor.constraint(equalTo: backButton.topAnchor, constant: -10).isActive = true
         doneButton.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
@@ -174,6 +196,8 @@ class LoginViewController: UIViewController {
         backButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -(view.bounds.height/3)).isActive = true
         backButton.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         backButton.heightAnchor.constraint(equalToConstant: 40).isActive = true
+        
+        
         
     }
     

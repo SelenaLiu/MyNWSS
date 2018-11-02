@@ -377,6 +377,8 @@ class AddCourseViewController: UIViewController, UITextFieldDelegate {
         deleteButton.topAnchor.constraint(equalTo: doneButton.bottomAnchor, constant: 10).isActive = true
        
     }
-    
+    override open var shouldAutorotate: Bool {
+        return false
+    }
     
 }

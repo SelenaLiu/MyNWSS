@@ -35,6 +35,16 @@ class SettingsViewController: UIViewController, UIImagePickerControllerDelegate,
         return view
     }()
     
+    let editEmailButton: UIButton = {
+        let button = UIButton(type: .system)
+        button.setTitle("Edit", for: .normal)
+        button.isHidden = true
+        button.setTitleColor(.orange, for: .normal)
+        button.addTarget(self, action: #selector(SettingsViewController.handleEditEmail), for: .touchDown)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        return button
+    }()
+    
     let backButton: UIButton = {
         let button = UIButton(type: .system)
         button.setTitle("Back", for: .normal)
@@ -47,14 +57,14 @@ class SettingsViewController: UIViewController, UIImagePickerControllerDelegate,
     
     let emailLabel: UILabel = {
         let label = UILabel()
-        label.text = ""//UserDefaults.value(forKey: "userEmail") as! String
+        label.text = ""
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
     
     let turnOnLabel: UILabel = {
         let label = UILabel()
-        label.text = "Turn on your thinking cap"
+        label.text = "Put on your thinking cap"
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -100,6 +110,7 @@ class SettingsViewController: UIViewController, UIImagePickerControllerDelegate,
         view.addSubview(turnOnLabel)
         view.addSubview(capSwitch)
         view.addSubview(logoutButton)
+        view.addSubview(editEmailButton)
 
         let currentUserUID = Auth.auth().currentUser?.uid
         let ref = Database.database().reference(fromURL: "https://mynwss.firebaseio.com/")
@@ -133,6 +144,46 @@ class SettingsViewController: UIViewController, UIImagePickerControllerDelegate,
         super.didReceiveMemoryWarning()
     }
     
+    @objc func handleEditEmail() {
+        let alertVC = UIAlertController(title: "Edit Email", message: "Please enter your new email and your previous password.", preferredStyle: .alert)
+        alertVC.addTextField { (textField) in
+            textField.placeholder = "Your Email Address"
+        }
+        alertVC.addTextField { (textField) in
+            textField.placeholder = "Your Password"
+            textField.isSecureTextEntry = true
+        }
+        let done = UIAlertAction(title: "Done", style: .default) { (alert) in
+            let currentUser = Auth.auth().currentUser
+            let uid = Auth.auth().currentUser!.uid
+            let ref = Database.database().reference(fromURL: "https://mynwss.firebaseio.com/").child("users").child(uid)
+            let index = self.emailLabel.text!.index(self.emailLabel.text!.startIndex, offsetBy: 7)
+            Auth.auth().signIn(withEmail: String(self.emailLabel.text![index...]), password: (alertVC.textFields?[1].text!)!, completion: { (user, error) in
+                if let error = error {
+                    print(error)
+                }
+            })
+            currentUser?.updateEmail(to: (alertVC.textFields?[0].text!)!, completion: { (error) in
+                if let error = error {
+                    print(error)
+                } else {
+                    print("CHANGED")
+                    let thisUserEmailRef = ref.child("email")
+                    thisUserEmailRef.setValue((alertVC.textFields?[0].text!)!)
+                }
+            })
+            self.emailLabel.text = "Email: \((alertVC.textFields?[0].text!)!)"
+            alertVC.dismiss(animated: true, completion: nil)
+        }
+        let cancel = UIAlertAction(title: "Cancel", style: .cancel) { (alert) in
+            alertVC.dismiss(animated: true, completion: nil)
+        }
+        alertVC.addAction(done)
+        alertVC.addAction(cancel)
+        
+        self.present(alertVC, animated: true, completion: nil)
+    }
+    
     func setup() {
         
         backView.widthAnchor.constraint(equalToConstant: view.bounds.width).isActive = true
@@ -148,10 +199,13 @@ class SettingsViewController: UIViewController, UIImagePickerControllerDelegate,
         backButton.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 20).isActive = true
         backButton.centerYAnchor.constraint(equalTo: titleLabel.centerYAnchor).isActive = true
         
-        emailLabel.widthAnchor.constraint(equalToConstant: view.bounds.width * 0.8).isActive = true
+        emailLabel.widthAnchor.constraint(equalToConstant: view.bounds.width * 0.7).isActive = true
         emailLabel.heightAnchor.constraint(equalToConstant: view.bounds.width * 0.2).isActive = true
         emailLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 30).isActive = true
-        emailLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        emailLabel.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 30).isActive = true
+        
+        editEmailButton.leftAnchor.constraint(equalTo: emailLabel.rightAnchor).isActive = true
+        editEmailButton.centerYAnchor.constraint(equalTo: emailLabel.centerYAnchor).isActive = true
         
         turnOnLabel.widthAnchor.constraint(equalToConstant: view.bounds.width * 0.8).isActive = true
         turnOnLabel.heightAnchor.constraint(equalToConstant: view.bounds.width * 0.2).isActive = true
@@ -207,6 +261,10 @@ class SettingsViewController: UIViewController, UIImagePickerControllerDelegate,
         globalVars.courses = []
         NSKeyedArchiver.archiveRootObject(globalVars.courses, toFile: courseFilePath)
         self.performSegue(withIdentifier: "toLoginVC", sender: self)
+    }
+    
+    override open var shouldAutorotate: Bool {
+        return false
     }
 
 }

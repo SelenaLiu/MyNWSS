@@ -105,10 +105,10 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
             self.menuBar.centerButton.setImage(#imageLiteral(resourceName: "centerButton"), for: .normal)
             self.blurEffectView.alpha = 0
             
-            self.galleryButton.center = self.centerButton.center
-            self.directoryButton.center = self.centerButton.center
+            //self.galleryButton.center = self.centerButton.center
+            //self.directoryButton.center = self.centerButton.center
             self.mapButton.center = self.centerButton.center
-            self.menuButton.center = self.centerButton.center
+            //self.menuButton.center = self.centerButton.center
         }
     }
     
@@ -172,12 +172,14 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
     
     
     override func viewDidAppear(_ animated: Bool) {
-        if Auth.auth().currentUser?.uid == nil {
-            perform(#selector(ViewController.handleLogout), with: nil, afterDelay: 0)
-        }
-        globalVars.loadProfileCell = false
-        
-        self.collectionView.reloadData()
+        if globalVars.hasAccount {
+            if Auth.auth().currentUser?.uid == nil {
+                perform(#selector(ViewController.handleLogout), with: nil, afterDelay: 0)
+            }
+            globalVars.loadProfileCell = false
+            
+            self.collectionView.reloadData()
+        } 
     }
     
     @objc func handleLogout() {
@@ -209,14 +211,19 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
         collectionView.register(HomeCollectionViewCell.self, forCellWithReuseIdentifier: cellIDs[0])
         collectionView.register(CalendarCollectionViewCell.self, forCellWithReuseIdentifier: cellIDs[1])
         collectionView.register(NotesCollectionViewCell.self, forCellWithReuseIdentifier: cellIDs[2])
-        collectionView.register(ProfileCollectionViewCell.self, forCellWithReuseIdentifier: cellIDs[3])
+        
+        if globalVars.hasAccount {
+            collectionView.register(ProfileCollectionViewCell.self, forCellWithReuseIdentifier: cellIDs[3])
+        } else {
+            collectionView.register(NoUserCollectionViewCell.self, forCellWithReuseIdentifier: cellIDs[3])
+        }
         
         view.addSubview(blurEffectView)
         blurEffectView.contentView.addSubview(centerButton)
-        blurEffectView.contentView.addSubview(galleryButton)
-        blurEffectView.contentView.addSubview(directoryButton)
+        //blurEffectView.contentView.addSubview(galleryButton)
+        //blurEffectView.contentView.addSubview(directoryButton)
         blurEffectView.contentView.addSubview(mapButton)
-        blurEffectView.contentView.addSubview(menuButton)
+        //blurEffectView.contentView.addSubview(menuButton)
         
         blurEffectView.frame = view.bounds
 
@@ -225,15 +232,15 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
         setupBlurEffect()
         print("\(galleryButton.center)")
         
-        galleryCenter = galleryButton.center
-        directoryCenter = directoryButton.center
+        //galleryCenter = galleryButton.center
+        //directoryCenter = directoryButton.center
         mapCenter = mapButton.center
-        menuCenter = menuButton.center
+        //menuCenter = menuButton.center
         
-        galleryButton.center = centerButton.center
-        directoryButton.center = centerButton.center
+        //galleryButton.center = centerButton.center
+        //directoryButton.center = centerButton.center
         mapButton.center = centerButton.center
-        menuButton.center = centerButton.center
+        //menuButton.center = centerButton.center
         
     }
     
@@ -251,33 +258,33 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
         centerButton.heightAnchor.constraint(equalToConstant: 40).isActive = true
         centerButton.widthAnchor.constraint(equalToConstant: 40).isActive = true
         
-        galleryButton.rightAnchor.constraint(equalTo: directoryButton.leftAnchor, constant: -20).isActive = true
-        galleryButton.bottomAnchor.constraint(equalTo: menuBar.topAnchor, constant: -10).isActive = true
-        galleryButton.heightAnchor.constraint(equalToConstant: 30).isActive = true
-        galleryButton.widthAnchor.constraint(equalToConstant: 30).isActive = true
-        galleryButton.center.x = view.bounds.width/2 - 100
-        galleryButton.center.y = view.bounds.height - 100
+//        galleryButton.rightAnchor.constraint(equalTo: directoryButton.leftAnchor, constant: -20).isActive = true
+//        galleryButton.bottomAnchor.constraint(equalTo: menuBar.topAnchor, constant: -10).isActive = true
+//        galleryButton.heightAnchor.constraint(equalToConstant: 30).isActive = true
+//        galleryButton.widthAnchor.constraint(equalToConstant: 30).isActive = true
+//        galleryButton.center.x = view.bounds.width/2 - 100
+//        galleryButton.center.y = view.bounds.height - 100
         
-        directoryButton.rightAnchor.constraint(equalTo: centerButton.centerXAnchor, constant: -10).isActive = true
-        directoryButton.bottomAnchor.constraint(equalTo: galleryButton.topAnchor, constant: 10).isActive = true
-        directoryButton.heightAnchor.constraint(equalToConstant: 40).isActive = true
-        directoryButton.widthAnchor.constraint(equalToConstant: 40).isActive = true
-        directoryButton.center.x = view.bounds.width/2 - 30
-        directoryButton.center.y = view.bounds.height - 150
+//        directoryButton.rightAnchor.constraint(equalTo: centerButton.centerXAnchor, constant: -10).isActive = true
+//        directoryButton.bottomAnchor.constraint(equalTo: centerButton.topAnchor, constant: 30).isActive = true
+//        directoryButton.heightAnchor.constraint(equalToConstant: 40).isActive = true
+//        directoryButton.widthAnchor.constraint(equalToConstant: 40).isActive = true
+//        directoryButton.center.x = view.bounds.width/2 - 30
+//        directoryButton.center.y = view.bounds.height - 150
         
-        mapButton.leftAnchor.constraint(equalTo: centerButton.centerXAnchor, constant: 10).isActive = true
-        mapButton.bottomAnchor.constraint(equalTo: directoryButton.bottomAnchor).isActive = true
+        mapButton.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        mapButton.bottomAnchor.constraint(equalTo: centerButton.topAnchor, constant: 30).isActive = true
         mapButton.heightAnchor.constraint(equalToConstant: 40).isActive = true
         mapButton.widthAnchor.constraint(equalToConstant: 40).isActive = true
-        mapButton.center.x = view.bounds.width/2 + 30
+        mapButton.center.x = view.bounds.width/2
         mapButton.center.y = view.bounds.height - 150
         
-        menuButton.leftAnchor.constraint(equalTo: mapButton.rightAnchor, constant: 20).isActive = true
-        menuButton.bottomAnchor.constraint(equalTo: menuBar.topAnchor, constant: -10).isActive = true
-        menuButton.heightAnchor.constraint(equalToConstant: 30).isActive = true
-        menuButton.widthAnchor.constraint(equalToConstant: 30).isActive = true
-        menuButton.center.x = view.bounds.width/2 + 100
-        menuButton.center.y = view.bounds.height - 100
+//        menuButton.leftAnchor.constraint(equalTo: mapButton.rightAnchor, constant: 20).isActive = true
+//        menuButton.bottomAnchor.constraint(equalTo: menuBar.topAnchor, constant: -10).isActive = true
+//        menuButton.heightAnchor.constraint(equalToConstant: 30).isActive = true
+//        menuButton.widthAnchor.constraint(equalToConstant: 30).isActive = true
+//        menuButton.center.x = view.bounds.width/2 + 100
+//        menuButton.center.y = view.bounds.height - 100
         
         print("setup: \(galleryButton.center)")
     }
@@ -291,10 +298,10 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
                 self.blurEffectView.alpha = 1
                 
                 print("\(self.galleryCenter)")
-                self.galleryButton.center = self.galleryCenter
-                self.directoryButton.center = self.directoryCenter
+                //self.galleryButton.center = self.galleryCenter
+                //self.directoryButton.center = self.directoryCenter
                 self.mapButton.center = self.mapCenter
-                self.menuButton.center = self.menuCenter
+                //self.menuButton.center = self.menuCenter
 
             }
         } else {
@@ -302,10 +309,10 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
                 self.menuBar.centerButton.setImage(#imageLiteral(resourceName: "centerButton"), for: .normal)
                 self.blurEffectView.alpha = 0
                 
-                self.galleryButton.center = self.centerButton.center
-                self.directoryButton.center = self.centerButton.center
+                //self.galleryButton.center = self.centerButton.center
+                //self.directoryButton.center = self.centerButton.center
                 self.mapButton.center = self.centerButton.center
-                self.menuButton.center = self.centerButton.center
+                //self.menuButton.center = self.centerButton.center
             }
         }
     }
@@ -381,12 +388,19 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
             
             return cell
         } else if indexPath.row == 3 {
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellIDs[indexPath.row], for: indexPath) as! ProfileCollectionViewCell
-            cell.bellTableView.reloadData()
-            cell.bellTableView.reloadData()
-            cell.delegate = self
-
-            return cell
+            if globalVars.hasAccount {
+                let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellIDs[indexPath.row], for: indexPath) as! ProfileCollectionViewCell
+                cell.bellTableView.reloadData()
+                cell.bellTableView.reloadData()
+                cell.delegate = self
+                
+                return cell
+            } else {
+                let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellIDs[indexPath.row], for: indexPath) as! NoUserCollectionViewCell
+                cell.delegate = self
+                return cell
+            }
+            
         } else {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellIDs[1], for: indexPath) as! CalendarCollectionViewCell
 

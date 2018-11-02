@@ -219,6 +219,10 @@ class NotesViewController: UIViewController, UITableViewDelegate, UITableViewDat
         tableView.heightAnchor.constraint(equalToConstant: view.bounds.height - (view.bounds.width * 0.2)).isActive = true
         tableView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
     }
+    
+    override open var shouldAutorotate: Bool {
+        return false
+    }
 }
 
 

@@ -130,7 +130,7 @@ class HomeCollectionViewCell: UICollectionViewCell, UITableViewDelegate, UITable
 
         addSubview(headlineCollectionView)
         //headlineCollectionView.addSubview(headlinePageControl)
-        addSubview(dateTextView)
+        //addSubview(dateTextView)
         addSubview(eventsTableView)
         addSubview(eventsLabel)
 
@@ -139,6 +139,9 @@ class HomeCollectionViewCell: UICollectionViewCell, UITableViewDelegate, UITable
         headlineCollectionView.dataSource = self
         headlineCollectionView.register(UICollectionViewCell.self, forCellWithReuseIdentifier: cellID)
         headlineCollectionView.isPagingEnabled = true
+        
+        let toSchoolWebsite = UITapGestureRecognizer(target: self, action: #selector(HomeCollectionViewCell.handleToSchoolWebsite))
+        headlineCollectionView.addGestureRecognizer(toSchoolWebsite)
         
         eventsTableView.delegate = self
         eventsTableView.dataSource = self
@@ -149,9 +152,10 @@ class HomeCollectionViewCell: UICollectionViewCell, UITableViewDelegate, UITable
         setup()
         setupTableView()
         
-        
-        
-        
+    }
+    
+    @objc func handleToSchoolWebsite() {
+        UIApplication.shared.open(URL(string: "https://www.nwss.ca/")!, options: [:], completionHandler: nil)
     }
     
     var eventTitles: [[String]] = []
@@ -244,10 +248,10 @@ class HomeCollectionViewCell: UICollectionViewCell, UITableViewDelegate, UITable
 //        logo.topAnchor.constraint(equalTo: topAnchor, constant: 10).isActive = true
 //        logo.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
 //
-        dateTextView.widthAnchor.constraint(equalToConstant: 180).isActive = true
-        dateTextView.heightAnchor.constraint(equalToConstant: 55).isActive = true
-        dateTextView.topAnchor.constraint(equalTo: topAnchor, constant: 20).isActive = true
-        dateTextView.rightAnchor.constraint(equalTo: rightAnchor).isActive = true
+//        dateTextView.widthAnchor.constraint(equalToConstant: 180).isActive = true
+//        dateTextView.heightAnchor.constraint(equalToConstant: 55).isActive = true
+//        dateTextView.topAnchor.constraint(equalTo: topAnchor, constant: 20).isActive = true
+//        dateTextView.rightAnchor.constraint(equalTo: rightAnchor).isActive = true
 //
 //        titleLabel.widthAnchor.constraint(equalToConstant: 150).isActive = true
 //        titleLabel.heightAnchor.constraint(equalToConstant: 30).isActive = true

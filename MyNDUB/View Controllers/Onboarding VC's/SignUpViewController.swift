@@ -111,7 +111,7 @@ class SignUpViewController: UIViewController {
         if isConnectedToInternet {
             handleRegister()
         } else {
-            let alertVC = UIAlertController(title: "Connection Failure", message: "You are not currently connected to a network. Please reconnect before you change your courses.", preferredStyle: .alert)
+            let alertVC = UIAlertController(title: "Connection Failure", message: "You are not currently connected to a network. Please reconnect before you sign up.", preferredStyle: .alert)
             alertVC.addAction(UIAlertAction(title: "Ok", style: .cancel, handler: nil))
             self.present(alertVC, animated: true, completion: nil)
         }

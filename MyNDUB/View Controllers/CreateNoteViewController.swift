@@ -235,6 +235,10 @@ class CreateNoteViewController: UIViewController, UITextViewDelegate {
         // Dispose of any resources that can be recreated.
     }
     
+    override open var shouldAutorotate: Bool {
+        return false
+    }
+    
 
     
 }

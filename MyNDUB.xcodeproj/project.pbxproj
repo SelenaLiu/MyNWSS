@@ -34,15 +34,15 @@
 		FA50B3C22108004900BF0270 /* Account.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA50B3C12108004900BF0270 /* Account.swift */; };
 		FA50B3C42108E6C100BF0270 /* Event.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA50B3C32108E6C100BF0270 /* Event.swift */; };
 		FA5E265320DED5C80056D9B1 /* NotesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA5E265220DED5C80056D9B1 /* NotesViewController.swift */; };
-		FA8E2FD6212A76E9003A0658 /* Pods_MyNDUB.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0981317500EA039BADF367B3 /* Pods_MyNDUB.framework */; };
-		FA8E2FD7212A76E9003A0658 /* Pods_MyNDUB.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 0981317500EA039BADF367B3 /* Pods_MyNDUB.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		FAB6B65D20DF489000474675 /* CalendarCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAB6B65C20DF489000474675 /* CalendarCell.swift */; };
-		FAB6B65F20DF490900474675 /* JTAppleCalendar.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FAB6B65E20DF490900474675 /* JTAppleCalendar.framework */; };
 		FAB6B66120E0A0A600474675 /* EventViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAB6B66020E0A0A600474675 /* EventViewController.swift */; };
 		FAB6B66320E45ABF00474675 /* CreateNoteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAB6B66220E45ABF00474675 /* CreateNoteViewController.swift */; };
 		FAB6B66620EAA8AE00474675 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = FAB6B66520EAA8AE00474675 /* GoogleService-Info.plist */; };
 		FABCACD120D2E648006343AE /* NotesCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FABCACD020D2E648006343AE /* NotesCollectionViewCell.swift */; };
 		FABCACD320D2E6C6006343AE /* Global.swift in Sources */ = {isa = PBXBuildFile; fileRef = FABCACD220D2E6C6006343AE /* Global.swift */; };
+		FACF3DE3217B905F00EF2B0E /* JTAppleCalendar.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FACF3DE2217B905F00EF2B0E /* JTAppleCalendar.framework */; };
+		FACF3DE4217B987600EF2B0E /* Pods_MyNDUB.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0981317500EA039BADF367B3 /* Pods_MyNDUB.framework */; };
+		FACF3DE6217D2B6C00EF2B0E /* NoUserCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FACF3DE5217D2B6C00EF2B0E /* NoUserCollectionViewCell.swift */; };
 		FAEB9C5320CAF2340048A9CE /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAEB9C5220CAF2340048A9CE /* MapViewController.swift */; };
 		FAEB9C5520CAFA110048A9CE /* MapZoomViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAEB9C5420CAFA110048A9CE /* MapZoomViewController.swift */; };
 /* End PBXBuildFile section */
@@ -63,20 +63,6 @@
 			remoteInfo = MyNDUB;
 		};
 /* End PBXContainerItemProxy section */
-
-/* Begin PBXCopyFilesBuildPhase section */
-		FA8E2FD5212A76E3003A0658 /* Embed Frameworks */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "";
-			dstSubfolderSpec = 10;
-			files = (
-				FA8E2FD7212A76E9003A0658 /* Pods_MyNDUB.framework in Embed Frameworks */,
-			);
-			name = "Embed Frameworks";
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		0981317500EA039BADF367B3 /* Pods_MyNDUB.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MyNDUB.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -119,7 +105,6 @@
 		FA50B3C12108004900BF0270 /* Account.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Account.swift; sourceTree = "<group>"; };
 		FA50B3C32108E6C100BF0270 /* Event.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Event.swift; sourceTree = "<group>"; };
 		FA5E265220DED5C80056D9B1 /* NotesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotesViewController.swift; sourceTree = "<group>"; };
-		FA8E2FD2212A76E2003A0658 /* JTAppleCalendar.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = JTAppleCalendar.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		FAB6B65C20DF489000474675 /* CalendarCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarCell.swift; sourceTree = "<group>"; };
 		FAB6B65E20DF490900474675 /* JTAppleCalendar.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = JTAppleCalendar.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		FAB6B66020E0A0A600474675 /* EventViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventViewController.swift; sourceTree = "<group>"; };
@@ -127,6 +112,8 @@
 		FAB6B66520EAA8AE00474675 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		FABCACD020D2E648006343AE /* NotesCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotesCollectionViewCell.swift; sourceTree = "<group>"; };
 		FABCACD220D2E6C6006343AE /* Global.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Global.swift; sourceTree = "<group>"; };
+		FACF3DE2217B905F00EF2B0E /* JTAppleCalendar.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = JTAppleCalendar.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		FACF3DE5217D2B6C00EF2B0E /* NoUserCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoUserCollectionViewCell.swift; sourceTree = "<group>"; };
 		FAEB9C5220CAF2340048A9CE /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
 		FAEB9C5420CAFA110048A9CE /* MapZoomViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapZoomViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -136,8 +123,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				FAB6B65F20DF490900474675 /* JTAppleCalendar.framework in Frameworks */,
-				FA8E2FD6212A76E9003A0658 /* Pods_MyNDUB.framework in Frameworks */,
+				FACF3DE4217B987600EF2B0E /* Pods_MyNDUB.framework in Frameworks */,
+				FACF3DE3217B905F00EF2B0E /* JTAppleCalendar.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -176,6 +163,7 @@
 		E7EAD42D06396CE1CB21E469 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				FACF3DE2217B905F00EF2B0E /* JTAppleCalendar.framework */,
 				FAB6B65E20DF490900474675 /* JTAppleCalendar.framework */,
 				0981317500EA039BADF367B3 /* Pods_MyNDUB.framework */,
 				F11BF64E88FAB3EC8D0C7BFC /* Pods_MyNDUBTests.framework */,
@@ -187,7 +175,6 @@
 		FA1C6EA9209E19F8001E5A58 = {
 			isa = PBXGroup;
 			children = (
-				FA8E2FD2212A76E2003A0658 /* JTAppleCalendar.framework */,
 				FA1C6EB4209E19F8001E5A58 /* MyNDUB */,
 				FA1C6EC9209E19FA001E5A58 /* MyNDUBTests */,
 				FA1C6ED4209E19FA001E5A58 /* MyNDUBUITests */,
@@ -262,6 +249,7 @@
 				FA40956D20C4BBCA0037CEDA /* ProfileCollectionViewCell.swift */,
 				FA1C6EEB209F85C4001E5A58 /* CalendarCollectionViewCell.swift */,
 				FAB6B65C20DF489000474675 /* CalendarCell.swift */,
+				FACF3DE5217D2B6C00EF2B0E /* NoUserCollectionViewCell.swift */,
 				FA1C6EE9209E618A001E5A58 /* GalleryCollectionViewCell.swift */,
 				FABCACD020D2E648006343AE /* NotesCollectionViewCell.swift */,
 			);
@@ -309,7 +297,6 @@
 				FA1C6EB0209E19F8001E5A58 /* Resources */,
 				760166377608FDC400E42A85 /* [CP] Embed Pods Frameworks */,
 				B5BB6EDB2810F3B5D55221A7 /* [CP] Copy Pods Resources */,
-				FA8E2FD5212A76E3003A0658 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -374,7 +361,7 @@
 				TargetAttributes = {
 					FA1C6EB1209E19F8001E5A58 = {
 						CreatedOnToolsVersion = 9.3;
-						ProvisioningStyle = Automatic;
+						ProvisioningStyle = Manual;
 					};
 					FA1C6EC5209E19FA001E5A58 = {
 						CreatedOnToolsVersion = 9.3;
@@ -610,6 +597,7 @@
 				FA21CB0220D6C43D00D5896C /* Notes.swift in Sources */,
 				FAEB9C5320CAF2340048A9CE /* MapViewController.swift in Sources */,
 				FA1C6EB8209E19F8001E5A58 /* ViewController.swift in Sources */,
+				FACF3DE6217D2B6C00EF2B0E /* NoUserCollectionViewCell.swift in Sources */,
 				FA50B3C02106F4E000BF0270 /* SettingsViewController.swift in Sources */,
 				FAB6B66120E0A0A600474675 /* EventViewController.swift in Sources */,
 				FA1C6EEC209F85C4001E5A58 /* CalendarCollectionViewCell.swift in Sources */,
@@ -734,7 +722,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -788,7 +776,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
@@ -801,13 +789,16 @@
 			baseConfigurationReference = 30E12D7540BC25250158BF24 /* Pods-MyNDUB.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = C9QTGNDXS5;
+				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				CODE_SIGN_STYLE = Manual;
+				DEVELOPMENT_TEAM = T6D4QQLF8H;
 				INFOPLIST_FILE = MyNDUB/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = selenaliu.MyNDUB;
+				PRODUCT_BUNDLE_IDENTIFIER = com.selenaliu.MyNDUB;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "f4447dea-ed89-490c-b4ee-8cba4d2ec152";
+				PROVISIONING_PROFILE_SPECIFIER = "MyNDUB App Store Distribution";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
@@ -818,13 +809,16 @@
 			baseConfigurationReference = ABEBE82C7BAA6FE7A10B781A /* Pods-MyNDUB.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = C9QTGNDXS5;
+				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				CODE_SIGN_STYLE = Manual;
+				DEVELOPMENT_TEAM = T6D4QQLF8H;
 				INFOPLIST_FILE = MyNDUB/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = selenaliu.MyNDUB;
+				PRODUCT_BUNDLE_IDENTIFIER = com.selenaliu.MyNDUB;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "f4447dea-ed89-490c-b4ee-8cba4d2ec152";
+				PROVISIONING_PROFILE_SPECIFIER = "MyNDUB App Store Distribution";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};

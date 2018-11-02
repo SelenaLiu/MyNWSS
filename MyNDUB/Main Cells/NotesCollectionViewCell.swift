@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Firebase
 
 class NotesCollectionViewCell: UICollectionViewCell, UITableViewDelegate, UITableViewDataSource {
     
@@ -110,6 +111,43 @@ class NotesCollectionViewCell: UICollectionViewCell, UITableViewDelegate, UITabl
         notesTableView.delegate = self
         
         setup()
+        
+        getCourseData()
+    }
+    
+    func getCourseData() {
+        loadData()
+        globalVars.courses = []
+        
+        // retreives course data from Firebase
+        let currentUserUID = Auth.auth().currentUser?.uid
+        
+        Database.database().reference().child("users").child(currentUserUID!).child("courses").observeSingleEvent(of: .value, with: { (snapshot) in
+            let courseDict = snapshot.value as? [String : [String:Any]]
+            print("COURSE DICT: ", courseDict)
+            if courseDict != nil {
+                for value in courseDict! {
+                    let name = value.key
+                    let block = value.value["block"] as! String
+                    let day = value.value["day"] as! Int
+                    let notesValue = value.value["notes"] as? [String:String]
+                    var notes: [Notes] = []
+                    if notesValue != nil {
+                        for note in notesValue! {
+                            let noteTitle = note.key
+                            let noteText = note.value
+                            notes.append(Notes(title: noteTitle, text: noteText))
+                        }
+                    }
+                    
+                    let course = Course(name: name, day: day, block: block, notes: notes)
+                    globalVars.courses.append(course)
+                    NSKeyedArchiver.archiveRootObject(globalVars.courses, toFile: self.filePath)
+                    self.notesTableView.reloadData()
+                }
+            }
+            
+        })
     }
     
     func setup() {

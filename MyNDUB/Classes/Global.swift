@@ -14,6 +14,8 @@ let globalVars = Global()
 @IBDesignable
 class Global {
     
+    var hasAccount: Bool = true
+    
     var accountInfo = Account(profileImage: UIImage(named: "cuteOwl")!, name: "", email: "")
     var eventTitle = ""
     var eventDescription = ""

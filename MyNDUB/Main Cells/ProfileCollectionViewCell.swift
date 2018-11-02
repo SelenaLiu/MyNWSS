@@ -304,14 +304,14 @@ class ProfileCollectionViewCell: UICollectionViewCell, UITableViewDelegate, UITa
     func setFontsForBellSchedule(cell: bellTableCell) {
         if cell.courseTextView.text == "" || cell.courseTextView.text == nil || cell.courseTextView.text == "Tap to edit/add a course" {
             cell.courseTextView.text = "Tap to edit/add a course"
-            cell.courseTextView.font = UIFont.italicSystemFont(ofSize: cell.frame.height * 0.17)
+            cell.courseTextView.font = UIFont.italicSystemFont(ofSize: cell.frame.width * 0.04)
             cell.courseTextView.textColor = .lightGray
         } else {
-            cell.courseTextView.font = UIFont.boldSystemFont(ofSize: cell.frame.height * 0.2)
+            cell.courseTextView.font = UIFont.boldSystemFont(ofSize: cell.frame.width * 0.045)
             cell.courseTextView.textColor = .black
         }
         
-        cell.timeTextView.font = UIFont.systemFont(ofSize: cell.frame.height * 0.19)
+        cell.timeTextView.font = UIFont.systemFont(ofSize: cell.frame.width * 0.045)
     }
     
     
