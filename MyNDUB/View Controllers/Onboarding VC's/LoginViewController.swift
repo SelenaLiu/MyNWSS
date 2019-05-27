@@ -115,7 +115,7 @@ class LoginViewController: UIViewController {
                 self.backButton.frame.origin.y = (self.view.frame.height - rect.height - self.backButton.frame.height - 10)
                 self.doneButton.frame.origin.y = (self.backButton.frame.origin.y - self.doneButton.frame.height - 10)
                 self.continueWithoutButton.frame.origin.y = (self.doneButton.frame.origin.y - self.continueWithoutButton.frame.height - 10)
-                self.passwordTextField.frame.origin.y = (self.doneButton.frame.origin.y - self.passwordTextField.frame.height - 10)
+                self.passwordTextField.frame.origin.y = (self.continueWithoutButton.frame.origin.y - self.passwordTextField.frame.height - 10)
                 self.emailTextField.frame.origin.y = (self.passwordTextField.frame.origin.y - self.emailTextField.frame.height - 10)
                 self.titleLabel.frame.origin.y = (self.emailTextField.frame.origin.y - self.titleLabel.frame.height - 10)
 

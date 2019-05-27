@@ -8,6 +8,7 @@
 
 import UIKit
 import JTAppleCalendar
+import Firebase
 
 class CalendarCollectionViewCell: UICollectionViewCell, JTAppleCalendarViewDelegate, JTAppleCalendarViewDataSource, UITableViewDelegate, UITableViewDataSource {
    
@@ -164,6 +165,14 @@ class CalendarCollectionViewCell: UICollectionViewCell, JTAppleCalendarViewDeleg
         stackView.addArrangedSubview(dayLabel6)
         stackView.addArrangedSubview(dayLabel7)
         
+//        let connectedRef = Database.database().reference(withPath: ".info/connected")
+//        connectedRef.observe(.value, with: { snapshot in
+//            if let connected = snapshot.value as? Bool, connected {
+//                print("Connected")
+//                self.getEventData()
+//            }
+//        })
+        
         addSubview(calendarCollectionView)
         calendarCollectionView.calendarDelegate = self
         calendarCollectionView.calendarDataSource = self
@@ -183,6 +192,23 @@ class CalendarCollectionViewCell: UICollectionViewCell, JTAppleCalendarViewDeleg
         setupCalendarView()
         setup()
     }
+    
+//    @objc func getEventData() {
+//        loadData()
+//        globalVars.pastAndFutureEvents = []
+//        eventTitles = []
+//
+//        // adds the new event to the top of the tableView
+//        Database.database().reference().child("Events").queryOrderedByKey().observe(.childAdded) { (snapshot) in
+//            self.calendarCollectionView.reloadData()
+//        }
+//
+//        // deletes the event from the tableView
+//        Database.database().reference().child("Events").observe(.childRemoved) { (snapshot) in
+//            self.calendarCollectionView.reloadData()
+//        }
+//
+//    }
     
     required init?(coder aDecoder: NSCoder) {
         fatalError()

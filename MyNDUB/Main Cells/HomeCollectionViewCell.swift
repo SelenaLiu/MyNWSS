@@ -107,7 +107,8 @@ class HomeCollectionViewCell: UICollectionViewCell, UITableViewDelegate, UITable
         return tv
     }()
     
-    
+    let pullToRefresh = UIRefreshControl()
+
     override init(frame: CGRect) {
         super.init(frame: frame)
         backgroundColor = .white
@@ -127,6 +128,10 @@ class HomeCollectionViewCell: UICollectionViewCell, UITableViewDelegate, UITable
                 
             }
         })
+        
+        pullToRefresh.attributedTitle = NSAttributedString(string: "loading new events...")
+        pullToRefresh.addTarget(self, action: #selector(HomeCollectionViewCell.getEventData), for: .valueChanged)
+        eventsTableView.addSubview(pullToRefresh)
 
         addSubview(headlineCollectionView)
         //headlineCollectionView.addSubview(headlinePageControl)
@@ -174,7 +179,7 @@ class HomeCollectionViewCell: UICollectionViewCell, UITableViewDelegate, UITable
         }
     }
     
-    func getEventData() {
+    @objc func getEventData() {
         loadData()
         globalVars.pastAndFutureEvents = []
         eventTitles = []
@@ -182,23 +187,27 @@ class HomeCollectionViewCell: UICollectionViewCell, UITableViewDelegate, UITable
         // adds the new event to the top of the tableView
         Database.database().reference().child("Events").queryOrderedByKey().observe(.childAdded) { (snapshot) in
             let eventDictionary = snapshot.value as? [String : String]
-            let description = eventDictionary!["description"]
-            let title = eventDictionary!["title"]
-            let date = eventDictionary!["date"]
-            self.eventTitles.insert([title!, description!, date!], at: 0)
+            if let description = eventDictionary!["description"], let title = eventDictionary!["title"], let date = eventDictionary!["date"] {
+                
+                let filteredDescription = description.replacingOccurrences(of: "_b", with: "\n")
+                print("Description: ", description)
+                print("Filtered description: ", filteredDescription)
+                self.eventTitles.insert([title, filteredDescription, date], at: 0)
+                let dateFormatter = DateFormatter()
+                dateFormatter.dateFormat = "MM/DD/YY"
+                let newEvent = Event(title: title, description: filteredDescription, date: date, isBookmarked: false)
+                globalVars.pastAndFutureEvents.insert(newEvent, at: 0)
+                NSKeyedArchiver.archiveRootObject(globalVars.pastAndFutureEvents, toFile: self.eventFilePath)
+                
+                self.eventsTableView.reloadData()
+            }
             
-            let dateFormatter = DateFormatter()
-            dateFormatter.dateFormat = "MM/DD/YY"
-            let newEvent = Event(title: title!, description: description!, date: date!, isBookmarked: false)
-            globalVars.pastAndFutureEvents.insert(newEvent, at: 0)
-            NSKeyedArchiver.archiveRootObject(globalVars.pastAndFutureEvents, toFile: self.eventFilePath)
-            
-            self.eventsTableView.reloadData()
 
             print("Event Titles Count: \(self.eventTitles.count)")
         }
         
-        
+        self.pullToRefresh.endRefreshing()
+
         
         // deletes the event from the tableView
         Database.database().reference().child("Events").observe(.childRemoved) { (snapshot) in
@@ -212,6 +221,7 @@ class HomeCollectionViewCell: UICollectionViewCell, UITableViewDelegate, UITable
             NSKeyedArchiver.archiveRootObject(globalVars.pastAndFutureEvents, toFile: self.eventFilePath)
             self.eventsTableView.reloadData()
         }
+        
     }
     
     func loadDisconnectedData() {
@@ -315,7 +325,7 @@ class EventsCell: UITableViewCell {
         let textView = UILabel()
         textView.font = UIFont.systemFont(ofSize: 15)
         textView.textColor = .gray
-        textView.numberOfLines = 0
+        textView.numberOfLines = 5
         textView.translatesAutoresizingMaskIntoConstraints = false
         return textView
     }()

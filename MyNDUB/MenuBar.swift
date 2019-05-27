@@ -85,7 +85,7 @@ class MenuBar: UIView, UICollectionViewDelegate, UICollectionViewDataSource, UIC
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
-        let cellSpacing = (self.frame.width - (self.frame.height * 5)) //(self.frame.width/13)
+        let cellSpacing = (self.frame.width - (self.frame.height * 5)) 
         return cellSpacing
     }
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -96,22 +96,6 @@ class MenuBar: UIView, UICollectionViewDelegate, UICollectionViewDataSource, UIC
         if indexPath.row == 2 {
             cell.imageView.isHidden = true
         }
-//        if indexPath.row == 0 {
-//                cell.backgroundColor = .blue
-//            return cell
-//        } else if indexPath.row == 1 {
-//            cell.backgroundColor = .red
-//
-//            return cell
-//        } else if indexPath.row == 2 {
-//            cell.backgroundColor = .green
-//
-//            return cell
-//        } else {
-//            cell.backgroundColor = .black
-//
-//            return cell
-//        }
         return cell
     }
     
